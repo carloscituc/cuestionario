@@ -1,4 +1,5 @@
 <footer class="footer">
+<!--
 <div class="container">
   <div class="row">
   <hr>
@@ -12,6 +13,7 @@
     </div>
   </div>
 </div>        
+-->
     </footer>
-<script src="js/jquery-2.2.3.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="includes/js/jquery-2.2.3.min.js"></script>
+<script src="includes/js/bootstrap.min.js"></script>

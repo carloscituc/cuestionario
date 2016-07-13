@@ -1,9 +1,9 @@
 <!--Vista Resueltos/asignados-->
 <!DOCTYPE html>
 <html lang="es">
-    <?php include("design/head.php"); ?>
+    <?php include("includes/design/head.php"); ?>
     <body>
-        <?php include("design/header.php"); ?>
+        <?php include("includes/design/header.php"); ?>
 <!-- start: Content -->
 <div id="content" class="article-v1">
   <div class="col-md-12">
@@ -103,7 +103,7 @@
               <td>...</td>
               <td>...</td>
               <td><a class="btn btn-info"  href="detalle_A-NP.php">Detalle</a></td>
-              <td><a class="btn btn-primary"  href="#">Reasignar</a></td>
+              <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal">Reasignar</button>
               <td><a class="btn btn-danger"  href="#" onclick="#">Eliminar</a></td>
             </tr>
           </tbody>
@@ -117,8 +117,41 @@
     </div>
   </div>         
 </div>
-        </div>
+</div>
 <!-- end: content -->
-    <?php //include("design/footer.php");?>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Reasignar cuestionario</h4>
+        </div>
+        <div class="modal-body">
+             <div class="row">
+            <div class="col-md-12 padding-1">
+                <label for="id_cuestionario">Selecciona el paciente</label>
+                   <select class="form-control">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                   </select>
+            </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+    <?php include("includes/design/footer.php");?>
     </body>
 </html>

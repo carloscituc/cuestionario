@@ -1,9 +1,9 @@
 <!--Vista detalles cuestionarios resueltos o presentados-->
 <!DOCTYPE html>
 <html lang="es">
-<?php include("design/head.php"); ?>
+<?php include("includes/design/head.php"); ?>
     <body>
-   <?php include("design/header.php"); ?>     
+   <?php include("includes/design/header.php"); ?>     
 <!-- start: Content -->
 <div id="content" class="article-v1">
  <div class="col-md-12">
