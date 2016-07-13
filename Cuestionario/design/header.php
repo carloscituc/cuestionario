@@ -16,10 +16,10 @@
        otro elemento que se pueda ocultar al minimizar la barra -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="index.php">Cuestionarios resueltos</a></li>
-      <li><a href="C_asignados.php">Cuestionarios asignados</a></li>
-      <li><a href="#">Asignar cuestionario</a></li>
-      <li><a href="#">Crear cuestionarios</a></li>
+      <li class="active"><a href="index.php"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Cuestionarios resueltos</a></li>
+      <li><a href="C_asignados.php"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>Cuestionarios asignados</a></li>
+      <li><a href="#"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>Asignar cuestionario</a></li>
+      <li><a href="C_crear.php"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Crear cuestionarios</a></li>
     </ul>
   </div>
 </nav>

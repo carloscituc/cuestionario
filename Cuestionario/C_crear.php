@@ -3,58 +3,51 @@
     <?php include("design/head.php"); ?>
     <body>
         <?php include("design/header.php"); ?>
-<!-- start: Content -->
-<div id="content" class="article-v1">
-  <div class="col-md-12">
-    <div class="panel">
-      <div class="panel-body">
-        
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1 well">
-            <div class="form-group">
-                <div class="col-md-6">
-                  <input class="form-control" id="nombre" name="nombre" placeholder="Buscar por nombre de paciente..." type="text" value="" />
-                </div>
-                <div class="col-md-6">
-                  <input id="btn_search" name="btn_search" type="submit" class="btn btn-danger" value="Buscar" />
-                  <a href="" class="btn btn-primary">Mostrar todos</a>
-                </div>
+          <!-- start: Content -->
+            <div id="content">
+                <div class="form-element">
+                  <div class="col-md-12 padding-0">
+                    <div class="col-md-12">
+                      <div class="panel form-element-padding">
+                        <div class="panel-heading">
+                         <h4>Crear nuevo cuestionario</h4>
+                        </div>
+                         <div class="panel-body" style="padding-bottom:30px;">
+                         <form method="post" action="#">
+
+                         <div class="form-group">
+                              <div class="col-sm-12">
+                                <div class="col-sm-12 padding-0">
+                                  <input type="text" class="form-control" placeholder="Escribe el nombre del título">
+                                </div>
+                              </div>
+                          </div>
+
+                          <div class="form-group">
+                              <div class="col-sm-12">
+                                 <div class="col-md-12 col-md-offset-0 well">
+                                   
+                                        <div class="col-md-12">
+                                            <input type="text" class="form-control" placeholder="">
+                                        </div>
+                                   
+                                </div>
+                              </div>
+                          </div>
+                          <div class="col-md-12">
+                              <input class="submit btn btn-primary" type="submit" value="Crear cuestionario">
+                              <input type="hidden" name="submitted" value="TRUE">
+                        </div>
+                        
+                        </form>
+                             </div>
+                      </div>
+                    </div>
+                  </div>
               </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1 bg-border table-responsive">
-          <a class="btn btn-success"  href="#">Agregar</a>
-          <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Nombre Paciente</th>
-              <th>Apellido Paterno</th>
-              <th>Fecha presentada</th>
-              <th>Tiempo terminado</th>
-              <th>Acciones</th>    
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td>...</td>
-              <td><a class="btn btn-info"  href="#">Detalle</a></td>
-              <td><a class="btn btn-primary"  href="#">Modificar</a></td>
-              <td><a class="btn btn-danger"  href="#" onclick="#">Eliminar</a></td>
-            </tr>
-          </tbody>
-          </table>
-        </div>
-      </div>  
-    </div>
-  </div>         
-</div>
-<!-- end: content -->
+            </div>
+          <!-- end: content -->
+
     <?php include("design/footer.php");?>
     </body>
 </html>
