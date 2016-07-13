@@ -53,7 +53,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cuestionario`.`bloquepregunta` (
   `idBloquePregunta` INT NOT NULL AUTO_INCREMENT,
-  `instrucion` VARCHAR(300) NULL,
+  `instruccion` VARCHAR(300) NULL,
   `idCuestionario` INT NOT NULL,
   PRIMARY KEY (`idBloquePregunta`),
   INDEX `fk_bloquepregunta_cuestionario1_idx` (`idCuestionario` ASC),
