@@ -99,13 +99,19 @@ VALUES (null, 'El TDAH es solamente un problema  de conducta.', 'Verdadero', 'Fa
 (null, 'Al resultado de una suma y una resta se le llama "producto".', 'Sólo a la resta', 'Sólo a la suma', 'Ninguno de los dos', null, null, null, null, null, null, null, '2', 'Falso', '5', '1', '3'),
 (null, 'Volar es lo mismo que', 'Correr', 'Planear en el aire', 'Llorar', null, null, null, null, null, null, null, '3', 'Planear en el aire', '5', '1', '3'),
 
-(null, '2 + 2 =', '4', '6', '-2', '8', null, null, null, null, null, null, '1', '4', '5', '1', '4'),
-(null, '2 * 3 * 4 / 2 =', '5', '9', '31', '12', null, null, null, null, null, null, '2', '12', '5', '1', '4'),
-(null, '(10 * 5)/(2 / 2) =', '25', '12.5', '50', '0', '65', null, null, null, null, null, '3', '50', '5', '1', '4'),
+(null, '2 + 2 =', '4', '6', '-2', '8', null, null, null, null, null, null, '1', '4', '5', '2', '4'),
+(null, '2 * 3 * 4 / 2 =', '5', '9', '31', '12', null, null, null, null, null, null, '2', '12', '5', '2', '4'),
+(null, '(10 * 5)/(2 / 2) =', '25', '12.5', '50', '0', '65', null, null, null, null, null, '3', '50', '5', '2', '4'),
 
-(null, 'Muchos niños con TDAH son hiperactivos e inatentos al mismo tiempo.', 'Verdadero', 'Falso', null, null, null, null, null, null, null, null, '1', 'Verdadero', '5', '1', '5'),
-(null, 'Más niños que niñas son diagnosticados con TDAH.', 'Verdadero', 'Falso', null, null, null, null, null, null, null, null, '2', 'Verdadero', '5', '1', '5'),
-(null, 'Los medicamentos son el único tratamiento para el TDAH.', 'Verdadero', 'Falso', null, null, null, null, null, null, null, null, '3', 'Falso', '5', '1', '5'),
-(null, '2 + 3 =', '4', '5', '-2', '8', null, null, null, null, null, null, '1', '5', '5', '1', '6'),
-(null, '2 * 3 * 4 / 2 =', '5', '9', '31', '12', null, null, null, null, null, null, '2', '12', '5', '1', '6'),
-(null, '(10 * 5)/(2 / 2) =', '25', '12.5', '50', '0', '65', null, null, null, null, null, '3', '50', '5', '1', '6');
+(null, 'Muchos niños con TDAH son hiperactivos e inatentos al mismo tiempo.', 'Verdadero', 'Falso', null, null, null, null, null, null, null, null, '1', 'Verdadero', '5', '3', '5'),
+(null, 'Más niños que niñas son diagnosticados con TDAH.', 'Verdadero', 'Falso', null, null, null, null, null, null, null, null, '2', 'Verdadero', '5', '3', '5'),
+(null, 'Los medicamentos son el único tratamiento para el TDAH.', 'Verdadero', 'Falso', null, null, null, null, null, null, null, null, '3', 'Falso', '5', '3', '5'),
+(null, '2 + 3 =', '4', '5', '-2', '8', null, null, null, null, null, null, '1', '5', '5', '3', '6'),
+(null, '2 * 3 * 4 / 2 =', '5', '9', '31', '12', null, null, null, null, null, null, '2', '12', '5', '3', '6'),
+(null, '(10 * 5)/(2 / 2) =', '25', '12.5', '50', '0', '65', null, null, null, null, null, '3', '50', '5', '3', '6');
+
+--Consultas oficiales--
+--VISTA ASIGNAR/MODIFICAR CUESTIONARIO--
+--Consultar el cuestionario--
+SELECT idPreguntaMultiple, cue.nombre, blo.instruccion, pre.pregunta, respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6, respuesta7, respuesta8, respuesta9, respuesta10, numeroOrden, respuestaCorrecta 
+FROM cuestionario cue, bloquepregunta blo, preguntamultiple pre WHERE pre.idCuestionario = '1' AND pre.idBloquePregunta = blo.idBloquePregunta AND blo.idCuestionario = cue.idCuestionario;
