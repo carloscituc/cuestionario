@@ -1,9 +1,9 @@
-<!--Vista detalles cuestionarios resueltos o presentados-->
+<!--Vista detalles cuestionarios asignados/No resueltos-->
 <!DOCTYPE html>
 <html lang="es">
-<?php include("includes/design/head.php"); ?>
+<?php include("design/head.php"); ?>
     <body>
-   <?php include("includes/design/header.php"); ?>     
+   <?php include("design/header.php"); ?>     
 <!-- start: Content -->
 <div id="content" class="article-v1">
  <div class="col-md-12">
@@ -28,20 +28,8 @@
             <h4><label class="label label-default">Nom_paciente</label></h4>
           </div>
           <div class="form-group">
-            <label for="puntuacion">Puntuación</label>
-            <h4><label class="label label-default">Puntuación</label></h4>
-          </div>
-          <div class="form-group">
             <label for="intentos">Intentos</label>
             <h4><label class="label label-default">Intentos</label></h4>
-          </div>
-          <div class="form-group">
-            <label for="fecha">Fecha</label>
-            <h4><label class="label label-default">Fecha</label></h4>
-          </div>
-          <div class="form-group">
-            <label for="Tpo_realizacion">Tiempo de realización</label>
-            <h4><label class="label label-default">Tiempo_realización</label></h4>
           </div>
           <div class="form-group">
             <label for="Lim_tpo">Límite de tiempo</label>
@@ -54,5 +42,7 @@
   </div>
 </div>
   <!-- end: content -->
+        
+    <?php include("design/footer.php");?>
     </body>
 </html>

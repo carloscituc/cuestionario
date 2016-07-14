@@ -28,8 +28,20 @@
             <h4><label class="label label-default">Nom_paciente</label></h4>
           </div>
           <div class="form-group">
+            <label for="puntuacion">Puntuación</label>
+            <h4><label class="label label-default">Puntuación</label></h4>
+          </div>
+          <div class="form-group">
             <label for="intentos">Intentos</label>
             <h4><label class="label label-default">Intentos</label></h4>
+          </div>
+          <div class="form-group">
+            <label for="fecha">Fecha</label>
+            <h4><label class="label label-default">Fecha</label></h4>
+          </div>
+          <div class="form-group">
+            <label for="Tpo_realizacion">Tiempo de realización</label>
+            <h4><label class="label label-default">Tiempo_realización</label></h4>
           </div>
           <div class="form-group">
             <label for="Lim_tpo">Límite de tiempo</label>
@@ -42,5 +54,6 @@
   </div>
 </div>
   <!-- end: content -->
+         <?php include("design/footer.php");?>
     </body>
 </html>

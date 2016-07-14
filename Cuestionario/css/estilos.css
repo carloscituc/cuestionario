@@ -25,7 +25,17 @@ body {
   padding-left: 20px;
   border-bottom: 1px solid #ddd;
 }
+.modal-header{
+    background-color:  #D5DCDE;
+}
 
+.modal-title{
+    color: black;
+}
+
+#paciente{
+    margin-bottom: 15px;
+}
 
 .footer { 
   height: 50px; 
