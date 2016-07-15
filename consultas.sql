@@ -110,8 +110,19 @@ VALUES (null, 'El TDAH es solamente un problema  de conducta.', 'Verdadero', 'Fa
 (null, '2 * 3 * 4 / 2 =', '5', '9', '31', '12', null, null, null, null, null, null, '2', '12', '5', '3', '6'),
 (null, '(10 * 5)/(2 / 2) =', '25', '12.5', '50', '0', '65', null, null, null, null, null, '3', '50', '5', '3', '6');
 
+INSERT INTO cuestionarioresuelto (idCuestionarioResuelto, estatus, fecha, tiempoInicio, tiempoFin, limiteTiempo, puntuacion, intento, idPaciente, idCuestionario) VALUES
+(null, 1, '2016-07-15', '10:00:00', '11:00:00', '01:00:00', 15, 1, 1, 2),
+(null, 0, NULL, NULL, NULL, NULL, NULL, 1, 2, 1),
+(null, 0, NULL, NULL, NULL, NULL, NULL, 1, 3, 2),
+(null, 1, '2016-07-14', '06:00:00', '10:00:00', '02:00:00', 10, 1, 4, 2);
+
 --Consultas oficiales--
 --VISTA ASIGNAR/MODIFICAR CUESTIONARIO--
 --Consultar el cuestionario--
 SELECT idPreguntaMultiple, cue.nombre, blo.instruccion, pre.pregunta, respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6, respuesta7, respuesta8, respuesta9, respuesta10, numeroOrden, respuestaCorrecta 
 FROM cuestionario cue, bloquepregunta blo, preguntamultiple pre WHERE pre.idCuestionario = '1' AND pre.idBloquePregunta = blo.idBloquePregunta AND blo.idCuestionario = cue.idCuestionario;
+
+SELECT preguntamultipleidPreguntaMultiple, preguntamultiple.respuesta1, preguntamultiple.respuesta2, preguntamultiple.respuesta3, preguntamultiple.respuesta4, preguntamultiple.respuesta5, preguntamultiple.respuesta6, preguntamultiple.respuesta7, preguntamultiple.respuesta8, preguntamultiple.respuesta9, preguntamultiple.respuesta10, preguntamultiple.numeroOrden, preguntamultiple.respuestaCorrecta, 
+INNER JOIN 
+
+SELECT COUNT(*) AS Total_Preguntas FROM cuestionario INNER JOIN bloquepregunta ON bloquepregunta.idCuestionario = cuestionario.idCuestionario INNER JOIN preguntamultiple ON preguntamultiple.idBloquePregunta = bloquepregunta.idBloquePregunta WHERE cuestionario.idCuestionario = 1 

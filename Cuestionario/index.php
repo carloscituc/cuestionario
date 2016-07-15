@@ -3,13 +3,24 @@
 <html lang="es">
     <?php include("design/head.php"); ?>
     <body>
-        <?php include("design/header.php"); ?>
+        <?php 
+            include("design/header.php");
+            include("php/cuestionariosResueltos.php");
+
+            //Llamamos a la función index la cual carga todos los includes que necesitamos
+            cuestionariosResueltos::index();
+
+            //Ejecutamos la función listar la cual nos devuelve todos los datos de la primera tabla
+            $resultado = cuestionariosResueltos_models::listarT1();
+
+            //Ejecutamos la función listar la cual nos devuelve todos los datos de la segunda tabla
+            $resultado2 = cuestionariosResueltos_models::listarT2();
+        ?>
         <!-- start: Content -->
         <div id="content" class="article-v1">
             <div class="col-md-12">
                 <div class="panel">
-                    <div class="panel-body">              
-
+                    <div class="panel-body">
                         <div class="panel-group">
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-1 well"> 
@@ -30,7 +41,7 @@
                                                     <a href="#" class="btn btn-primary">Mostrar todos</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>                                        
                                         <div class="col-md-10 col-md-offset-1 bg-border table-responsive">
                                             <table class="table table-striped table-hover">
                                                 <thead>
@@ -45,16 +56,22 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                <?php while($row = mysqli_fetch_assoc($resultado)){ ?>
+                                                    <!-- Formulario para pasar datos por POST-->
+                                                    <form name="form_editar<?php echo $row['idCuestionarioResuelto']; ?>" action="detalle-R-P.php" method="POST">
+                                                        <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionarioResuelto']; ?>">
+                                                    </form>
                                                     <tr>
-                                                        <td>...</td>
-                                                        <td>...</td>
-                                                        <td>...</td>
-                                                        <td>...</td>
-                                                        <td>...</td>
-                                                        <td>...</td>
-                                                        <td><a class="btn btn-info"  href="detalle-R-P.php">Detalle</a></td>
+                                                        <td><?php echo $row['idCuestionarioResuelto']; ?></td>
+                                                        <td><?php echo $row['nombreCuestionario']; ?></td>
+                                                        <td><?php echo $row['nombrePaciente'] . " " . $row['apellidoPaterno']; ?></td>
+                                                        <td><?php echo $row['puntuacion']; ?></td>
+                                                        <td><?php echo $row['intento']; ?></td>
+                                                        <td><?php echo $row['estatus']; ?></td>
+                                                        <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $row['idCuestionarioResuelto']; ?>.submit()">Detalle</a></td>
                                                         <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#eliminar1">Eliminar</button></td>
                                                     </tr>
+                                                <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -96,16 +113,22 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php while($row = mysqli_fetch_assoc($resultado2)){ ?>
+                                                    <!-- Formulario para pasar datos por POST-->
+                                                    <form name="form_editar<?php echo $row['idCuestionarioResuelto']; ?>" action="detalle-A-NP.php" method="POST">
+                                                        <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionarioResuelto']; ?>">
+                                                    </form>
                                                 <tr>
-                                                    <td>...</td>
-                                                    <td>...</td>
-                                                    <td>...</td>
-                                                    <td>...</td>
-                                                    <td>...</td>
-                                                    <td><a class="btn btn-info"  href="detalle-A-NP.php">Detalle</a></td>
+                                                    <td><?php echo $row['idCuestionarioResuelto']; ?></td>
+                                                    <td><?php echo $row['nombreCuestionario']; ?></td>
+                                                    <td><?php echo $row['nombrePaciente'] . " " . $row['apellidoPaterno']; ?></td>
+                                                    <td><?php echo $row['intento']; ?></td>
+                                                    <td><?php echo $row['estatus']; ?></td>
+                                                    <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $row['idCuestionarioResuelto']; ?>.submit()">Detalle</a></td>
                                                     <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal">Reasignar</button>
                                                     <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#eliminar2">Eliminar</button></td>
                                                 </tr>
+                                                <?php }?>
                                             </tbody>
                                         </table>
                                     </div>

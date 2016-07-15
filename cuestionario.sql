@@ -106,8 +106,7 @@ ENGINE = InnoDB;
 -- Table `cuestionario`.`cuestionarioResuelto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `cuestionario`.`cuestionarioResuelto` (
-  `idPaciente` INT NOT NULL,
-  `idCuestionario` INT NOT NULL,
+  `idCuestionarioResuelto` INT NOT NULL AUTO_INCREMENT,
   `estatus` TINYINT(1) NULL,
   `fecha` DATE NULL,
   `tiempoInicio` TIME NULL,
@@ -115,15 +114,17 @@ CREATE TABLE IF NOT EXISTS `cuestionario`.`cuestionarioResuelto` (
   `limiteTiempo` TIME NULL,
   `puntuacion` INT(3) NULL,
   `intento` INT(2) NULL,
-  PRIMARY KEY (`idPaciente`, `idCuestionario`),
-  INDEX `fk_Paciente_has_cuestionario_cuestionario1_idx` (`idCuestionario` ASC),
-  INDEX `fk_Paciente_has_cuestionario_Paciente_idx` (`idPaciente` ASC),
-  CONSTRAINT `fk_Paciente_has_cuestionario_Paciente`
+  `idPaciente` INT NOT NULL,
+  `idCuestionario` INT NOT NULL,
+  PRIMARY KEY (`idCuestionarioResuelto`),
+  INDEX `fk_cuestionarioResuelto_Paciente1_idx` (`idPaciente` ASC),
+  INDEX `fk_cuestionarioResuelto_cuestionario1_idx` (`idCuestionario` ASC),
+  CONSTRAINT `fk_cuestionarioResuelto_Paciente1`
     FOREIGN KEY (`idPaciente`)
     REFERENCES `cuestionario`.`Paciente` (`idPaciente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Paciente_has_cuestionario_cuestionario1`
+  CONSTRAINT `fk_cuestionarioResuelto_cuestionario1`
     FOREIGN KEY (`idCuestionario`)
     REFERENCES `cuestionario`.`cuestionario` (`idCuestionario`)
     ON DELETE NO ACTION
