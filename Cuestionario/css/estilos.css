@@ -31,6 +31,42 @@ body {
 #paciente{
     margin-bottom: 15px;
 }
+#titulo{
+    margin-bottom: 15px;
+}
+
+#instrucciones{
+    margin-bottom: 15px;
+}
+
+#pregunta{
+    -webkit-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);
+    padding-bottom: 15px;
+}
+
+#puntaje{
+    margin-right: 150px;
+}
+
+#bloque{
+-webkit-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);
+-moz-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);
+box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);
+    padding-bottom: 15px;
+}
+
+#mas{
+    margin-top: 40px;
+    margin-left: -10px;
+}
+
+#finPregunta{
+    margin-top: 40px;
+    margin-left: -10px;
+}
+
 .footer {
     height: 50px;
     width:100%;
