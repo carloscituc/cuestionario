@@ -111,10 +111,12 @@ VALUES (null, 'El TDAH es solamente un problema  de conducta.', 'Verdadero', 'Fa
 (null, '(10 * 5)/(2 / 2) =', '25', '12.5', '50', '0', '65', null, null, null, null, null, '3', '50', '5', '3', '6');
 
 INSERT INTO cuestionarioresuelto (idCuestionarioResuelto, estatus, fecha, tiempoInicio, tiempoFin, limiteTiempo, puntuacion, intento, idPaciente, idCuestionario) VALUES
-(null, 1, '2016-07-15', '10:00:00', '11:00:00', '01:00:00', 15, 1, 1, 2),
-(null, 0, NULL, NULL, NULL, NULL, NULL, 1, 2, 1),
-(null, 0, NULL, NULL, NULL, NULL, NULL, 1, 3, 2),
-(null, 1, '2016-07-14', '06:00:00', '10:00:00', '02:00:00', 10, 1, 4, 2);
+(1, 1, '2016-07-15', '10:00:00', '11:00:00', '01:00:00', 15, 1, 1, 2),
+(2, 0, NULL, NULL, NULL, '00:00:15', NULL, 2, 2, 2),
+(3, 0, NULL, NULL, NULL, '00:45:00', NULL, 2, 1, 3),
+(4, 1, '2016-07-14', '06:00:00', '10:00:00', '02:00:00', 10, 1, 2, 2),
+(5, 1, '2016-07-17', '04:00:00', '05:00:00', '02:00:00', 10, 2, 1, 2),
+(6, 1, '2016-07-20', '05:00:00', '08:00:00', '03:00:00', 30, 1, 1, 3);
 
 --Consultas oficiales--
 --VISTA ASIGNAR/MODIFICAR CUESTIONARIO--

@@ -72,5 +72,11 @@
 					}
 				}
 		}
+
+		public static function eliminarAsignacion($idPaciente,$idCuestionario){
+			$sql = "DELETE FROM cuestionarioresuelto WHERE idPaciente = '$idPaciente' AND idCuestionario = '$idCuestionario' AND estatus = '0'";
+			Conexion::consultaSimple($sql);
+			echo '<script>alert("Se ha eliminado la asignación del cuestionario");</script>';
+		}
 	}
 ?>

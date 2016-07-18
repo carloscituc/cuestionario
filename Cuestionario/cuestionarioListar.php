@@ -126,8 +126,8 @@
                                                     <td><?php echo $row['intento']; ?></td>
                                                     <td><?php if($row['estatus'] == '0') echo "Sin presentar"; ?></td>
                                                     <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $i; $i++; ?>.submit()">Detalle</a></td>
-                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal" onclick="recuperarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>');">Reasignar</button>
-                                                    <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#eliminar2">Eliminar</button></td>
+                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalReasignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>');">Reasignar</button>
+                                                    <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModalEliminar" onclick="eliminarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>');">Eliminar</button></td>
                                                 </tr>
                                                 <?php } ?>
                                             </tbody>
@@ -145,7 +145,7 @@
 <!-- end: content -->
 
 <!-- Modal reasignar-->
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="myModalReasignar" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -200,7 +200,7 @@
                     cuestionariosResueltos_models::reasignarPaciente($nuevoIdPaciente, $tiempo, $idPaciente, $idCuestionario);
                     echo "<script> location.href='cuestionarioListar.php'; </script>";
                 }
-            ?>
+                ?>
             </form>
             
         </div>
@@ -208,7 +208,7 @@
 </div>
 
 <!-- Modal eliminar/Cuestionarios asignados y no presentados-->
-<div class="modal fade" id="eliminar2" role="dialog">
+<div class="modal fade" id="myModalEliminar" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -217,29 +217,42 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">¡Mensaje importante!</h4>
             </div>
-            <div class="modal-body">
-
-                <div class="row" id="paciente">
-                    <div class="col-md-12 padding-0">
-                        <div class="alert alert-warning">
-                            <strong>¡Se eliminará la asignación del cuestionario al paciente!</strong></div>
+            <form method="post">
+                <div class="modal-body">
+                    <div class="row" id="paciente">
+                        <div class="col-md-12 padding-0">
+                            <div class="alert alert-warning">
+                                <strong>¡Se eliminará la asignación del cuestionario al paciente!</strong></div>
+                        </div>
                     </div>
+
                 </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
-            </div>
-
+                <input type="hidden" name="eliminar_cuestionarioId" id="eliminar_cuestionarioId">
+                <input type="hidden" name="eliminar_pacienteId" id="eliminar_pacienteId"> 
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+                    <button name="eliminar" type="submit" class="btn btn-danger">Eliminar</button>
+                </div>
+                <?php 
+                if(isset($_REQUEST['eliminar'])){
+                    $idPaciente = $_POST['eliminar_pacienteId'];
+                    $idCuestionario = $_POST['eliminar_cuestionarioId'];
+                    cuestionariosResueltos_models::eliminarAsignacion($idPaciente, $idCuestionario);
+                    echo "<script> location.href='cuestionarioListar.php'; </script>";
+                }
+                ?>
+            </form>
         </div>
-
     </div>
 </div>
 <script>
     function recuperarId(idCuestionario,idPaciente){
         document.getElementById("reasignar_cuestionarioId").value = idCuestionario;
         document.getElementById("reasignar_pacienteId").value = idPaciente;   
+    }
+    function eliminarId(idCuestionario,idPaciente){
+        document.getElementById("eliminar_cuestionarioId").value = idCuestionario;
+        document.getElementById("eliminar_pacienteId").value = idPaciente;   
     }
 </script>
 <?php include("design/footer.php");?>
