@@ -2,7 +2,15 @@
 <html lang="es">
     <?php include("design/head.php"); ?>
     <body>
-        <?php include("design/header.php"); ?>
+        <?php 
+            include("design/header.php");
+            include("php/cuestionariosEditar.php");
+
+            //Llamamos a la función index la cual carga todos los includes que necesitamos
+            cuestionariosEditar::cuestionarioEditarAsignar();
+
+            $resultado = cuestionariosEditar_models::listarCuestionarios();
+        ?>
         <!-- start: Content -->
         <div id="content" class="article-v1">
             <div class="col-md-12">
@@ -35,20 +43,26 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Nombre cuestionario</th>
-                                                        <th>Pacientes asignados</th> 
                                                         <th>Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>...</td>
-                                                        <td>...</td>
-                                                        <td>...</td>
-                                                        <td><a class="btn btn-info"  href="detalle-editar-asignar.php">Detalle</a></td>
+                                                    <?php 
+                                                        while($row = mysqli_fetch_assoc($resultado)){
+                                                    ?>
+                                                    <!--Form para pasar datos por POST-->
+                                                    <form name="form_editar<?php echo $row['idCuestionario']; ?>" action="detalle-E-A.php" method="POST">
+                                                        <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionario']; ?>">
+                                                    </form>
+                                                    <tr>                  
+                                                        <td><?php echo $row['idCuestionario']; ?></td>
+                                                        <td><?php echo $row['nombre']; ?></td>
+                                                        <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $row['idCuestionario']; ?>.submit()">Detalle</a></td>
                                                         <td><button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#asignar">Asignar</button></td>
                                                         <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#eliminar1">Editar</button></td>
                                                         <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#eliminar">Eliminar</button></td>
                                                     </tr>
+                                                    <?php } ?>
                                                 </tbody>
                                             </table>
                                         </div>
