@@ -1,4 +1,4 @@
-<!--Vista cuestionarios Resueltos/asignados-->
+<!--Vista cuestionarios listar Resueltos/asignados de un determinado paciente-->
 <!DOCTYPE html>
 <html lang="es">
     <?php include("design/head.php"); ?>
@@ -10,6 +10,9 @@
             //Llamamos a la función index la cual carga todos los includes que necesitamos
             cuestionariosResueltos::cuestionarioListarIntentos();
 
+            //Como este archivo(cuestionarioListarIntentos.php) recupera datos por post
+            //que nos servirán para hacer una consulta, es necesario verificar
+            //que si se están enviando datos
             if(isset($_POST['id_cuestionario'])){
                 $idCuestionario = $_POST['id_cuestionario'];
             }else{
@@ -21,7 +24,7 @@
                 $idPaciente = "";
             }
 
-            //Ejecutamos la función listar la cual nos devuelve todos los datos de la primera tabla
+            //Ejecutamos la función listar la cual nos mostrará los intentos 
             $resultado = cuestionariosResueltos_models::listarT1Intentos($idPaciente, $idCuestionario);
 
             //Ejecutamos la función para listar a todos los pacientes que podrá seleccionar el especialista

@@ -9,8 +9,19 @@
 
             //Llamamos a la función index la cual carga todos los includes que necesitamos
             cuestionariosResueltos::detalleRP();
-            $idCuestionarioResuelto = $_POST['id_cuestionario'];
+
+            //Recibimos el id de la asignación del cuestionario
+            //Verificamos que realmente se esté pasando un dato
+            if(isset($_POST['id_cuestionario'])){
+                $idCuestionarioResuelto = $_POST['id_cuestionario'];
+            }else{
+                $idCuestionarioResuelto = "";
+            }
+
+            //Almacenamos los datos de los resultados del cuestionario presentado por x paciente
             $resultado = cuestionariosResueltos_models::detalleRP($idCuestionarioResuelto);
+            
+            //Creamos un array para poder llamar a los datos
             $row = mysqli_fetch_assoc($resultado);
         ?>
         <!-- start: Content -->

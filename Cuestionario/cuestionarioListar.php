@@ -1,4 +1,4 @@
-<!--Vista cuestionarios Resueltos/asignados-->
+<!--Vista Cuestionarios Listar-->
 <!DOCTYPE html>
 <html lang="es">
     <?php include("design/head.php"); ?>
@@ -16,8 +16,8 @@
             //Ejecutamos la función listar la cual nos devuelve todos los datos de la segunda tabla
             $resultado2 = cuestionariosResueltos_models::listarT2();
 
-            //Ejecutamos la función para listar a todos los pacientes que podrá seleccionar el especialista
-            //para reasignar el cuestionario
+            //Ejecutamos la función para listar a todos los pacientes y el especialista pueda
+            //reasignar el cuestionario
             $pacientes = cuestionariosResueltos_models::reasignarANP();
         ?>
         <!-- start: Content -->
@@ -61,19 +61,22 @@
                                                 </thead>
                                                 <tbody>
                                                 <?php 
-                                                    $i = 0; 
+                                                    //Contador que indica el id del formulario
+                                                    $i = 0;
+
+                                                    //Recorrer todas las asignaciones de cuestionarios presentados
                                                     while($row = mysqli_fetch_assoc($resultado)){ 
-                                                    if ($row['intentos'] == 1) {                                                
+                                                    if ($row['intentos'] == 1) {
+
                                                 ?>
-                                                    <!-- Formulario para pasar datos por POST-->
+                                                    <!-- Formulario para pasar datos por POST cuando se tiene sólo un intento por parte del paciente con relación a un cuestionario-->
                                                     <form name="form_editar<?php echo $i; ?>" action="detalle-R-P.php" method="POST">
                                                         <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionarioResuelto']; ?>">
-                                                        <input type="hidden" name="id_paciente" id="id_paciente" value="<?php echo $row['idPaciente']; ?>">
                                                     </form>
                                                 <?php
                                                     }else{
                                                 ?>
-                                                    <!-- Formulario para pasar datos por POST-->
+                                                    <!-- Formulario para pasar datos por POST cuando se tiene más de un intento por parte del paciente con relación a un cuestionario-->
                                                     <form name="form_editar<?php echo $i; ?>" action="cuestionarioListarIntentos.php" method="POST">
                                                         <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionario']; ?>">
                                                         <input type="hidden" name="id_paciente" id="id_paciente" value="<?php echo $row['idPaciente']; ?>">
@@ -134,8 +137,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>                                                
-                                                <?php while($row = mysqli_fetch_assoc($resultado2)){ ?>
-                                                    <!-- Formulario para pasar datos por POST-->
+                                                <?php
+                                                    //While para recorrer todas las asignaciones de cuestionarios no presentados
+                                                    while($row = mysqli_fetch_assoc($resultado2)){
+                                                ?>
+                                                    <!-- Formulario para pasar datos por POST, el cual redirecciona a detalle-A-NP para mostrar detalles de la asignación-->
                                                     <form name="form_editar<?php echo $i; ?>" action="detalle-A-NP.php" method="POST">
                                                         <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionarioResuelto']; ?>">
                                                     </form>
@@ -180,7 +186,8 @@
                         <div class="col-md-12 padding-0">
                             <label for="select-paciente">Seleccionar paciente</label>
                             <select class="form-control" name="seleccionar-paciente">
-                                <?php                                    
+                                <?php
+                                    //Recuperamos la lista de pacientes registrados en el sistema                                    
                                     while($paciente = mysqli_fetch_assoc($pacientes)){ 
                                 ?>      
                                 <option value="<?php echo $paciente['idPaciente']; ?>"><?php echo $paciente['nombre'] . " " . $paciente['apellidoPaterno'] . " " . $paciente['apellidoMaterno']; ?></option>
@@ -211,13 +218,26 @@
                     <button name="reasignar" id="reasignar" type="submit" class="btn btn-primary">Aceptar</button>
                 </div>
                 <?php 
+                //Si se presiona el botón submit(reasignar) del formulario reasignamos a un nuevo paciente
+                //el cuestionario, o en su debido caso sólo alteramos el límite de tiempo
                 if(isset($_REQUEST['reasignar'])){
+
+                    //Recuperamos el id del paciente a quien se le asignará el cuestionario
                     $nuevoIdPaciente = $_POST['seleccionar-paciente'];
+
+                    //Recuperamos el límite de tiempo que seleccionó el especialista
+                    //para el cuestionario a presentar
                     $tiempo = $_POST['seleccionar-tiempo'];
+
+                    //Recuperamos el id del paciente que tenía asiganado el cuestionario
                     $idPaciente = $_POST['reasignar_pacienteId'];
+
+                    //Recuperamos el id del cuestionario que será reasignado
                     $idCuestionario = $_POST['reasignar_cuestionarioId'];
 
+                    //Ejecutamos la función para reasignar el cuestionario a un nuevo paciente
                     cuestionariosResueltos_models::reasignarPaciente($nuevoIdPaciente, $tiempo, $idPaciente, $idCuestionario);
+                    //Recargamos la página
                     echo "<script> location.href='cuestionarioListar.php'; </script>";
                 }
                 ?>
@@ -253,11 +273,21 @@
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
                     <button name="eliminar" type="submit" class="btn btn-danger">Eliminar</button>
                 </div>
-                <?php 
+                <?php
+                //Si se presiona el botón submit(eliminar) se procede a eliminar la asignación
+                //del cuestionario al determinado paciente
                 if(isset($_REQUEST['eliminar'])){
+                    //Recuperamos el id del paciente
                     $idPaciente = $_POST['eliminar_pacienteId'];
+                    //Recuperamos el id del cuestionario
                     $idCuestionario = $_POST['eliminar_cuestionarioId'];
+
+                    //Ejecutamos la función para eliminar la asignación del cuestionario
+                    //al paciente, y para identificar este asignación le necesitamos pasar
+                    //el id del paciente y el id del cuestionario
                     cuestionariosResueltos_models::eliminarAsignacion($idPaciente, $idCuestionario);
+
+                    //Recargamos la página para ver resultados
                     echo "<script> location.href='cuestionarioListar.php'; </script>";
                 }
                 ?>
@@ -266,17 +296,30 @@
     </div>
 </div>
 <script>
+    //Recuperamos el id del cuestionario y el id del paciente
+    //para pasarselo al modal #myModalReasignar cuando el botón reasignar sea presionado
+    //quedando almacenado en los dos inputs hidden que se encuentran dentro del modal
     function recuperarId(idCuestionario,idPaciente){
         document.getElementById("reasignar_cuestionarioId").value = idCuestionario;
         document.getElementById("reasignar_pacienteId").value = idPaciente;   
     }
+
+    //Recuperamos el id del cuestionario y el id del paciente
+    //para pasarselo al modal #myModalEliminar cuando el botón eliminar sea presionado
+    //quedando almacenado en los dos inputs hidden que se encuentran dentro del modal
     function eliminarId(idCuestionario,idPaciente){
         document.getElementById("eliminar_cuestionarioId").value = idCuestionario;
         document.getElementById("eliminar_pacienteId").value = idPaciente;   
     }
+
+    //Esta función nos sirve para limpiar el valor del input buscar
+    //de los cuestionarios no presentados
     function limpiarANP(){
         document.getElementById("nombre_ANP").value = "";
     }
+
+    //Esta función nos sirve para limpiar el valor del input buscar
+    //de los cuestionarios presentados
     function limpiarRP(){
         document.getElementById("nombre_RP").value = "";
     }

@@ -1,4 +1,4 @@
-<!--Vista cuestionarios Resueltos/asignados-->
+<!--Vista buscar por nombre de paciente cuestionarios no resueltos asignados-->
 <!DOCTYPE html>
 <html lang="es">
     <?php include("design/head.php"); ?>
@@ -9,13 +9,18 @@
 
             //Llamamos a la función index la cual carga todos los includes que necesitamos
             cuestionariosResueltos::cuestionarioListarBuscarANP();
+
+            //Recibemos el nombre del paciente que queremos buscar
+            //el cual lo recuperamos de cuestionarioListar.php
+            //Es necesario verificar si realmente se está enviando un valor por post
             if(isset($_POST['nombre_ANP'])){
                 $cadena = $_POST['nombre_ANP'];
             }else{
                 $cadena = "";
             }
 
-            //Ejecutamos la función listar la cual nos devuelve todos los datos de la primera tabla
+            //Recuperamos todas las asignaciones de cuestionarios aún o presentados
+            //en donde aparerezca el paciente x
             $resultado2 = cuestionariosResueltos_models::buscarANP($cadena);
 
             //Ejecutamos la función para listar a todos los pacientes que podrá seleccionar el especialista
@@ -64,11 +69,13 @@
                                                 </tr>
                                             </thead>
                                             <tbody>                                                
-                                                <?php 
+                                                <?php
+                                                    //Iniciacmos contador que servirá para identificar un formulario de otro 
                                                     $i = 0;
+                                                    //Imprimimos todos los datos de la tabla de cuestionarios no asignados
                                                     while($row = mysqli_fetch_assoc($resultado2)){ 
                                                 ?>
-                                                    <!-- Formulario para pasar datos por POST-->
+                                                    <!-- Formulario para pasar datos por POST, en esta ocasión sólo se pasa el dato idCuestionarioResuelto-->
                                                     <form name="form_editar<?php echo $i; ?>" action="detalle-A-NP.php" method="POST">
                                                         <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionarioResuelto']; ?>">
                                                     </form>
@@ -113,7 +120,7 @@
                         <div class="col-md-12 padding-0">
                             <label for="select-paciente">Seleccionar paciente</label>
                             <select class="form-control" name="seleccionar-paciente">
-                                <?php                                    
+                                <?php                                       //Imprimimos todos los pacientes existentes
                                     while($paciente = mysqli_fetch_assoc($pacientes)){ 
                                 ?>      
                                 <option value="<?php echo $paciente['idPaciente']; ?>"><?php echo $paciente['nombre'] . " " . $paciente['apellidoPaterno'] . " " . $paciente['apellidoMaterno']; ?></option>
@@ -144,13 +151,26 @@
                     <button name="reasignar" id="reasignar" type="submit" class="btn btn-primary">Aceptar</button>
                 </div>
                 <?php 
+                //Si se presiona el botón submit(reasignar) del formulario reasignamos a un nuevo paciente
+                //el cuestionario, o en su debido caso sólo alteramos el límite de tiempo
                 if(isset($_REQUEST['reasignar'])){
+
+                    //Recuperamos el id del paciente a quien se le asignará el cuestionario
                     $nuevoIdPaciente = $_POST['seleccionar-paciente'];
+
+                    //Recuperamos el límite de tiempo que seleccionó el especialista
+                    //para el cuestionario a presentar
                     $tiempo = $_POST['seleccionar-tiempo'];
+
+                    //Recuperamos el id del paciente que tenía asiganado el cuestionario
                     $idPaciente = $_POST['reasignar_pacienteId'];
+
+                    //Recuperamos el id del cuestionario que será reasignado
                     $idCuestionario = $_POST['reasignar_cuestionarioId'];
 
+                    //Ejecutamos la función para reasignar el cuestionario a un nuevo paciente
                     cuestionariosResueltos_models::reasignarPaciente($nuevoIdPaciente, $tiempo, $idPaciente, $idCuestionario);
+                    //Recargamos la página
                     echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
                 }
                 ?>
@@ -187,10 +207,20 @@
                     <button name="eliminar" type="submit" class="btn btn-danger">Eliminar</button>
                 </div>
                 <?php 
+                //Si se presiona el botón submit(eliminar) se procede a eliminar la asignación
+                //del cuestionario al determinado paciente
                 if(isset($_REQUEST['eliminar'])){
+                    //Recuperamos el id del paciente
                     $idPaciente = $_POST['eliminar_pacienteId'];
+                    //Recuperamos el id del cuestionario
                     $idCuestionario = $_POST['eliminar_cuestionarioId'];
+
+                    //Ejecutamos la función para eliminar la asignación del cuestionario
+                    //al paciente, y para identificar este asignación le necesitamos pasar
+                    //el id del paciente y el id del cuestionario
                     cuestionariosResueltos_models::eliminarAsignacion($idPaciente, $idCuestionario);
+
+                    //Recargamos la página para ver resultados
                     echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
                 }
                 ?>
