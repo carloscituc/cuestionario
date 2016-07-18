@@ -3,7 +3,7 @@
 	class cuestionariosResueltos_models{
 
 		public static function listarT1(){
-			$sql = "SELECT cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, MAX(cuestionarioresuelto.intento) AS intentos FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '1' GROUP BY cuestionarioresuelto.idPaciente, cuestionarioresuelto.idCuestionario";
+			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, MAX(cuestionarioresuelto.intento) AS intentos FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '1' GROUP BY cuestionarioresuelto.idPaciente, cuestionarioresuelto.idCuestionario";
 
 			$resultado = Conexion::consultaDevolver($sql);
 
@@ -72,11 +72,64 @@
 					}
 				}
 		}
-
 		public static function eliminarAsignacion($idPaciente,$idCuestionario){
 			$sql = "DELETE FROM cuestionarioresuelto WHERE idPaciente = '$idPaciente' AND idCuestionario = '$idCuestionario' AND estatus = '0'";
 			Conexion::consultaSimple($sql);
 			echo '<script>alert("Se ha eliminado la asignación del cuestionario");</script>';
 		}
+		public static function buscarRP($cadena){
+
+			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, MAX(cuestionarioresuelto.intento) AS intentos FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '1' AND (paciente.nombre LIKE '%$cadena%' OR paciente.apellidoPaterno LIKE '%$cadena%' OR paciente.apellidoMaterno = '%$cadena%') GROUP BY cuestionarioresuelto.idPaciente, cuestionarioresuelto.idCuestionario";
+			
+			$resultado = Conexion::consultaDevolver($sql);
+
+			return $resultado;
+		}
+		public static function buscarANP($cadena){
+
+			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, cuestionarioresuelto.intento, cuestionarioresuelto.estatus FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '0' AND (paciente.nombre LIKE '%$cadena%' OR paciente.apellidoPaterno LIKE '%$cadena%' OR paciente.apellidoMaterno = '%$cadena%')";
+			
+			$resultado = Conexion::consultaDevolver($sql);
+
+			return $resultado;
+		}
+		/*
+		public static function dividirCadena($cadena){
+			$lon = strlen($cadena);
+			$ind = 0;
+			$arrayNombre = array(
+				'nombre' => "",
+				'apellidoPaterno' => "",
+				'apellidoMaterno' => ""
+			);
+
+			for($k = 0; $k<$lon; $k++){
+				$caracter = substr($cadena, $k, 1);
+				//echo $caracter;
+				if($caracter != " " && $ind == 2){
+					$arrayNombre['apellidoMaterno'] = $arrayNombre['apellidoMaterno'] . $caracter;
+				}else{
+					if($caracter == " " && $ind == 2){
+						$ind = 3;
+					}
+				}
+				if($caracter != " " && $ind == 1){
+					$arrayNombre['apellidoPaterno'] = $arrayNombre['apellidoPaterno'] . $caracter;
+				}else{
+					if($caracter == " " && $ind == 1){
+						$ind = 2;
+					}
+				}
+				if($caracter != " " && $ind == 0){
+					$arrayNombre['nombre'] = $arrayNombre['nombre'] . $caracter;
+				}else{
+					if($caracter == " " && $ind == 0){
+						$ind = 1;
+					}
+				}		
+			}
+			return $arrayNombre;
+		}*/
+
 	}
 ?>

@@ -10,8 +10,16 @@
             //Llamamos a la función index la cual carga todos los includes que necesitamos
             cuestionariosResueltos::cuestionarioListarIntentos();
 
-            $idCuestionario = $_POST['id_cuestionario'];
-            $idPaciente = $_POST['id_paciente'];
+            if(isset($_POST['id_cuestionario'])){
+                $idCuestionario = $_POST['id_cuestionario'];
+            }else{
+                $idCuestionario = "";
+            }
+            if(isset($_POST['id_paciente'])){
+                $idPaciente = $_POST['id_paciente'];
+            }else{
+                $idPaciente = "";
+            }
 
             //Ejecutamos la función listar la cual nos devuelve todos los datos de la primera tabla
             $resultado = cuestionariosResueltos_models::listarT1Intentos($idPaciente, $idCuestionario);
@@ -34,18 +42,7 @@
                                                 Cuestionarios resueltos o presentados por el paciente</a>
                                             </h4>
                                     </div>
-                                    <div class="panel-body">
-                                        <div class="col-md-10 col-md-offset-1 well">
-                                            <div class="form-group">
-                                                <div class="col-md-6">
-                                                    <input class="form-control" id="nombre" name="nombre" placeholder="Buscar por nombre de paciente..." type="text" value="" />
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input id="btn_search" name="btn_search" type="submit" class="btn btn-danger" value="Buscar" />
-                                                    <a href="#" class="btn btn-primary">Mostrar todos</a>
-                                                </div>
-                                            </div>
-                                        </div>                                        
+                                    <div class="panel-body">                                   
                                         <div class="col-md-10 col-md-offset-1 bg-border table-responsive">
                                             <table class="table table-striped table-hover">
                                                 <thead>

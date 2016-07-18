@@ -22,7 +22,7 @@
                         <div class="row">
                             <div class="col-md-10 col-md-offset-1 well">
 
-                                <h1>Detalle cuestionario #</h1>
+                                <h1>Detalle cuestionario #<?php echo $row['idCuestionario']; ?></h1>
                                 <div class="form-group">
                                     <label for="id_cuestionario">Número de cuestionario</label>
                                     <h4><label class="label label-default"><?php echo $row['idCuestionario']; ?></label></h4>

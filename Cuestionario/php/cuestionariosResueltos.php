@@ -11,6 +11,16 @@
 			include("models/cuestionariosResueltos_models.php");
 		}
 
+		public static function cuestionarioListarBuscarRP(){
+			include("conexion/conexion.php");
+			include("models/cuestionariosResueltos_models.php");
+		}
+
+		public static function cuestionarioListarBuscarANP(){
+			include("conexion/conexion.php");
+			include("models/cuestionariosResueltos_models.php");
+		}
+
 		public static function detalleRP(){
 			include("conexion/conexion.php");
 			include("models/cuestionariosResueltos_models.php");

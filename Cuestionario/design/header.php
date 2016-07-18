@@ -16,7 +16,7 @@ para mostrarlos mejor en los dispositivos móviles -->
 otro elemento que se pueda ocultar al minimizar la barra -->
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Listar</a></li>
+            <li class="active"><a href="cuestionarioListar.php"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Listar</a></li>
             <li><a href="cuestionarios_Editar-Asignar.php"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>Editar/Asignar</a></li>
             <li><a href="cuestionarios_crear.php"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Crear cuestionarios</a></li>
         </ul>
