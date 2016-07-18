@@ -8,13 +8,17 @@
             include("php/cuestionariosResueltos.php");
 
             //Llamamos a la función index la cual carga todos los includes que necesitamos
-            cuestionariosResueltos::index();
+            cuestionariosResueltos::cuestionarioListar();
 
             //Ejecutamos la función listar la cual nos devuelve todos los datos de la primera tabla
             $resultado = cuestionariosResueltos_models::listarT1();
 
             //Ejecutamos la función listar la cual nos devuelve todos los datos de la segunda tabla
             $resultado2 = cuestionariosResueltos_models::listarT2();
+
+            //Ejecutamos la función para listar a todos los pacientes que podrá seleccionar el especialista
+            //para reasignar el cuestionario
+            $pacientes = cuestionariosResueltos_models::reasignarANP();
         ?>
         <!-- start: Content -->
         <div id="content" class="article-v1">
@@ -49,27 +53,24 @@
                                                         <th>#</th>
                                                         <th>Nombre cuestionario</th>
                                                         <th>Nombre paciente</th>
-                                                        <th>Puntuación</th>
                                                         <th>Intentos</th>
-                                                        <th>Estatus</th> 
                                                         <th>Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                <?php $i = 0; ?>
                                                 <?php while($row = mysqli_fetch_assoc($resultado)){ ?>
                                                     <!-- Formulario para pasar datos por POST-->
-                                                    <form name="form_editar<?php echo $row['idCuestionarioResuelto']; ?>" action="detalle-R-P.php" method="POST">
-                                                        <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionarioResuelto']; ?>">
+                                                    <form name="form_editar<?php echo $i; ?>" action="cuestionarioListarIntentos.php" method="POST">
+                                                        <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionario']; ?>">
+                                                        <input type="hidden" name="id_paciente" id="id_paciente" value="<?php echo $row['idPaciente']; ?>">
                                                     </form>
                                                     <tr>
-                                                        <td><?php echo $row['idCuestionarioResuelto']; ?></td>
+                                                        <td><?php echo $row['idCuestionario']; ?></td>
                                                         <td><?php echo $row['nombreCuestionario']; ?></td>
                                                         <td><?php echo $row['nombrePaciente'] . " " . $row['apellidoPaterno']; ?></td>
-                                                        <td><?php echo $row['puntuacion']; ?></td>
-                                                        <td><?php echo $row['intento']; ?></td>
-                                                        <td><?php echo $row['estatus']; ?></td>
-                                                        <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $row['idCuestionarioResuelto']; ?>.submit()">Detalle</a></td>
-                                                        <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#eliminar1">Eliminar</button></td>
+                                                        <td><?php echo $row['intentos']; ?></td>
+                                                        <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $i; $i++; ?>.submit()">Detalle</a></td>
                                                     </tr>
                                                 <?php } ?>
                                                 </tbody>
@@ -107,28 +108,28 @@
                                                     <th>#</th>
                                                     <th>Nombre cuestionario</th>
                                                     <th>Nombre paciente</th>
-                                                    <th>Intentos</th>
+                                                    <th>Intento</th>
                                                     <th>Estatus</th> 
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody>                                                
                                                 <?php while($row = mysqli_fetch_assoc($resultado2)){ ?>
                                                     <!-- Formulario para pasar datos por POST-->
-                                                    <form name="form_editar<?php echo $row['idCuestionarioResuelto']; ?>" action="detalle-A-NP.php" method="POST">
+                                                    <form name="form_editar<?php echo $i; ?>" action="detalle-A-NP.php" method="POST">
                                                         <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionarioResuelto']; ?>">
                                                     </form>
                                                 <tr>
-                                                    <td><?php echo $row['idCuestionarioResuelto']; ?></td>
+                                                    <td><?php echo $row['idCuestionario']; ?></td>
                                                     <td><?php echo $row['nombreCuestionario']; ?></td>
                                                     <td><?php echo $row['nombrePaciente'] . " " . $row['apellidoPaterno']; ?></td>
                                                     <td><?php echo $row['intento']; ?></td>
-                                                    <td><?php echo $row['estatus']; ?></td>
-                                                    <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $row['idCuestionarioResuelto']; ?>.submit()">Detalle</a></td>
-                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal">Reasignar</button>
+                                                    <td><?php if($row['estatus'] == '0') echo "Sin presentar"; ?></td>
+                                                    <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $i; $i++; ?>.submit()">Detalle</a></td>
+                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModal" onclick="recuperarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>');">Reasignar</button>
                                                     <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#eliminar2">Eliminar</button></td>
                                                 </tr>
-                                                <?php }?>
+                                                <?php } ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -143,32 +144,66 @@
     </div>
 <!-- end: content -->
 
-<!-- Modal eliminar/Cuestionarios resueltos o prsentados-->
-<div class="modal fade" id="eliminar1" role="dialog">
+<!-- Modal reasignar-->
+<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header" id="eliminar1">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">¡Mensaje importante!</h4>
+                <h4 class="modal-title">Reasignar cuestionario</h4>
             </div>
-            <div class="modal-body">
-
-                <div class="row" id="paciente">
-                    <div class="col-md-12 padding-0">
-                        <div class="alert alert-warning">
-                            <strong>¡Este registro se eliminará de forma permanente!</strong></div>
+            <form method="post">
+                <div class="modal-body">
+                    <div class="row" id="paciente">
+                        <div class="col-md-12 padding-0">
+                            <label for="select-paciente">Seleccionar paciente</label>
+                            <select class="form-control" name="seleccionar-paciente">
+                                <?php                                    
+                                    while($paciente = mysqli_fetch_assoc($pacientes)){ 
+                                ?>      
+                                <option value="<?php echo $paciente['idPaciente']; ?>"><?php echo $paciente['nombre'] . " " . $paciente['apellidoPaterno'] . " " . $paciente['apellidoMaterno']; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
                     </div>
+                    <div class="row" id="paciente2">
+                        <div class="col-md-12 padding-1">
+                            <label for="select-tiempo">Seleccionar límite de tiempo de evaluación</label>
+                            <select class="form-control" name="seleccionar-tiempo">
+                                <option value="00:00:15">15 minutos</option>
+                                <option value="00:30:00">30 minutos</option>
+                                <option value="00:45:00">45 minutos</option>
+                                <option value="01:00:00">60 minutos</option>
+                                <option value="01:15:00">1-15 minutos</option>
+                                <option value="01:30:00">1-30 minutos</option>
+                                <option value="01:45:00">1-45 minutos</option>
+                                <option value="02:00:00">1-60 minutos</option>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="hidden" name="reasignar_cuestionarioId" id="reasignar_cuestionarioId">
+                    <input type="hidden" name="reasignar_pacienteId" id="reasignar_pacienteId">                  
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button name="reasignar" id="reasignar" type="submit" class="btn btn-primary">Aceptar</button>
+                </div>
+                <?php 
+                if(isset($_REQUEST['reasignar'])){
+                    $nuevoIdPaciente = $_POST['seleccionar-paciente'];
+                    $tiempo = $_POST['seleccionar-tiempo'];
+                    $idPaciente = $_POST['reasignar_pacienteId'];
+                    $idCuestionario = $_POST['reasignar_cuestionarioId'];
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
-            </div>
+                    cuestionariosResueltos_models::reasignarPaciente($nuevoIdPaciente, $tiempo, $idPaciente, $idCuestionario);
+                    echo "<script> location.href='cuestionarioListar.php'; </script>";
+                }
+            ?>
+            </form>
+            
         </div>
-
     </div>
 </div>
 
@@ -187,7 +222,7 @@
                 <div class="row" id="paciente">
                     <div class="col-md-12 padding-0">
                         <div class="alert alert-warning">
-                            <strong>¡Este registro se eliminará de forma permanente!</strong></div>
+                            <strong>¡Se eliminará la asignación del cuestionario al paciente!</strong></div>
                     </div>
                 </div>
 
@@ -196,60 +231,17 @@
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
                 <button type="submit" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
             </div>
+
         </div>
 
     </div>
 </div>
-
-
-
-<!-- Modal reasignar-->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Reasignar cuestionario</h4>
-            </div>
-            <div class="modal-body">
-
-                <div class="row" id="paciente">
-                    <div class="col-md-12 padding-0">
-
-                        <select class="form-control">
-                            <option>-Seleccionar paciente-</option>
-                            <option>Omar Hernandez</option>
-                            <option>Carlos Cituc</option>
-                            <option>Carlos Bolon</option>
-                            <option>Angie Campos</option>
-                            <option>Rodrigo Espadas</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row" id="paciente2">
-                    <div class="col-md-12 padding-1">
-                        <select class="form-control">
-                            <option>-Seleccionar tiempo-</option>
-                            <option>1-15 minutos</option>
-                            <option>1-30 minutos</option>
-                            <option>1-45 minutos</option>
-                            <option>1-60 minutos</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-
+<script>
+    function recuperarId(idCuestionario,idPaciente){
+        document.getElementById("reasignar_cuestionarioId").value = idCuestionario;
+        document.getElementById("reasignar_pacienteId").value = idPaciente;   
+    }
+</script>
 <?php include("design/footer.php");?>
 </body>
 </html>
