@@ -102,6 +102,7 @@
 			$sql = "DELETE FROM cuestionarioresuelto WHERE idPaciente = '$idPaciente' AND idCuestionario = '$idCuestionario' AND estatus = '0'";
 			Conexion::consultaSimple($sql);
 			echo '<script>alert("Se ha eliminado la asignación del cuestionario");</script>';
+			echo "<script> location.href='cuestionarioListar.php#ANP'; </script>";
 		}
 
 		//Se utiliza para buscar un cuestionario resuelto por un determinado paciente, en base al nombre del paciente

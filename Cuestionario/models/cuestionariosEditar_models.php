@@ -45,6 +45,7 @@
 				VALUES (null, '$intento', '$tiempo', '$idPaciente', '$idCuestionario', '0')";
 				Conexion::consultaSimple($sql);
 				echo '<script>alert("Cuestionario asignado exitosamente");</script>';
+				echo "<script> location.href='cuestionarioListar.php#ANP'; </script>";
 			}else{
 				echo '<script>alert("El paciente seleccionado ya tiene asignado este cuestionario");</script>';
 			}
@@ -63,9 +64,17 @@
 				$sql = "DELETE FROM cuestionario WHERE idCuestionario = '$idCuestionario'";
 				Conexion::consultaSimple($sql);
 				echo '<script>alert("Cuestionario eliminado");</script>';
+				echo "<script> location.href='cuestionarioEditarAsignar.php'; </script>";
 			}else{
 				echo '<script>alert("Imposible eliminar cuestionario");</script>';
 			}
+		}
+		public static function buscarCuestionario($nombreCuestionario){
+			$sql = "SELECT idCuestionario, nombre FROM cuestionario WHERE nombre LIKE '%$nombreCuestionario%'";
+
+			$resultado = Conexion::consultaDevolver($sql);
+
+			return $resultado;
 		}
 	}
 

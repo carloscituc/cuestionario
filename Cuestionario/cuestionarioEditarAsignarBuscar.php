@@ -7,9 +7,15 @@
             include("php/cuestionariosEditar.php");
 
             //Llamamos a la función index la cual carga todos los includes que necesitamos
-            cuestionariosEditar::cuestionarioEditarAsignar();
+            cuestionariosEditar::cuestionarioEditarAsignarBuscar();
 
-            $resultado = cuestionariosEditar_models::listarCuestionarios();
+            if(isset($_POST['nombreCuestionario'])){
+                $nombre = $_POST['nombreCuestionario'];
+            }else{
+                $nombre = "";
+            }
+
+            $resultado = cuestionariosEditar_models::buscarCuestionario($nombre);
 
             $pacientes = cuestionariosEditar_models::consultarPacientes();
         ?>
@@ -32,11 +38,11 @@
                                         <form action="cuestionarioEditarAsignarBuscar.php" method="post">
                                             <div class="form-group">
                                                 <div class="col-md-6">
-                                                    <input class="form-control" id="nombreCuestionario" name="nombreCuestionario" placeholder="Buscar por nombre de cuestionario..." type="text" value="" />
+                                                    <input class="form-control" id="nombreCuestionario1" name="nombreCuestionario" placeholder="Buscar por nombre de cuestionario..." type="text" value="<?php echo $nombre; ?>" />
                                                 </div>
                                                 <div class="col-md-6">
                                                     <input id="btn_buscar" name="btn_buscar" type="submit" class="btn btn-danger" value="Buscar" />
-                                                    <input id="btn_todos" name="btn_todos" type="submit" class="btn btn-primary" value="Mostrar todos"  onclick="limpiar();"/>
+                                                    <input id="btn_todos" name="btn_todos" type="submit" class="btn btn-primary" value="Mostrar todos" onclick="limpiar();"/>
                                                 </div>
                                             </div>
                                         </form>
@@ -62,9 +68,9 @@
                                                         <td><?php echo $row['idCuestionario']; ?></td>
                                                         <td><?php echo $row['nombre']; ?></td>
                                                         <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $row['idCuestionario']; ?>.submit()">Detalle</a></td>
-                                                        <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalAsignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>');">Asignar</button>
+                                                        <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalAsignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>'), asignarValor();">Asignar</button>
                                                         <td><button type="button" class="btn btn-success btn-md">Editar</button></td>                                                        
-                                                        <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModalEliminar" onclick="eliminarId('<?php echo $row['idCuestionario'];?>');">Eliminar</button></td>
+                                                        <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModalEliminar" onclick="eliminarId('<?php echo $row['idCuestionario'];?>'), asignarValor();">Eliminar</button></td>
                                                     </tr>
                                                     <?php } ?>
                                                 </tbody>
@@ -121,7 +127,8 @@
                             </select>
                         </div>
                     </div>
-                    <input type="hidden" name="asignar_cuestionarioId" id="asignar_cuestionarioId">                 
+                    <input type="hidden" name="asignar_cuestionarioId" id="asignar_cuestionarioId">
+                    <input type="hidden" name="nombreCuestionario" id="nombreCuestionario2">                 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -173,6 +180,7 @@
 
                 </div>
                 <input type="hidden" name="eliminar_cuestionarioId" id="eliminar_cuestionarioId">
+                <input type="hidden" name="nombreCuestionario" id="nombreCuestionario3">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
                     <button name="eliminar" type="submit" class="btn btn-danger">Eliminar</button>
@@ -188,9 +196,6 @@
                     //al paciente, y para identificar este asignación le necesitamos pasar
                     //el id del paciente y el id del cuestionario
                     cuestionariosEditar_models::eliminarCuestionario($idCuestionario);
-
-                    //Recargamos la página para ver resultados
-                    echo "<script> location.href='cuestionarioEditarAsignar.php'; </script>";
                 }
                 ?>
             </form>
@@ -214,8 +219,17 @@
 
     //Esta función nos sirve para limpiar el valor del input buscar
     //y así poder tener la funcionalidad del botón "Mostrar todos"
+    function limpiarRP(){
+        document.getElementById("nombre_RP").value = "";
+    }
+
+    function asignarValor(){
+        document.getElementById("nombreCuestionario2").value = document.getElementById("nombreCuestionario1").value;
+        document.getElementById("nombreCuestionario3").value = document.getElementById("nombreCuestionario1").value;
+    }
+
     function limpiar(){
-        document.getElementById("nombreCuestionario").value = "";
+        document.getElementById("nombreCuestionario1").value = "";
     }
 </script>
 

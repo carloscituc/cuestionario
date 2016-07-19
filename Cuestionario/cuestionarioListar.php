@@ -104,7 +104,7 @@
                             <div class="col-md-10 col-md-offset-1 well">   
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">
+                                        <h3 id="ANP" class="panel-title">
                                             Cuestionarios asignados y no presentados aún por el paciente</a>
                                         </h3>
                                 </div>
@@ -286,9 +286,6 @@
                     //al paciente, y para identificar este asignación le necesitamos pasar
                     //el id del paciente y el id del cuestionario
                     cuestionariosResueltos_models::eliminarAsignacion($idPaciente, $idCuestionario);
-
-                    //Recargamos la página para ver resultados
-                    echo "<script> location.href='cuestionarioListar.php'; </script>";
                 }
                 ?>
             </form>

@@ -8,5 +8,9 @@
 			include("conexion/conexion.php");
 			include("models/cuestionariosEditar_models.php");
 		}
+		public static function cuestionarioEditarAsignarBuscar(){
+			include("conexion/conexion.php");
+			include("models/cuestionariosEditar_models.php");
+		}
 	}
 ?>
