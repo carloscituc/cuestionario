@@ -10,6 +10,8 @@
             cuestionariosEditar::cuestionarioEditarAsignar();
 
             $resultado = cuestionariosEditar_models::listarCuestionarios();
+
+            $pacientes = cuestionariosEditar_models::consultarPacientes();
         ?>
         <!-- start: Content -->
         <div id="content" class="article-v1">
@@ -58,9 +60,9 @@
                                                         <td><?php echo $row['idCuestionario']; ?></td>
                                                         <td><?php echo $row['nombre']; ?></td>
                                                         <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $row['idCuestionario']; ?>.submit()">Detalle</a></td>
-                                                        <td><button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#asignar">Asignar</button></td>
-                                                        <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#eliminar1">Editar</button></td>
-                                                        <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#eliminar">Eliminar</button></td>
+                                                        <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalAsignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>');">Asignar</button>
+                                                        <td><button type="button" class="btn btn-success btn-md">Editar</button></td>                                                        
+                                                        <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModalEliminar" onclick="eliminarId('<?php echo $row['idCuestionario'];?>');">Eliminar</button></td>
                                                     </tr>
                                                     <?php } ?>
                                                 </tbody>
@@ -77,82 +79,143 @@
         </div>
     <!-- end: content -->
 
-    <!-- Modal reasignar-->
-    <div class="modal fade" id="asignar" role="dialog">
-        <div class="modal-dialog">
+<!-- Modal reasignar-->
+<div class="modal fade" id="myModalAsignar" role="dialog">
+    <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Asignar cuestionario</h4>
-                </div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Reasignar cuestionario</h4>
+            </div>
+            <form method="post">
                 <div class="modal-body">
-
                     <div class="row" id="paciente">
                         <div class="col-md-12 padding-0">
-
-                            <select class="form-control">
-                                <option>-Seleccionar paciente-</option>
-                                <option>Omar Hernandez</option>
-                                <option>Carlos Cituc</option>
-                                <option>Carlos Bolon</option>
-                                <option>Angie Campos</option>
-                                <option>Rodrigo Espadas</option>
+                            <label for="select-paciente">Seleccionar paciente</label>
+                            <select class="form-control" name="seleccionar-paciente">
+                                <?php
+                                    //Recuperamos la lista de pacientes registrados en el sistema                                    
+                                    while($paciente = mysqli_fetch_assoc($pacientes)){ 
+                                ?>      
+                                <option value="<?php echo $paciente['idPaciente']; ?>"><?php echo $paciente['nombre'] . " " . $paciente['apellidoPaterno'] . " " . $paciente['apellidoMaterno']; ?></option>
+                                <?php } ?>
                             </select>
                         </div>
                     </div>
                     <div class="row" id="paciente2">
                         <div class="col-md-12 padding-1">
-                            <select class="form-control">
-                                <option>-Seleccionar tiempo-</option>
-                                <option>1-15 minutos</option>
-                                <option>1-30 minutos</option>
-                                <option>1-45 minutos</option>
-                                <option>1-60 minutos</option>
+                            <label for="select-tiempo">Seleccionar límite de tiempo de evaluación</label>
+                            <select class="form-control" name="seleccionar-tiempo">
+                                <option value="00:00:15">15 minutos</option>
+                                <option value="00:30:00">30 minutos</option>
+                                <option value="00:45:00">45 minutos</option>
+                                <option value="01:00:00">60 minutos</option>
+                                <option value="01:15:00">1-15 minutos</option>
+                                <option value="01:30:00">1-30 minutos</option>
+                                <option value="01:45:00">1-45 minutos</option>
+                                <option value="02:00:00">1-60 minutos</option>
                             </select>
                         </div>
                     </div>
-
+                    <input type="hidden" name="asignar_cuestionarioId" id="asignar_cuestionarioId">                 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                    <button name="asignar" id="asignar" type="submit" class="btn btn-primary">Aceptar</button>
                 </div>
-            </div>
+                <?php 
+                //Si se presiona el botón submit(reasignar) del formulario reasignamos a un nuevo paciente
+                //el cuestionario, o en su debido caso sólo alteramos el límite de tiempo
+                if(isset($_REQUEST['asignar'])){
 
+                    //Recuperamos el id del paciente a quien se le asignará el cuestionario
+                    $idPaciente = $_POST['seleccionar-paciente'];
+
+                    //Recuperamos el límite de tiempo que seleccionó el especialista
+                    //para el cuestionario a presentar
+                    $tiempo = $_POST['seleccionar-tiempo'];
+
+                    //Recuperamos el id del cuestionario que será reasignado
+                    $idCuestionario = $_POST['asignar_cuestionarioId'];
+
+                    //Ejecutamos la función para reasignar el cuestionario a un nuevo paciente
+                    cuestionariosEditar_models::asignarPaciente($idPaciente, $tiempo, $idCuestionario);
+                }
+                ?>
+            </form>
+            
         </div>
     </div>
+</div>
 
-    <!-- Modal eliminar/Cuestionarios creados-->
-    <div class="modal fade" id="eliminar" role="dialog">
-        <div class="modal-dialog">
+<!-- Modal eliminar/Cuestionarios asignados y no presentados-->
+<div class="modal fade" id="myModalEliminar" role="dialog">
+    <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">¡Mensaje importante!</h4>
-                </div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">¡Mensaje importante!</h4>
+            </div>
+            <form method="post">
                 <div class="modal-body">
-
                     <div class="row" id="paciente">
                         <div class="col-md-12 padding-0">
                             <div class="alert alert-warning">
-                                <strong>¡Este registro se eliminará de forma permanente!</strong></div>
+                                <strong>¡Se eliminará la asignación del cuestionario al paciente!</strong></div>
                         </div>
                     </div>
 
                 </div>
+                <input type="hidden" name="eliminar_cuestionarioId" id="eliminar_cuestionarioId">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
+                    <button name="eliminar" type="submit" class="btn btn-danger">Eliminar</button>
                 </div>
-            </div>
+                <?php
+                //Si se presiona el botón submit(eliminar) se procede a eliminar la asignación
+                //del cuestionario al determinado paciente
+                if(isset($_REQUEST['eliminar'])){
+                    //Recuperamos el id del cuestionario
+                    $idCuestionario = $_POST['eliminar_cuestionarioId'];
 
+                    //Ejecutamos la función para eliminar la asignación del cuestionario
+                    //al paciente, y para identificar este asignación le necesitamos pasar
+                    //el id del paciente y el id del cuestionario
+                    cuestionariosEditar_models::eliminarCuestionario($idCuestionario);
+
+                    //Recargamos la página para ver resultados
+                    echo "<script> location.href='cuestionarioEditarAsignar.php'; </script>";
+                }
+                ?>
+            </form>
         </div>
     </div>
+</div>
+<script>
+    //Recuperamos el id del cuestionario y el id del paciente
+    //para pasarselo al modal #myModalReasignar cuando el botón reasignar sea presionado
+    //quedando almacenado en los dos inputs hidden que se encuentran dentro del modal
+    function recuperarId(idCuestionario){
+        document.getElementById("asignar_cuestionarioId").value = idCuestionario;
+    }
 
+    //Recuperamos el id del cuestionario y el id del paciente
+    //para pasarselo al modal #myModalEliminar cuando el botón eliminar sea presionado
+    //quedando almacenado en los dos inputs hidden que se encuentran dentro del modal
+    function eliminarId(idCuestionario){
+        document.getElementById("eliminar_cuestionarioId").value = idCuestionario;  
+    }
+
+    //Esta función nos sirve para limpiar el valor del input buscar
+    //y así poder tener la funcionalidad del botón "Mostrar todos"
+    function limpiarRP(){
+        document.getElementById("nombre_RP").value = "";
+    }
+</script>
 
     <?php include("design/footer.php");?>
     </body>

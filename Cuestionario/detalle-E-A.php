@@ -3,7 +3,8 @@
 <html lang="es">
     <?php include("design/head.php"); ?>
     <body>
-        <?php include("design/header.php"); ?>     
+        <?php include("design/header.php"); ?>
+           
         <!-- start: Content -->
         <div id="content" class="article-v1">
             <div class="col-md-12">
