@@ -12,5 +12,9 @@
 			include("conexion/conexion.php");
 			include("models/cuestionariosEditar_models.php");
 		}
+		public static function detalleEA(){
+			include("conexion/conexion.php");
+			include("models/cuestionariosEditar_models.php");
+		}
 	}
 ?>

@@ -76,6 +76,51 @@
 
 			return $resultado;
 		}
+		public static function detalleCuestionarioBloques($idCuestionario){
+			$sql = "SELECT nombre, idBloquePregunta, instruccion FROM bloquepregunta INNER JOIN cuestionario ON bloquepregunta.idCuestionario = cuestionario.idCuestionario WHERE bloquepregunta.idCuestionario = '$idCuestionario'";
+			$resultado = Conexion::consultaDevolver($sql);
+
+			$total = mysqli_num_rows($resultado);
+
+			$arrayBloque = array();
+			for($i=0; $i<$total; $i++){
+				$bloque = mysqli_fetch_assoc($resultado);
+
+				$arrayBloque[$i]['nombre'] = $bloque['nombre'];
+				$arrayBloque[$i]['idBloquePregunta'] = $bloque['idBloquePregunta'];
+				$arrayBloque[$i]['instruccion'] = $bloque['instruccion'];
+			}
+			return $arrayBloque;
+		}
+		public static function detalleCuestionarioPreguntas($idCuestionario){
+			$sql = "SELECT bloquepregunta.idBloquePregunta, idPreguntaMultiple, pregunta, respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6, respuesta7, respuesta8, respuesta9, respuesta10, numeroOrden, respuestaCorrecta FROM cuestionario INNER JOIN bloquepregunta ON bloquepregunta.idCuestionario = cuestionario.idCuestionario INNER JOIN preguntamultiple ON preguntamultiple.idBloquePregunta = bloquepregunta.idBloquePregunta WHERE cuestionario.idCuestionario = '$idCuestionario'";
+			$resultado = Conexion::consultaDevolver($sql);
+
+			$total = mysqli_num_rows($resultado);
+
+			$arrayPregunta = array();
+			for($i=0; $i<$total; $i++){
+				$pregunta = mysqli_fetch_assoc($resultado);
+
+				$arrayPregunta[$i]['idBloquePregunta'] = $pregunta['idBloquePregunta'];
+				$arrayPregunta[$i]['idPreguntaMultiple'] = $pregunta['idPreguntaMultiple'];
+				$arrayPregunta[$i]['pregunta'] = $pregunta['pregunta'];
+				$arrayPregunta[$i]['respuesta1'] = $pregunta['respuesta1'];
+				$arrayPregunta[$i]['respuesta2'] = $pregunta['respuesta2'];
+				$arrayPregunta[$i]['respuesta3'] = $pregunta['respuesta3'];
+				$arrayPregunta[$i]['respuesta4'] = $pregunta['respuesta4'];
+				$arrayPregunta[$i]['respuesta5'] = $pregunta['respuesta5'];
+				$arrayPregunta[$i]['respuesta6'] = $pregunta['respuesta6'];
+				$arrayPregunta[$i]['respuesta7'] = $pregunta['respuesta7'];
+				$arrayPregunta[$i]['respuesta8'] = $pregunta['respuesta8'];
+				$arrayPregunta[$i]['respuesta9'] = $pregunta['respuesta9'];
+				$arrayPregunta[$i]['respuesta10'] = $pregunta['respuesta10'];
+				$arrayPregunta[$i]['numeroOrden'] = $pregunta['numeroOrden'];
+				$arrayPregunta[$i]['respuestaCorrecta'] = $pregunta['respuestaCorrecta'];
+			}
+
+			return $arrayPregunta;
+		}
 	}
 
 ?>
