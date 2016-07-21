@@ -6,17 +6,21 @@
             include("design/header.php");
             include("php/cuestionariosEditar.php");
 
-            //Llamamos a la función index la cual carga todos los includes que necesitamos
+            //Llamamos a la función cuestionarioEditarAsignarBuscar la cual carga todos los includes que necesitamos
             cuestionariosEditar::cuestionarioEditarAsignarBuscar();
 
+            //Recuperamos el nombre del cuestionario enviado desde "cuestionarioEditarAsignar"
+            //Verificamos si se envió algún dato y si no que no se haga nada
             if(isset($_POST['nombreCuestionario'])){
                 $nombre = $_POST['nombreCuestionario'];
             }else{
                 $nombre = "";
             }
 
+            //Ejecutamos una busqueda en base al nombre del cuestionario y lo almacenamos en la variable resultado
             $resultado = cuestionariosEditar_models::buscarCuestionario($nombre);
 
+            //Consultamos a todos los pacientes registrados en el sistema
             $pacientes = cuestionariosEditar_models::consultarPacientes();
         ?>
         <!-- start: Content -->
@@ -58,9 +62,10 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php 
+                                                        //Imprimimos todos los cuestionarios consultados
                                                         while($row = mysqli_fetch_assoc($resultado)){
                                                     ?>
-                                                    <!--Form para pasar datos por POST-->
+                                                    <!--Form para pasar datos por POST que nos redireccionará a la misma página en donde nos encontramos "cuestionarioEditarAsignarBuscar"-->
                                                     <form name="form_editar<?php echo $row['idCuestionario']; ?>" action="detalle-E-A.php" method="POST">
                                                         <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionario']; ?>">
                                                     </form>
@@ -128,15 +133,14 @@
                         </div>
                     </div>
                     <input type="hidden" name="asignar_cuestionarioId" id="asignar_cuestionarioId">
-                    <input type="hidden" name="nombreCuestionario" id="nombreCuestionario2">                 
+                    <input type="hidden" name="nombreCuestionario" id="nombreCuestionario2">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                     <button name="asignar" id="asignar" type="submit" class="btn btn-primary">Aceptar</button>
                 </div>
                 <?php 
-                //Si se presiona el botón submit(reasignar) del formulario reasignamos a un nuevo paciente
-                //el cuestionario, o en su debido caso sólo alteramos el límite de tiempo
+                //Si se presiona el botón submit(reasignar) del formulario asignamos a un nuevo paciente
                 if(isset($_REQUEST['asignar'])){
 
                     //Recuperamos el id del paciente a quien se le asignará el cuestionario
@@ -149,7 +153,7 @@
                     //Recuperamos el id del cuestionario que será reasignado
                     $idCuestionario = $_POST['asignar_cuestionarioId'];
 
-                    //Ejecutamos la función para reasignar el cuestionario a un nuevo paciente
+                    //Ejecutamos la función para aasignar el cuestionario a un nuevo paciente
                     cuestionariosEditar_models::asignarPaciente($idPaciente, $tiempo, $idCuestionario);
                 }
                 ?>
@@ -203,31 +207,26 @@
     </div>
 </div>
 <script>
-    //Recuperamos el id del cuestionario y el id del paciente
+    //Recuperamos el id del cuestionario
     //para pasarselo al modal #myModalReasignar cuando el botón reasignar sea presionado
-    //quedando almacenado en los dos inputs hidden que se encuentran dentro del modal
+    //quedando almacenado en el input hidden que se encuentra dentro del modal
     function recuperarId(idCuestionario){
         document.getElementById("asignar_cuestionarioId").value = idCuestionario;
     }
 
-    //Recuperamos el id del cuestionario y el id del paciente
+    //Recuperamos el id del cuestionario
     //para pasarselo al modal #myModalEliminar cuando el botón eliminar sea presionado
-    //quedando almacenado en los dos inputs hidden que se encuentran dentro del modal
+    //quedando almacenado en el input hidden que se encuentra dentro del modal
     function eliminarId(idCuestionario){
         document.getElementById("eliminar_cuestionarioId").value = idCuestionario;  
     }
-
-    //Esta función nos sirve para limpiar el valor del input buscar
-    //y así poder tener la funcionalidad del botón "Mostrar todos"
-    function limpiarRP(){
-        document.getElementById("nombre_RP").value = "";
-    }
-
+    //Con esta función logramos capturar el valor del cuestionario consultado y al refrescar página se siga mostrando el cuestionario específicamente buscado 
     function asignarValor(){
         document.getElementById("nombreCuestionario2").value = document.getElementById("nombreCuestionario1").value;
         document.getElementById("nombreCuestionario3").value = document.getElementById("nombreCuestionario1").value;
     }
-
+    //Esta función nos sirve para limpiar el valor del input buscar
+    //y así poder tener la funcionalidad del botón "Mostrar todos"
     function limpiar(){
         document.getElementById("nombreCuestionario1").value = "";
     }

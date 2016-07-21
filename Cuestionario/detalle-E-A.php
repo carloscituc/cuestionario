@@ -7,18 +7,20 @@
             include("design/header.php");
             include("php/cuestionariosEditar.php");
 
-            //Llamamos a la función index la cual carga todos los includes que necesitamos
+            //Llamamos a la función detalleEA la cual carga todos los includes que necesitamos
             cuestionariosEditar::detalleEA();
 
+            //Verificamos si se está recibiendo el id del cuestionario para desplegar su información
             if(isset($_POST['id_cuestionario'])){
                 $idCuestionario = $_POST['id_cuestionario'];
-            
-            $arrayBloque = cuestionariosEditar_models::detalleCuestionarioBloques($idCuestionario);
-            $arrayPregunta = cuestionariosEditar_models::detalleCuestionarioPreguntas($idCuestionario);
-
+                //Ejectamos la consulta que nos devuelve todos los bloques del cuestionario seleccionado
+                $arrayBloque = cuestionariosEditar_models::detalleCuestionarioBloques($idCuestionario);
+                //Ejecutamos la consulta que nos debuelve todos las preguntas del cuestionario seleccionado
+                $arrayPregunta = cuestionariosEditar_models::detalleCuestionarioPreguntas($idCuestionario);
+            //Contamos el número de bloques(secciones) devueltos
             $total = count($arrayBloque);
+            //Contamos el número de preguntas devueltas
             $total2 = count($arrayPregunta);
-            $pacientes = cuestionariosEditar_models::consultarPacientes();
         ?>
            
         <!-- start: Content -->
@@ -34,7 +36,9 @@
                                             </div>
                                         </div>
                                     <?php 
+                                        //Esta variable nos servirá para detener la comparacion de si determinada pregunta pertene a un determinado bloque
                                         $variable = 0;
+                                        //Iniciamos un ciclo que se repetirá según el número de bloques
                                         for($i=0; $i < $total; $i++){
                                     ?>                               
                                         <div class="row" id="bloque">
@@ -43,8 +47,10 @@
                                              </div>
                                         </div>
                                     <?php
+                                        //Iniciamos un ciclo que se repetirá según el número de preguntas
                                         for($j=$variable; $j < $total2; $j++){
-                                                if($arrayBloque[$i]['idBloquePregunta'] == $arrayPregunta[$j]['idBloquePregunta']){
+                                            //Con este if verificamos que si determinada pregunta pertenece al bloque, para imprimirlo dentro de el
+                                            if($arrayBloque[$i]['idBloquePregunta'] == $arrayPregunta[$j]['idBloquePregunta']){
                                     ?>      
                                            
                                     <div class="row" id="pregunta">
@@ -53,7 +59,10 @@
                                                 </div>
                                             
                                                     <?php
+                                                        //Iniciamos un ciclo que se repetirá 10 veces(sólo hay 10 posibles respuestas)
+                                                        //eso no implica que tenga 10 respuestas
                                                         for($k = 1; $k<11; $k++){
+                                                            //Se verifica si la respuesta existe y si no, no la imprimimos
                                                             if(isset($arrayPregunta[$j]['respuesta'.$k])){
                                                     ?>
                                                                     <div class="col-sm-12">
@@ -67,7 +76,12 @@
                                         </div>                                                           
                                     <?php
                                                 }else{
+                                                    //En dado caso que se llegue al número máximo de respuestas para el bloque
+                                                    //almacenamos el número de la pregunta del arrayPreguntas
                                                     $variable = $j;
+
+                                                    //Alteramos la variable que controla la impresión de preguntas para terminar su impresión
+                                                    //para cada bloque
                                                     $j = $total2;
                                                 }
                                             }   

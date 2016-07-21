@@ -75,7 +75,9 @@
 				if($nuevoIdPaciente == $idPaciente){
 					$sql = "UPDATE cuestionarioresuelto SET limiteTiempo = '$tiempo' WHERE idPaciente = '$idPaciente' AND idCuestionario = '$idCuestionario' AND estatus = '0'";
 					Conexion::consultaSimple($sql);
-					echo '<script>alert("Tiempo límite de cuestionario modificado");</script>';
+					echo '<script>alert("Tiempo límite de cuestionario modificado");</script>'
+					;
+					echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
 				//Si no es el mismo paciente se hace la reasignación de paciente
 				}else{
 					//si $id != 0 significa que el usuario a quien se le quiere asignar el cuestionario es el mismo
@@ -91,6 +93,7 @@
 						$sql = "UPDATE cuestionarioresuelto SET intento = '$intento', idPaciente = '$nuevoIdPaciente', limiteTiempo = '$tiempo' WHERE idPaciente = '$idPaciente' AND idCuestionario = '$idCuestionario' AND estatus = '0'";
 						Conexion::consultaSimple($sql);
 						echo '<script>alert("Cuestionario reasignado a un nuevo paciente");</script>';
+						echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
 					}else{
 						echo '<script>alert("El paciente ya tiene asignado este cuestionario");</script>';
 					}
@@ -102,7 +105,7 @@
 			$sql = "DELETE FROM cuestionarioresuelto WHERE idPaciente = '$idPaciente' AND idCuestionario = '$idCuestionario' AND estatus = '0'";
 			Conexion::consultaSimple($sql);
 			echo '<script>alert("Se ha eliminado la asignación del cuestionario");</script>';
-			echo "<script> location.href='cuestionarioListar.php#ANP'; </script>";
+			echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
 		}
 
 		//Se utiliza para buscar un cuestionario resuelto por un determinado paciente, en base al nombre del paciente
@@ -116,12 +119,32 @@
 
 		//Se utiliza para buscar una asignación de un cuestionario no resuelto por un determinado paciente, en base al nombre del paciente
 		public static function buscarANP($cadena){
-
+			$cadena = cuestionariosResueltos_models::dividirCadena($cadena);
 			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, cuestionarioresuelto.intento, cuestionarioresuelto.estatus FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '0' AND (paciente.nombre LIKE '%$cadena%' OR paciente.apellidoPaterno LIKE '%$cadena%' OR paciente.apellidoMaterno = '%$cadena%')";
 			
 			$resultado = Conexion::consultaDevolver($sql);
 
 			return $resultado;
+			//echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
+
+		}
+		public static function dividirCadena($cadena){
+			$lon = strlen($cadena);
+			$ind = 0;
+			$nombre = "";
+
+			for($k = 0; $k<$lon; $k++){
+				$caracter = substr($cadena, $k, 1);
+				//echo $caracter;
+				if($caracter != " " && $ind == 0){
+					$nombre = $nombre . $caracter;
+				}else{
+					if($caracter == " " && $ind == 0){
+						$ind = 1;
+					}
+				}		
+			}
+			return $nombre;
 		}
 		/*
 		public static function dividirCadena($cadena){

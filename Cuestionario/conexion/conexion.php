@@ -9,7 +9,6 @@
 		    $bd = "cuestionario";
 
 		    $conexion = mysqli_connect($server, $user, $pass,$bd);
-
 		    return $conexion;
 		}
 
@@ -20,7 +19,7 @@
 		public static function consultaSimple($sql){
 			//Creamos la conexión
 			$conexion = Conexion::conectar();
-	    
+	    	
 		    mysqli_set_charset($conexion, "utf8"); //formato de datos utf8
 
 		    //Ejecutamos la consulta
@@ -28,6 +27,7 @@
 
 		    //Cerramos la conexion
 		    Conexion::desconectar($conexion);
+		    
 		}
 
 		public static function consultaDevolver($sql){

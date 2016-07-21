@@ -238,7 +238,7 @@
                     //Ejecutamos la función para reasignar el cuestionario a un nuevo paciente
                     cuestionariosResueltos_models::reasignarPaciente($nuevoIdPaciente, $tiempo, $idPaciente, $idCuestionario);
                     //Recargamos la página
-                    echo "<script> location.href='cuestionarioListar.php'; </script>";
+                    echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
                 }
                 ?>
             </form>
