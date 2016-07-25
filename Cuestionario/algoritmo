@@ -1,0 +1,73 @@
+
+---Crear funcion con FOR para contar los inputs---- y en j se va a guardar el resultado
+
+
+idOpcion = id del input que se está eliminando
+idSeccion = id de la sección en donde se encuentra el input que se está eliminando
+idPregunta = id de la pregunta a la cual se le está eliminando una opción
+j = el número de elementos existentes después de eliminar
+
+numSeccion = 1
+numPregunta = 1
+numOpcion = 2
+switch(idOpcion){
+'op'+idSeccion+idPregunta+'3':
+    for(k=4;k<11;k++){
+        id = document.getElementById('op'+idSeccion+idPregunta+k);----input eliminado
+        if(id!=null){
+            renombrar labels e id
+            nombreLabel = 'Opción '+j+":";-----label de la opcion
+            idInput = 'op'+idSeccion+idPregunta+j;---input de la opcion
+            j++;            
+        }
+	}
+'op'+idSeccion+4:
+    for(k=5;k<11;k++){
+        id = document.getElementById('op'+idSeccion+k);
+        if(id!=null){
+            renombrar labels e id
+        }
+	}
+'op'+idSeccion+5:
+    for(k=6;k<11;k++){
+        id = document.getElementById('op'+idSeccion+k);
+        if(id!=null){
+            renombrar labels e id
+        }
+	}
+'op'+idSeccion+6:
+    for(k=7;k<11;k++){
+        id = document.getElementById('op'+idSeccion+k);
+        if(id!=null){
+            renombrar labels e id
+        }
+	}
+    j = j-1;
+'op'+idSeccion+7:
+    for(k=8;k<11;k++){
+        id = document.getElementById('op'+idSeccion+k);
+        if(id!=null){
+            renombrar labels e id
+        }
+	}
+    j = j-1;
+'op'+idSeccion+8:
+    for(k=9;k<11;k++){
+        id = document.getElementById('op'+idSeccion+k);
+        if(id!=null){
+            renombrar labels e id
+        }
+	}
+    j = j-1;
+'op'+idSeccion+9:
+    for(k=10;k<11;k++){
+        id = document.getElementById('op'+idSeccion+k);
+        if(id!=null){
+            renombrar labels e id
+        }
+	}
+    j = j-1;
+'op'+idSeccion+10:
+    j = j-1;
+default
+}
