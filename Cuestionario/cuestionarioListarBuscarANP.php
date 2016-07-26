@@ -80,7 +80,7 @@
                                                     <td><?php echo $row['nombrePaciente'] . " " . $row['apellidoPaterno'] . " " . $row['apellidoMaterno']; ?></td>
                                                     <td><?php echo $row['limiteTiempo']; ?></td>
                                                     <td><?php if($row['estatus'] == '0') echo "Sin presentar"; ?></td>
-                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalReasignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>','<?php echo $row['limiteTiempo'];?>');">Reasignar</button></td>
+                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalReasignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>','<?php echo $row['limiteTiempo'];?>'),asignarValor();">Reasignar</button></td>
                                                     <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModalEliminar" onclick="eliminarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>'),asignarValor();">Eliminar</button></td>
                                                 </tr>
                                                 <?php } ?>
