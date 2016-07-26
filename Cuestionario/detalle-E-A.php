@@ -73,7 +73,9 @@
                                                             }
                                                         }
                                                     ?>
-                                        </div>                                                           
+
+                                        </div>
+                                        <br> 
                                     <?php
                                                 }else{
                                                     //En dado caso que se llegue al número máximo de respuestas para el bloque

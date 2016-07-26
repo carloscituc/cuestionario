@@ -90,7 +90,7 @@
                                                     <tr>
                                                         <td><?php echo $row['idCuestionario']; ?></td>
                                                         <td><?php echo $row['nombreCuestionario']; ?></td>
-                                                        <td><?php echo $row['nombrePaciente'] . " " . $row['apellidoPaterno']; ?></td>
+                                                        <td><?php echo $row['nombrePaciente'] . " " . $row['apellidoPaterno'] . " " . $row['apellidoMaterno']; ?></td>
                                                         <td><?php echo $row['intentos']; ?></td>
                                                         <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $i; $i++; ?>.submit()">Detalle</a></td>
                                                     </tr>

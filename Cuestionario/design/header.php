@@ -18,7 +18,7 @@ otro elemento que se pueda ocultar al minimizar la barra -->
         <ul class="nav navbar-nav">
             <li class="active"><a href="cuestionarioListar.php"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Listar</a></li>
             <li><a href="cuestionarioEditarAsignar.php"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>Editar/Asignar</a></li>
-            <li><a href="cuestionarioCrear.php"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Crear cuestionarios</a></li>
+            <li><a href="cuestionarios_crear.php"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Crear cuestionarios</a></li>
         </ul>
     </div>
 </nav>

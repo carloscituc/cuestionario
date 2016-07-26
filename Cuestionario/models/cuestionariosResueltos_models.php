@@ -4,7 +4,7 @@
 
 		//Se utiliza para recuperar todos los cuestionarios presentados por todos los pacientes
 		public static function listarT1(){
-			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, MAX(cuestionarioresuelto.intento) AS intentos FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '1' GROUP BY cuestionarioresuelto.idPaciente, cuestionarioresuelto.idCuestionario";
+			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, paciente.apellidoMaterno, MAX(cuestionarioresuelto.intento) AS intentos FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '1' GROUP BY cuestionarioresuelto.idPaciente, cuestionarioresuelto.idCuestionario";
 
 			$resultado = Conexion::consultaDevolver($sql);
 
@@ -13,7 +13,7 @@
 
 		//Se utiliza para recuperar todas las asignaciones de todos los cuestionarios no presentados
 		public static function listarT2(){
-			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, cuestionarioresuelto.intento, cuestionarioresuelto.estatus FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '0'";
+			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, paciente.apellidoMaterno, cuestionarioresuelto.limiteTiempo, cuestionarioresuelto.estatus FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '0'";
 
 			$resultado = Conexion::consultaDevolver($sql);
 
@@ -22,7 +22,8 @@
 
 		//Se utiliza para consultar un determinado cuestionario presentado x veces por un determinado paciente
 		public static function listarT1Intentos($idPaciente, $idCuestionario){
-			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, cuestionarioresuelto.puntuacion, cuestionarioresuelto.intento, cuestionarioresuelto.estatus FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '1' AND cuestionarioresuelto.idPaciente = '$idPaciente' AND cuestionarioresuelto.idCuestionario = '$idCuestionario' ORDER BY cuestionarioresuelto.intento ASC";
+			/*$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, cuestionarioresuelto.puntuacion, cuestionarioresuelto.intento, cuestionarioresuelto.estatus FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '1' AND cuestionarioresuelto.idPaciente = '$idPaciente' AND cuestionarioresuelto.idCuestionario = '$idCuestionario' ORDER BY cuestionarioresuelto.intento ASC";*/
+			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, paciente.apellidoMaterno, cuestionarioresuelto.puntuacion, SUM(preguntamultiple.puntaje) AS puntajeTotal, cuestionarioresuelto.intento, cuestionarioresuelto.estatus FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente INNER JOIN preguntamultiple ON preguntamultiple.idCuestionario = cuestionarioresuelto.idCuestionario WHERE cuestionarioresuelto.estatus = '1' AND cuestionarioresuelto.idPaciente = '$idPaciente' AND cuestionarioresuelto.idCuestionario = '$idCuestionario' GROUP BY (idCuestionarioResuelto) ORDER BY cuestionarioresuelto.intento ASC";
 
 			$resultado = Conexion::consultaDevolver($sql);
 
@@ -31,7 +32,7 @@
 
 		//Se utiliza para mostrar todos los datos de cuestionario presentado por un determinado paciente
 		public static function detalleRP($id){
-			$sql = "SELECT cuestionarioresuelto.idCuestionario, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, paciente.apellidoMaterno, cuestionarioresuelto.puntuacion, cuestionarioresuelto.intento, cuestionarioresuelto.fecha, TIMEDIFF(tiempoFin,tiempoInicio) AS tiempoRealizacion, cuestionarioresuelto.limiteTiempo FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.idCuestionarioResuelto = '$id'";
+			$sql = "SELECT cuestionarioresuelto.idCuestionario, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, paciente.apellidoMaterno, cuestionarioresuelto.puntuacion, SUM(preguntamultiple.puntaje) as puntajeTotal, cuestionarioresuelto.intento, cuestionarioresuelto.fecha, TIMEDIFF(tiempoFin,tiempoInicio) AS tiempoRealizacion, cuestionarioresuelto.limiteTiempo FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente INNER JOIN preguntamultiple ON preguntamultiple.idCuestionario = cuestionarioresuelto.idCuestionario WHERE cuestionarioresuelto.idCuestionarioResuelto = '$id'";
 
 			$resultado = Conexion::consultaDevolver($sql);
 
@@ -110,7 +111,8 @@
 
 		//Se utiliza para buscar un cuestionario resuelto por un determinado paciente, en base al nombre del paciente
 		public static function buscarRP($cadena){
-			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, MAX(cuestionarioresuelto.intento) AS intentos FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '1' AND (paciente.nombre LIKE '%$cadena%' OR paciente.apellidoPaterno LIKE '%$cadena%' OR paciente.apellidoMaterno = '%$cadena%') GROUP BY cuestionarioresuelto.idPaciente, cuestionarioresuelto.idCuestionario";
+			$cadena = cuestionariosResueltos_models::dividirCadena($cadena);
+			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, paciente.apellidoMaterno, MAX(cuestionarioresuelto.intento) AS intentos FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '1' AND (paciente.nombre LIKE '%$cadena%' OR paciente.apellidoPaterno LIKE '%$cadena%' OR paciente.apellidoMaterno LIKE '%$cadena%') GROUP BY cuestionarioresuelto.idPaciente, cuestionarioresuelto.idCuestionario";
 			
 			$resultado = Conexion::consultaDevolver($sql);
 
@@ -120,7 +122,7 @@
 		//Se utiliza para buscar una asignación de un cuestionario no resuelto por un determinado paciente, en base al nombre del paciente
 		public static function buscarANP($cadena){
 			$cadena = cuestionariosResueltos_models::dividirCadena($cadena);
-			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, cuestionarioresuelto.intento, cuestionarioresuelto.estatus FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '0' AND (paciente.nombre LIKE '%$cadena%' OR paciente.apellidoPaterno LIKE '%$cadena%' OR paciente.apellidoMaterno = '%$cadena%')";
+			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, paciente.apellidoMaterno, cuestionarioresuelto.limiteTiempo, cuestionarioresuelto.estatus FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '0' AND (paciente.nombre LIKE '%$cadena%' OR paciente.apellidoPaterno LIKE '%$cadena%' OR paciente.apellidoMaterno LIKE '%$cadena%')";
 			
 			$resultado = Conexion::consultaDevolver($sql);
 

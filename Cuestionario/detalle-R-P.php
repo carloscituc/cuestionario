@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="puntuacion">Puntuación</label>
-                                    <h4><label class="label label-default"><?php echo $row['puntuacion']; ?></label></h4>
+                                    <h4><label class="label label-default"><?php echo $row['puntuacion'] . "/" . $row['puntajeTotal']; ?></label></h4>
                                 </div>
                                 <div class="form-group">
                                     <label for="intentos">Intento</label>

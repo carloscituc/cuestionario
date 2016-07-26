@@ -62,7 +62,7 @@
                                                     <th>#</th>
                                                     <th>Nombre cuestionario</th>
                                                     <th>Nombre paciente</th>
-                                                    <th>Intento</th>
+                                                    <th>Límite de tiempo</th>
                                                     <th>Estatus</th> 
                                                     <th>Acciones</th>
                                                 </tr>
@@ -74,18 +74,13 @@
                                                     //Imprimimos todos los datos de la tabla de cuestionarios no asignados
                                                     while($row = mysqli_fetch_assoc($resultado2)){ 
                                                 ?>
-                                                    <!-- Formulario para pasar datos por POST, en esta ocasión sólo se pasa el dato idCuestionarioResuelto-->
-                                                    <form name="form_editar<?php echo $i; ?>" action="detalle-A-NP.php" method="POST">
-                                                        <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionarioResuelto']; ?>">
-                                                    </form>
                                                 <tr>
                                                     <td><?php echo $row['idCuestionario']; ?></td>
                                                     <td><?php echo $row['nombreCuestionario']; ?></td>
-                                                    <td><?php echo $row['nombrePaciente'] . " " . $row['apellidoPaterno']; ?></td>
-                                                    <td><?php echo $row['intento']; ?></td>
+                                                    <td><?php echo $row['nombrePaciente'] . " " . $row['apellidoPaterno'] . " " . $row['apellidoMaterno']; ?></td>
+                                                    <td><?php echo $row['limiteTiempo']; ?></td>
                                                     <td><?php if($row['estatus'] == '0') echo "Sin presentar"; ?></td>
-                                                    <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $i; $i++; ?>.submit()">Detalle</a></td>
-                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalReasignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>'),asignarValor();">Reasignar</button>
+                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalReasignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>','<?php echo $row['limiteTiempo'];?>');">Reasignar</button></td>
                                                     <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModalEliminar" onclick="eliminarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>'),asignarValor();">Eliminar</button></td>
                                                 </tr>
                                                 <?php } ?>
@@ -118,11 +113,12 @@
                     <div class="row" id="paciente">
                         <div class="col-md-12 padding-0">
                             <label for="select-paciente">Seleccionar paciente</label>
-                            <select class="form-control" name="seleccionar-paciente" id="seleccionar-paciente" onchange="prueba();">
-                                <?php                                       //Imprimimos todos los pacientes existentes
+                            <select class="form-control" name="seleccionar-paciente" id="seleccionar-paciente">
+                                <?php
+                                    //Recuperamos la lista de pacientes registrados en el sistema                                    
                                     while($paciente = mysqli_fetch_assoc($pacientes)){ 
                                 ?>      
-                                <option value="<?php echo $paciente['idPaciente']; ?>"><?php echo $paciente['nombre'] . " " . $paciente['apellidoPaterno'] . " " . $paciente['apellidoMaterno']; ?></option>
+                                <option id="<?php echo $paciente['idPaciente']; ?>" value="<?php echo $paciente['idPaciente']; ?>"><?php echo $paciente['nombre'] . " " . $paciente['apellidoPaterno'] . " " . $paciente['apellidoMaterno']; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -131,14 +127,14 @@
                         <div class="col-md-12 padding-1">
                             <label for="select-tiempo">Seleccionar límite de tiempo de evaluación</label>
                             <select class="form-control" name="seleccionar-tiempo">
-                                <option value="00:00:15">15 minutos</option>
-                                <option value="00:30:00">30 minutos</option>
-                                <option value="00:45:00">45 minutos</option>
-                                <option value="01:00:00">60 minutos</option>
-                                <option value="01:15:00">1-15 minutos</option>
-                                <option value="01:30:00">1-30 minutos</option>
-                                <option value="01:45:00">1-45 minutos</option>
-                                <option value="02:00:00">1-60 minutos</option>
+                                <option id="00:00:15" value="00:00:15">15 minutos</option>
+                                <option id="00:30:00" value="00:30:00">30 minutos</option>
+                                <option id="00:45:00" value="00:45:00">45 minutos</option>
+                                <option id="01:00:00" value="01:00:00">60 minutos</option>
+                                <option id="01:15:00" value="01:15:00">1-15 minutos</option>
+                                <option id="01:30:00" value="01:30:00">1-30 minutos</option>
+                                <option id="01:45:00" value="01:45:00">1-45 minutos</option>
+                                <option id="02:00:00" value="02:00:00">1-60 minutos</option>
                             </select>
                         </div>
                     </div>
@@ -228,9 +224,11 @@
     </div>
 </div>
 <script>
-    function recuperarId(idCuestionario,idPaciente){
+    function recuperarId(idCuestionario,idPaciente, limiteTiempo){
         document.getElementById("reasignar_cuestionarioId").value = idCuestionario;
-        document.getElementById("reasignar_pacienteId").value = idPaciente;   
+        document.getElementById("reasignar_pacienteId").value = idPaciente;
+        document.getElementById(idPaciente).selected = 'selected';
+        document.getElementById(limiteTiempo).selected = 'selected';
     }
     function eliminarId(idCuestionario,idPaciente){
         document.getElementById("eliminar_cuestionarioId").value = idCuestionario;
