@@ -71,10 +71,35 @@ box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);
     margin-left: -10px;
 }
 
-.footer {
+/*.footer {
     height: 50px;
     width:100%;
     position:absolute;
     bottom:0;
     left:0;
+}*/
+
+.titulo_bloque{
+    margin-top: 0px;
+    padding: 10px;
+    color: #fff;
+    background-color: #699EDF; 
+}
+
+.bloque{
+    border: solid #699EDF 4px;
+    margin-bottom: 10px;
+}
+
+.pregunta{
+    padding: 0 10px 0 10px;
+}
+
+.titulo_pregunta{
+    font-size: 18px;
+}
+
+.radio_opcion{
+    /*border: solid rgba(0,0,0,0) 4px;
+    padding: 5px 10px 5px 20px;*/
 }
