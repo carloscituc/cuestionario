@@ -3,7 +3,11 @@
 <html lang="es">
     <?php include("design/head.php"); ?>
     <body>
-        <?php include("design/header.php"); ?>
+        <?php 
+        include("design/header.php");
+        include("php/cuestionariosCrear.php");
+        cuestionariosCrear::cuestionarioCrear();
+        ?>
         <!-- start: Content -->
         <!--<div id="content" class="container-fluid">-->
             <div class="form-element">
@@ -116,6 +120,13 @@
                                             </div>
                                         </div>
                                    <!-- </div>-->
+                                   <?php 
+                                        if(isset($_REQUEST['enviar'])){
+                                            $nombreCuestionario = $_POST['titulo'];
+
+                                            cuestionariosCrear_models::recuperarDatos($nombreCuestionario);
+                                        }
+                                    ?>
                                 </form>
                             </div>
                         </div>
@@ -124,6 +135,7 @@
             </div>
         <!--</div>-->
         <!-- end: content -->
+
         <?php include("design/footer.php");?>
     </body>
 </html>
