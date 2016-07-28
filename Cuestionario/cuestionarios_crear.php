@@ -33,7 +33,7 @@
                                                             <input type="text" id="instrucciones1" name="instrucciones1" class="form-control">
                                                         </div>
                                                     </div>
-                                                    <div class="row" id="pregunta1">
+                                                    <div class="row" id="Pregunta11">
                                                         <div class="col-md-12" id="divInstrucciones1">
                                                             <div class="row" id="filaPregunta1">
                                                                 <div class="col-md-12" style="margin-top: 15px;" id='columnaPregunta1'>
