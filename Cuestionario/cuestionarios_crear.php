@@ -5,7 +5,7 @@
     <body>
         <?php include("design/header.php"); ?>
         <!-- start: Content -->
-        <div id="content">
+        <!--<div id="content" class="container-fluid">-->
             <div class="form-element">
                 <div class="col-md-12 padding-0">
                     <div class="col-md-12">
@@ -18,23 +18,23 @@
                                     <div class="form-group">
                                         <div class="col-sm-12" id="titulo">
                                             <div class="col-sm-12 padding-0">
-                                                <input type="text" class="form-control" placeholder="Escribe el título del cuestionario">
+                                                <input id="titulo" type="text" class="form-control" placeholder="Escribe el título del cuestionario">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group" id="seccion1">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="col-md-12 col-md-offset-0 well" id="bloque">
-                                                    <h3>Sección #1</h3>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <label for="id_instrucciones">Escribe las instrucciones del bloque:</label>
-                                                            <input type="text" id="instrucciones" class="form-control" placeholder="">
+                                        <div class="row" id="filaSeccion1">
+                                            <div class="col-sm-12" id="columnaSeccion1">
+                                                <div class="col-md-12 col-md-offset-0 well" id="bloque1">
+                                                    <h3 id="numSeccion1">Sección #1</h3>
+                                                    <div class="row" id="filaInstruciones1">
+                                                        <div class="col-md-12" id="columnaInstrucciones1">
+                                                            <label for="instruccionesSeccion1" id="instruccionesSeccion1">Escribe las instrucciones de la sección:</label>
+                                                            <input type="text" id="instrucciones1" name="instrucciones1" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row" id="pregunta1">
-                                                        <div class="col-md-12" id="instrucciones1">
+                                                        <div class="col-md-12" id="divInstrucciones1">
                                                             <div class="row" id="filaPregunta1">
                                                                 <div class="col-md-12" style="margin-top: 15px;" id='columnaPregunta1'>
                                                                     <label for="id_instrucciones" id="id_instrucciones">Escribe la pregunta:</label>
@@ -43,82 +43,86 @@
                                                             </div>
                                                             <div class="row" id='filaRespuestas1'>
                                                                 <div class="col-md-1" style="margin-top:15px;" id="columnaRespuestas1">
-                                                                    <label for="id_puntaje" id="puntajePregunta1">Puntaje:</label>
-                                                                    <select class="form-control" id="puntaje11">
-                                                                        <option id="opcion1">1</option>
-                                                                        <option id="opcion2">2</option>
-                                                                        <option id="opcion3">3</option>
-                                                                        <option id="opcion4">4</option>
-                                                                        <option id="opcion5">5</option>
-                                                                        <option id="opcion6">6</option>
-                                                                        <option id="opcion7">7</option>
-                                                                        <option id="opcion8">8</option>
-                                                                        <option id="opcion9">9</option>
-                                                                        <option id="opcion10">10</option>
+                                                                    <label for="puntajePregunta1" id="puntajePregunta1">Puntaje:</label>
+                                                                    <select class="form-control" id="puntaje11" name="puntaje11">
+                                                                        <option id="opcion1" value="1">1</option>
+                                                                        <option id="opcion2" value="2">2</option>
+                                                                        <option id="opcion3" value="3">3</option>
+                                                                        <option id="opcion4" value="4">4</option>
+                                                                        <option id="opcion5" value="5">5</option>
+                                                                        <option id="opcion6" value="6">6</option>
+                                                                        <option id="opcion7" value="7">7</option>
+                                                                        <option id="opcion8" value="8">8</option>
+                                                                        <option id="opcion9" value="9">9</option>
+                                                                        <option id="opcion10" value="10">10</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="row" id="opcion111">
                                                                 <div class="col-md-8" style="margin-top:15px;" id="filaOpcion1">
                                                                     <label for="label111" id="label111" >Opción 1:</label>
-                                                                     <!--<div class="input-group">-->
+                                                                    <!--<div class="input-group">-->
                                                                     <input type="text" class="form-control" id="op111" name="op111">
                                                                     <!--<span class="input-group-btn">
-                                                                            <button class="btn btn-danger" type="button" id="btn1" onClick="eliminarPregunta(this.id);"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                                                                        </span>-->
+<button class="btn btn-danger" type="button" id="btn1" onClick="eliminarPregunta(this.id);"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+</span>-->
                                                                     <!--</div>-->
                                                                 </div>
                                                             </div>
                                                             <div class="row" id="opcion112">
                                                                 <div class="col-md-8" style="margin-top:15px;" id="filaOpcion2">
-                                                                    <label for="opcion112" id="label112" name="opcion2">Opción 2:</label>
+                                                                    <label for="label112" id="label112">Opción 2:</label>
                                                                     <!--<div class="input-group">-->
-                                                                        <input type="text" class="form-control" id="op112" name="op112">
-                                                                       <!-- <span class="input-group-btn">
-                                                                            <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                                                                        </span>-->
+                                                                    <input type="text" class="form-control" id="op112" name="op112">
+                                                                    <!-- <span class="input-group-btn">
+<button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+</span>-->
                                                                     <!--</div>-->
                                                                 </div>
                                                             </div>
-                                                            
-                                                            <div class="row" id="filaBtnAgregar1">
-                                                                <div class="col-md-4 col-xs-4 col-xs-push-1" id="mas">
-                                                                    <button type="button" class="btn btn-success btn-sm" onclick="crear(this)" id="agregar"><span class="glyphicon glyphicon-plus"></span>Agregar</button>
+
+                                                            <div class="row" id="filaBtnAgregar11">
+                                                                <div class="col-md-4 col-xs-4 col-xs-push-1" id="agregar1">
+                                                                    <button type="button" class="btn btn-success btn-sm" id="btnAgregar11" onclick="crear(this.id);"><span class="glyphicon glyphicon-plus" id="iconoOp11"></span>Agregar opción</button>
                                                                 </div>
-                                                                <div class="col-md-4 col-xs-4 col-md-offset-0 col-xs-push-1" id="finPregunta" style="margin-left:-10px">
-                                                                    <button id="finalizar" type="button" class="btn btn-primary btn-sm" onclick="finalizarPregunta()">Finalizar pregunta</button>
+                                                                <div class="col-md-4 col-xs-4 col-md-offset-0 col-xs-push-1" id="finPregunta11">
+                                                                    <button id="btnFinalizar11" type="button" class="btn btn-primary btn-sm" onclick="finalizarPregunta(this.id);">Finalizar pregunta</button>
                                                                 </div>
-                                                                <div class="col-md-4 col-xs-4 col-md-offset-2 col-xs-push-1" id="finPregunta" style="margin-left:-10px">
-                                                                    <button id="modificar" type="button" class="btn btn-primary btn-sm" onclick="modificarPregunta();">Modificar</button>
+                                                                <div class="col-md-4 col-xs-4 col-md-offset-2 col-xs-push-1" id="modificarPregunta11" style="margin-top: 40px;margin-left: -10px;">
+                                                                    <button id="btnModificar11" type="button" class="btn btn-primary btn-sm" onclick="modificarPregunta(this.id);">Modificar Pregunta</button>
                                                                 </div>
                                                             </div>                                   
                                                         </div>
                                                     </div>
-                                                    <div class="row" id="antes">
-                                                    <div class="col-md-4" style="margin-top:15px;">
-                                                    <button type="button" id="agregarPregunta" class="btn btn-success btn-sm" onclick="agrePregunta(false);" ><span class="glyphicon glyphicon-plus"></span>Agregar Pregunta</button>
-                                                    </div>
+                                                    <div class="row" id="antes1">
+                                                        <div class="col-md-2" style="margin-top:15px;" id="columnaBtnFinalizar1">
+                                                            <button type="button" id="btnAgPregunta1" class="btn btn-success btn-sm" onclick="agrePregunta(false,this.id);" disabled><span class="glyphicon glyphicon-plus"></span>Agregar Pregunta</button>
+                                                        </div>
+                                                        <div class="col-md-2" style="margin-top:15px;" id="columnaBtnFinalizarSec1">
+                                                            <button type="button" id="btnFinSec1" class="btn btn-primary btn-sm" onclick="finSeccion(this.id);" >Finalizar sección</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                    </div>
+                                        <div class="row" id="btnFinales">
                                             <div class="col-md-4">
-                                                <input class="submit btn btn-success" type="submit" value="Agregar sección">
+                                                <input class="submit btn btn-success" type="button" id="btnAgSeccion" value="Agregar sección" onclick="agregarSeccion(false);" disabled>
                                                 <input type="hidden" name="submitted" value="TRUE">
 
-                                                <input class="submit btn btn-primary" type="submit" value="Finalizar cuestionario" onclick="finalizarCuestionario()">
+                                                <input class="submit btn btn-primary" type="submit" id="btnFinCuestionario" value="Finalizar cuestionario" onclick="finalizarCuestionario();">
                                                 <input type="hidden" name="submitted" value="TRUE">
                                             </div>
                                         </div>
-                                    </div>
+                                   <!-- </div>-->
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <!--</div>-->
         <!-- end: content -->
         <?php include("design/footer.php");?>
     </body>

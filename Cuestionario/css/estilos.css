@@ -35,7 +35,7 @@ body {
     margin-bottom: 15px;
 }
 
-#instrucciones{
+#instrucciones1{
     margin-bottom: 15px;
 }
 
@@ -46,27 +46,27 @@ body {
     padding-bottom: 15px;
 }
 
-#puntaje1{
+#puntaje11{
     margin-right: 150px;
 }
 
-#bloque{
+#bloque1{
 -webkit-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);
 -moz-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);
 box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);
     padding-bottom: 15px;
 }
 
-#mas{
+#agregar1{
     margin-top: 40px;
     margin-left: -10px;
 }
 
-#modificar{
-    visibility: hidden;
+#btnModificar11{
+    visibility: hidden;*/
 }
 
-#finPregunta{
+#finPregunta11{
     margin-top: 40px;
     margin-left: -10px;
 }
