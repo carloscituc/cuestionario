@@ -681,10 +681,6 @@ function finalizarCuestionario(){
     Elementos2 = Forma.getElementsByTagName("select");
     Elementos3 = Forma.getElementsByTagName("button");
     
-    totalSeccion = document.getElementById('conSeccion1');
-    totalSeccion.setAttribute('value',numSeccion);
-    //alert(numSeccion);
-    
     //alert('Se encontraron '+Elementos.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elementos.length;i++){
         Elementos[i].disabled = true;
@@ -1042,6 +1038,10 @@ function agregarSeccion(c){
     conPregunta1.id='conPregunta'+numSeccion;
     conPregunta1.name='conPregunta'+numSeccion;
     colConPregunta1.appendChild(conPregunta1);
+    
+    totalSeccion = document.getElementById('conSeccion1');
+    totalSeccion.setAttribute('value',numSeccion);
+    //alert(numSeccion);
 }
 
 
