@@ -31,7 +31,7 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
-                                                Cuestionarios resueltos o presentados por el paciente</a>
+                                                Cuestionarios resueltos o presentados por el paciente
                                             </h4>
                                     </div>
                                     <div class="panel-body">
@@ -216,7 +216,6 @@
                 //Si se presiona el botón submit(reasignar) del formulario reasignamos a un nuevo paciente
                 //el cuestionario, o en su debido caso sólo alteramos el límite de tiempo
                 if(isset($_REQUEST['reasignar'])){
-
                     //Recuperamos el id del paciente a quien se le asignará el cuestionario
                     $nuevoIdPaciente = $_POST['seleccionar-paciente'];
 

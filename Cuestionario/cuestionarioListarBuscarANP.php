@@ -37,7 +37,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h3 class="panel-title">
-                                            Cuestionarios asignados y no presentados aún por el paciente</a>
+                                            Cuestionarios asignados y no presentados aún por el paciente
                                         </h3>
                                 </div>
                                 <div class="panel-body">

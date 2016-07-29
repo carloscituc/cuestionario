@@ -18,11 +18,11 @@
                             <h4>Crear nuevo cuestionario</h4>
                         </div>
                         <div class="panel-body" style="padding-bottom:30px;">
-                            <form id="form1" method="post" action="#">
+                            <form id="form1" method="post">
                                 <div class="form-group">
                                     <div class="col-sm-12" id="titulo">
                                         <div class="col-sm-12 padding-0">
-                                            <input id="titulo" type="text" class="form-control" placeholder="Escribe el título del cuestionario">
+                                            <input id="titulo" name="titulo" type="text" class="form-control" placeholder="Escribe el título del cuestionario">
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +124,7 @@
                                         <input class="submit btn btn-success" type="button" id="btnAgSeccion" value="Agregar sección" onclick="agregarSeccion(false);" disabled>
                                         <input type="hidden" name="submitted" value="TRUE">
 
-                                        <input class="submit btn btn-primary" type="submit" id="btnFinCuestionario" value="Finalizar cuestionario" onclick="finalizarCuestionario();">
+                                        <input class="submit btn btn-primary" type="submit" id="btnFinCuestionario" name="btnFinCuestionario" value="Finalizar cuestionario">
                                         <input type="hidden" name="submitted" value="TRUE">
                                     </div>
                                     <div class="row" id="filaConSeccion1">
@@ -135,9 +135,8 @@
                                 </div>
                                 <!-- </div>-->
                                 <?php 
-                                if(isset($_REQUEST['enviar'])){
+                                if(isset($_REQUEST['btnFinCuestionario'])){
                                     $nombreCuestionario = $_POST['titulo'];
-
                                     cuestionariosCrear_models::recuperarDatos($nombreCuestionario);
                                 }
                                 ?>

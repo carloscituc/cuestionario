@@ -12,6 +12,24 @@
 		    return $conexion;
 		}
 
+		public static function consultaId($sql){
+			//Creamos la conexión
+			$conexion = Conexion::conectar();
+
+			mysqli_set_charset($conexion, "utf8"); //formato de datos utf8
+	    	
+	    	//Ejecutamos la consulta
+		    mysqli_query($conexion,$sql);
+
+		    $id = mysqli_insert_id($conexion); //Recuperamos el último id ingresado
+
+		    //Cerramos la conexion
+		    Conexion::desconectar($conexion);
+
+		    //Devolvemos el resultado
+		    return $id;
+		}
+		
 		public static function desconectar($conexion){
 		    $close = mysqli_close($conexion);
 		}

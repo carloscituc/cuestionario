@@ -5,18 +5,19 @@
     <body>
         <?php
             include("design/header.php");
-            include("php/cuestionariosEditar.php");
+            include("php/cuestionariosPresentar.php");
 
             //Llamamos a la función detalleEA la cual carga todos los includes que necesitamos
-            cuestionariosEditar::detalleEA();
+            cuestionariosPresentar::presentarCuestionario();
 
             //Verificamos si se está recibiendo el id del cuestionario para desplegar su información
-            if(isset($_POST['id_cuestionario'])){
+            if(isset($_POST['id_cuestionario']) AND isset($_POST['id_cuestionarioresuelto'])){
                 $idCuestionario = $_POST['id_cuestionario'];
+                $idCuestionarioResuelto = $_POST['id_cuestionarioresuelto'];
                 //Ejectamos la consulta que nos devuelve todos los bloques del cuestionario seleccionado
-                $arrayBloque = cuestionariosEditar_models::detalleCuestionarioBloques($idCuestionario);
+                $arrayBloque = cuestionariosPresentar_models::detalleCuestionarioBloques($idCuestionario);
                 //Ejecutamos la consulta que nos debuelve todos las preguntas del cuestionario seleccionado
-                $arrayPregunta = cuestionariosEditar_models::detalleCuestionarioPreguntas($idCuestionario);
+                $arrayPregunta = cuestionariosPresentar_models::detalleCuestionarioPreguntas($idCuestionario);
             //Contamos el número de bloques(secciones) devueltos
             $total = count($arrayBloque);
             //Contamos el número de preguntas devueltas
@@ -29,8 +30,9 @@
                     <h2><strong><?php echo $arrayBloque[0]['nombre']; ?></strong></h2>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" id="<?php echo $arrayBloque[0]['nombre']; ?> method="post" action="#">
-                        <?php 
+                    <form class="form-horizontal" method="post" action="mostrarResultados.php">
+                        
+                        <?php
                                         //Esta variable nos servirá para detener la comparacion de si determinada pregunta pertene a un determinado bloque
                             $variable = 0;
                                         //Iniciamos un ciclo que se repetirá según el número de bloques
@@ -55,7 +57,7 @@
                                     ?>
                                     <div class="col-xs-12">
                                         <label class="radio_opcion radio-inline">
-                                            <input type="radio" name="<?php echo $j; ?>"><?php echo " " . $arrayPregunta[$j]['respuesta'.$k]; ?>
+                                            <input type="radio" name="<?php echo "opcion".$j; ?>" value="<?php echo $arrayPregunta[$j]['respuesta'.$k]; ?>"><?php echo " " . $arrayPregunta[$j]['respuesta'.$k]; ?>
                                         </label>
                                     </div>
                                     <?php
@@ -74,17 +76,16 @@
                                                     //para cada bloque
                                         $j = $total2;
                                     }
-                                    /*
-                                    echo "TOtal 2: $total2<br>";
-                                    echo "variable: $variable<br>";
-                                    echo "j: $j<br>";*/
                                 }
                             ?>
                         </div> 
                         <?php
                             }
-                        ?>            
-                    </form>
+                        ?>
+                        <input type="hidden" name="datos" value='<?php echo base64_encode(serialize($arrayPregunta)); ?>'>
+                        <input type="hidden" name="total_opciones" value='<?php echo $total2; ?>'>
+                        <button type="submit" id="finalizar" name="finalizar" class="btn btn-primary">Finalizar</button>
+                    </form>                    
                 </div>
             </div>
         </div>

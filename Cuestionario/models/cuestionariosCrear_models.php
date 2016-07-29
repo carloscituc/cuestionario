@@ -6,11 +6,11 @@
 			$sql = "INSERT INTO cuestionario (nombre) VALUES ('$nombreCuestionario')";
 			$idCuestionario = Conexion::consultaId($sql);
 			
-			$totSec = $_POST['totsec'] + 1;
+			$totSec = $_POST['conSeccion1'] + 1;
 			
 			for($i = 1; $i<$totSec; $i++){
-				$instruccion = $_POST['instruccion'.$i];
-				$totPre = $_POST['totpre'.$i] + 1;
+				$instruccion = $_POST['instrucciones'.$i];
+				$totPre = $_POST['conPregunta'.$i] + 1;
 				$sql = "INSERT INTO bloquepregunta (idBloquePregunta,instruccion,idCuestionario)
 				VALUES (null,'$instruccion','$idCuestionario')";
 				$idBloque = Conexion::consultaId($sql);
@@ -19,7 +19,7 @@
 				for($j = 1; $j < $totPre; $j++){
 					$pregunta = $_POST['pregunta'.$i.$j];
 					$puntaje = $_POST['puntaje'.$i.$j];					
-					$totOp = $_POST['totop'.$i.$j] + 1;
+					$totOp = $_POST['conOpcion'.$i.$j] + 1;
 					$datosCampos = "";					
 					for($k = 1; $k < 11; $k++){
 						if($k < $totOp){
