@@ -164,8 +164,8 @@ VALUES (null, 'El TDAH es solamente un problema  de conducta.', 'Verdadero', 'Fa
 (null, 'ESTERNOCLEIDOMASTOIDEO', 'ESTERNOCLEITOMASTOIDEO', 'ESTERNOCLEIDOMASTOIDEO', 'ESTERNOCLEIDOMASTUIDEO', 'EXTERNOCLEIDOMASTOIDEO', 'ESTERNOCLEIDOMASTOIEEO', 'ESTERNOCLEIDONASTOIDEO', 'ESTENNOCLEIDOMASTOIDEO', 'ESTIRNOCLEIDOMASTOIDEO', null, null, '1', 'ESTERNOCLEIDOMASTOIDEO', '5', '1', '2'),
 (null, 'HABITUALMENTE', 'HAVITUALMENTE', 'HABITUALMENLE', 'HABITUALNENTE', 'HIBATUALMENTE', 'NABITUALMENTE', 'HABITUALHENTE', 'HOBITUALMENTE', 'HABITUALMENTE', null, null, '2', 'HABITUALMENTE', '5', '1', '2'),
 (null, 'SEMICIRCUNFERENCIA', 'SEMICITCUNFERENCIA', 'SEMICIRCUNFERENCIA', 'SEMICIRCONFERENCIA', 'SEMICIRKUNFERENCIA', 'SEMICIRCUNGERENCIA', 'SEMICIRCUNFEREMCIA', 'SAMICIRCUNFERENCIA', 'SEMICIRCUNFEREMCIA', null, null, '3', 'SEMICIRCUNFERENCIA', '5', '1', '2'),
-(null, 'Comer manzanas y peras es bueno para la salud', 'Sólo manzanas', 'Sólo peras', 'Ambas', null, null, null, null, null, null, null, '1', 'Falso', '5', '1', '3'),
-(null, 'Al resultado de una suma y una resta se le llama "producto".', 'Sólo a la resta', 'Sólo a la suma', 'Ninguno de los dos', null, null, null, null, null, null, null, '2', 'Falso', '5', '1', '3'),
+(null, 'Comer manzanas y peras es bueno para la salud', 'Sólo manzanas', 'Sólo peras', 'Ambas', null, null, null, null, null, null, null, '1', 'Ambas', '5', '1', '3'),
+(null, 'Al resultado de una suma y una resta se le llama "producto".', 'Sólo a la resta', 'Sólo a la suma', 'Ninguno de los dos', null, null, null, null, null, null, null, '2', 'Ninguno de los dos', '5', '1', '3'),
 (null, 'Volar es lo mismo que', 'Correr', 'Planear en el aire', 'Llorar', null, null, null, null, null, null, null, '3', 'Planear en el aire', '5', '1', '3'),
 
 (null, '2 + 2 =', '4', '6', '-2', '8', null, null, null, null, null, null, '1', '4', '5', '2', '4'),

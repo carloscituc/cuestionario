@@ -134,6 +134,7 @@
                                                     <th>Límite de tiempo</th>
                                                     <th>Estatus</th> 
                                                     <th>Acciones</th>
+                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>                                                

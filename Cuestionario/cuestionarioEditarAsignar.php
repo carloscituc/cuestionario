@@ -50,6 +50,9 @@
                                                         <th>#</th>
                                                         <th>Nombre cuestionario</th>
                                                         <th>Acciones</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -68,7 +71,7 @@
                                                         <td><?php echo $row['idCuestionario']; ?></td>
                                                         <td><?php echo $row['nombre']; ?></td>
                                                         <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $row['idCuestionario']; ?>.submit()">Detalle</a></td>
-                                                        <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalAsignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>');">Asignar</button>
+                                                        <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalAsignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>');">Asignar</button></td>
                                                         <?php 
                                                             if($idExiste == 0){
                                                         ?> 

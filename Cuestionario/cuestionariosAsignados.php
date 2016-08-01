@@ -6,19 +6,23 @@
             include("design/header.php");
             include("php/cuestionariosPresentar.php");
 
-            //Llamamos a la función cuestionarioEditarAsignarBuscar la cual carga todos los includes que necesitamos
+            //Llamamos a la función cuestionariosAsignados la cual carga todos los includes que necesitamos
             cuestionariosPresentar::cuestionariosAsignados();
 
+            //Necesitamos verificar si realmente se está recibiendo el id del paciente
+            //del cual mostraremos todos los cuestionarios asignados para que los presente
             if(isset($_POST['id_paciente'])){
                 $idPaciente = $_POST['id_paciente'];
             }else{
                 $idPaciente = "";
             }
-            //Consultamos a todos los pacientes registrados en el sistema
+            //Consultamos el nombre completo del paciente que presentará el cuestionario
             $paciente = cuestionariosPresentar_models::consultarPaciente($idPaciente);
             $paciente = mysqli_fetch_assoc($paciente);
-            $cuestionarios = cuestionariosPresentar_models::consultarCuestionarios($idPaciente);
 
+            //Consultamos todos los cuestionarios relacionados con el paciente seleccionado
+            $cuestionarios = cuestionariosPresentar_models::consultarCuestionarios($idPaciente);
+            //Contamos el total de cuestionarios asignados a este paciente
             $totalCuestionarios = mysqli_num_rows($cuestionarios);
         ?>
         <!-- start: Content -->
@@ -37,7 +41,8 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="col-md-10 col-md-offset-1 bg-border table-responsive">
-                                            <?php 
+                                            <?php
+                                                //Verificamos que existan cuestionarios asignados al paciente, sino imprimimos un mensaje correspondiente
                                                 if($totalCuestionarios>0){
                                             ?>
                                             <table class="table table-striped table-hover">
@@ -53,7 +58,7 @@
                                                         //Imprimimos todos los cuestionarios consultados
                                                         while($row = mysqli_fetch_assoc($cuestionarios)){
                                                     ?>
-                                                    <!--Form para pasar datos por POST que nos redireccionará a la misma página en donde nos encontramos "cuestionarioEditarAsignarBuscar"-->
+                                                    <!--Form para pasar datos por POST que nos redireccionará a la página en la cual se presentará el cuestionario seleccionado "presentarCuestionario.php"-->
                                                     <form name="form_editar<?php echo $row['idCuestionarioResuelto']; ?>" action="presentarCuestionario.php" method="POST">
                                                         <input type="hidden" name="id_cuestionarioresuelto" id="id_cuestionarioresuelto" value="<?php echo $row['idCuestionarioResuelto']; ?>">
                                                         <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionario']; ?>">

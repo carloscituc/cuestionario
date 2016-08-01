@@ -78,24 +78,39 @@
 		}
 
 		public static function obtenerPuntaje($arrayPregunta,$total2){
-			$totalPuntaje = 0;
+			$puntaje = array(
+				'puntajeTotal' => 0,
+				'puntajeObtenido' => 0
+			);
 			for($ini = 0; $ini < $total2; $ini++){
 				if(isset($_POST["opcion$ini"])){
 					if($_POST["opcion$ini"]==$arrayPregunta[$ini]['respuestaCorrecta']){
-						echo "Es correcto";
-						$totalPuntaje += $arrayPregunta[$ini]['puntaje'];
+						// echo "Es correcto";
+						$puntaje['puntajeObtenido'] += $arrayPregunta[$ini]['puntaje'];
 					}else{
-						echo "Es incorrecto";
+						// echo "Es incorrecto";
 					}
 				}else{
-					echo "Es incorrecto";
+					// echo "Es incorrecto";
 				}
+				$puntaje['puntajeTotal'] += $arrayPregunta[$ini]['puntaje'];
 			}
-			return $totalPuntaje;
+			return $puntaje;
 		}
 		public static function guardarCuestionarioResuelto($idCuestionarioResuelto, $fecha, $tiempoInicio, $tiempoFin, $puntuacion){
 			$sql = "UPDATE cuestionarioresuelto SET estatus='1', fecha='$fecha', tiempoInicio='$tiempoInicio', tiempoFin='$tiempoFin', puntuacion='$puntuacion' WHERE idCuestionarioResuelto = '$idCuestionarioResuelto'";
 			Conexion::consultaSimple($sql);
+		}
+
+		public static function consultarCuestionarioPresentado($idCuestionarioResuelto){
+			$sql = "SELECT idCuestionarioResuelto, estatus FROM cuestionarioresuelto WHERE idCuestionarioResuelto = '$idCuestionarioResuelto'";
+			$resultado = Conexion::consultaDevolver($sql);
+
+			$resultado = mysqli_fetch_assoc($resultado);
+			if($resultado['estatus']==1){
+				return false;
+			}
+			return true;
 		}
 	}
 

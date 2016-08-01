@@ -58,12 +58,18 @@
                                                         <th>#</th>
                                                         <th>Nombre cuestionario</th>
                                                         <th>Acciones</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php 
                                                         //Imprimimos todos los cuestionarios consultados
                                                         while($row = mysqli_fetch_assoc($resultado)){
+                                                            $sql = "SELECT idCuestionario FROM cuestionarioresuelto WHERE idCuestionario = '{$row['idCuestionario']}'";
+                                                            $idExiste = Conexion::consultaDevolver($sql);
+                                                            $idExiste = mysqli_num_rows($idExiste);
                                                     ?>
                                                     <!--Form para pasar datos por POST que nos redireccionará a la misma página en donde nos encontramos "cuestionarioEditarAsignarBuscar"-->
                                                     <form name="form_editar<?php echo $row['idCuestionario']; ?>" action="detalle-E-A.php" method="POST">
@@ -73,9 +79,20 @@
                                                         <td><?php echo $row['idCuestionario']; ?></td>
                                                         <td><?php echo $row['nombre']; ?></td>
                                                         <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $row['idCuestionario']; ?>.submit()">Detalle</a></td>
-                                                        <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalAsignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>'), asignarValor();">Asignar</button>
-                                                        <td><button type="button" class="btn btn-success btn-md">Editar</button></td>                                                        
+                                                        <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalAsignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>'), asignarValor();">Asignar</button></td>
+                                                        <?php 
+                                                            if($idExiste == 0){
+                                                        ?>
+                                                        <td><button type="button" class="btn btn-success btn-md">Editar</button></td>             
                                                         <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModalEliminar" onclick="eliminarId('<?php echo $row['idCuestionario'];?>'), asignarValor();">Eliminar</button></td>
+                                                        <?php
+                                                            }else{
+                                                        ?>
+                                                            <td></td>
+                                                            <td></td>
+                                                        <?php
+                                                            }
+                                                        ?>
                                                     </tr>
                                                     <?php } ?>
                                                 </tbody>

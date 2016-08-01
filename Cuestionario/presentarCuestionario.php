@@ -6,26 +6,31 @@
         <?php
             include("design/header.php");
             include("php/cuestionariosPresentar.php");
-
+            
             //Llamamos a la función detalleEA la cual carga todos los includes que necesitamos
             cuestionariosPresentar::presentarCuestionario();
 
-            //Verificamos si se está recibiendo el id del cuestionario para desplegar su información
+            //Verificamos si se está recibiendo el id del cuestionario y el id de la asignación para desplegar su información
             if(isset($_POST['id_cuestionario']) AND isset($_POST['id_cuestionarioresuelto'])){
+                //Recuperamos el id del cuestionario a presentar
                 $idCuestionario = $_POST['id_cuestionario'];
+                //Recuperamos el id de la asignación paciente-cuestionario
                 $idCuestionarioResuelto = $_POST['id_cuestionarioresuelto'];
+
+                if(cuestionariosPresentar_models::consultarCuestionarioPresentado($idCuestionarioResuelto)){
+                
                 //Ejectamos la consulta que nos devuelve todos los bloques del cuestionario seleccionado
                 $arrayBloque = cuestionariosPresentar_models::detalleCuestionarioBloques($idCuestionario);
                 //Ejecutamos la consulta que nos debuelve todos las preguntas del cuestionario seleccionado
                 $arrayPregunta = cuestionariosPresentar_models::detalleCuestionarioPreguntas($idCuestionario);
-            //Contamos el número de bloques(secciones) devueltos
-            $total = count($arrayBloque);
-            //Contamos el número de preguntas devueltas
-            $total2 = count($arrayPregunta);
+                //Contamos el número de bloques(secciones) devueltos
+                $total = count($arrayBloque);
+                //Contamos el número de preguntas devueltas
+                $total2 = count($arrayPregunta);
 
-            //Funcion para recuperar la hora de inicio del cuestionario
-            date_default_timezone_set('America/Mexico_City');
-            $tiempoInicio = date('H:i:s');
+                //Recuperamos la hora en que el paciente da inicio a presentar el cuestionario
+                date_default_timezone_set('America/Mexico_City');
+                $tiempoInicio = date('H:i:s');
         ?>
         
         <div class="container">
@@ -86,16 +91,21 @@
                         <?php
                             }
                         ?>
+                        <?php //Con este input pasaremos el arrayPregunta al de mostrar resultados ?>
                         <input type="hidden" name="datos" value='<?php echo base64_encode(serialize($arrayPregunta)); ?>'>
+                        <?php //Con este input pasaremos el total de preguntas del arrayPregunta ?>
                         <input type="hidden" name="total_opciones" value='<?php echo base64_encode($total2); ?>'>
+                        <?php //Con este input pasaremos el id de la asignación paciente-cuestionario para poder guardar el resultado obtenido en la relación correspondiente ?>
                         <input type="hidden" name="id_cuestionarioresuelto" value="<?php echo base64_encode($idCuestionarioResuelto); ?>">
+                        <?php //Con este input pasamos el tiempo en el que inició el paciente a presentar el cuestionario ?>
                         <input type="hidden" name="tiempo_inicio" value="<?php echo base64_encode($tiempoInicio); ?>">
                         <button type="submit" id="finalizar" name="finalizar" class="btn btn-primary">Finalizar</button>
                     </form>                    
                 </div>
             </div>
         </div>
-        <?php 
+        <?php
+            }
         }
         ?>
         <!-- end: content -->
