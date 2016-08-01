@@ -48,7 +48,7 @@
                                                         <div class="row" id='filaRespuestas1'>
                                                             <div class="col-md-1" style="margin-top:15px;" id="columnaRespuestas1">
                                                                 <label for="puntajePregunta1" id="puntajePregunta1">Puntaje:</label>
-                                                                <select class="form-control" id="puntaje11" name="puntaje11">
+                                                                <select class="form-control" id="puntaje11" name="puntaje11" onchange="valor(this.options[this.selectedIndex].innerHTML);">
                                                                     <option id="opcion1" value="1">1</option>
                                                                     <option id="opcion2" value="2">2</option>
                                                                     <option id="opcion3" value="3">3</option>
@@ -60,6 +60,11 @@
                                                                     <option id="opcion9" value="9">9</option>
                                                                     <option id="opcion10" value="10">10</option>
                                                                 </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" id="filaConSelect11">
+                                                            <div class="col-md-8" id="colConSelect11">    
+                                                                <input type="hidden" class="form-control" id="conSelect11" name="conSelect11" value="">
                                                             </div>
                                                         </div>
                                                         <div class="row" id="opcion111">

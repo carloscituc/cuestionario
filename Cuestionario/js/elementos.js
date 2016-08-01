@@ -70,7 +70,6 @@ function crear(obj) {
     }
 }
 
-
 //botón eliminar Opción de la pregunta
 function eliminarOpcion(x){
     idOpcion = document.getElementById(x);
@@ -273,6 +272,12 @@ function eliminarOpcion(x){
     }
 }
 
+//Pasar valor del select al input para recuperar valor
+/*function valor(g){
+    
+    document.getElementById('conSelect'+idSeccion+idPregunta).value=g;
+}*/
+
 //botón finalizar pregunta
 function finalizarPregunta(fin){
 
@@ -283,6 +288,7 @@ function finalizarPregunta(fin){
     /*alert(idFinalizar);
     alert(idSeccion);
     alert(idPregunta);*/
+    
     totalOpciones = document.getElementById('conOpcion'+idSeccion+idPregunta);
     tOpciones = numOpcion;
     //alert(tOpciones);
@@ -297,7 +303,7 @@ function finalizarPregunta(fin){
     eleButton = formulario.getElementsByTagName("button");
     //alert('Se encontraron '+eleInput.length+' Elementos que se van a deshabilitar');
     for (i=0;i<eleInput.length;i++){
-        eleInput[i].disabled = true;
+        eleInput[i].setAttribute('readonly','readonly');
     }
 
     //alert('Se encontraron '+eleButton.length+' Elementos que se van a deshabilitar');
@@ -306,7 +312,11 @@ function finalizarPregunta(fin){
     }
 
     //alert('Se encontraron '+eleLabel.length+' Elementos que se van a deshabilitar');
-    document.getElementById('puntaje'+idSeccion+idPregunta).disabled=true;
+    val = document.getElementById('puntaje'+idSeccion+idPregunta);
+    val1 = val.value;
+    val.disabled=true;
+    
+    document.getElementById('conSelect'+idSeccion+idPregunta).value=val1;
 
     btnFinalizar = document.getElementById('btnFinalizar'+idSeccion+idPregunta);
     btnAgregar = document.getElementById('btnAgregar'+idSeccion+idPregunta);
@@ -319,7 +329,9 @@ function finalizarPregunta(fin){
 
     btnAgPregunta = document.getElementById('btnAgPregunta'+idSeccion);
     btnAgPregunta.disabled=false;
-
+    
+    
+    
 
 }
 
@@ -339,7 +351,7 @@ function modificarPregunta(b){
 
     //alert('Se encontraron '+eleInput.length+' Elementos que se van habilitar');
     for (i=0;i<eleInput.length;i++){
-        eleInput[i].disabled = false;
+        eleInput[i].removeAttribute('readonly');
     }
 
     //alert('Se encontraron '+eleButton.length+' Elementos que se van a deshabilitar');
@@ -436,7 +448,7 @@ function agrePregunta(x,e){
     var inputPregunta1 = document.getElementById('pregunta11').cloneNode(x);
     inputPregunta1.id='pregunta'+numSeccion+numPregunta;
     inputPregunta1.name='pregunta'+numSeccion+numPregunta;
-    inputPregunta1.disabled=false;
+    inputPregunta1.removeAttribute('readonly');
     columnaPregunta.appendChild(inputPregunta1);
 
     //<div class="row" id='filaRespuestas1'>
@@ -460,6 +472,7 @@ function agrePregunta(x,e){
     puntaje1.id='puntaje'+numSeccion+numPregunta;
     puntaje1.name='puntaje'+numSeccion+numPregunta;
     puntaje1.style='margin-right: 150px;';
+    puntaje1.onchange='valor(this.options[this.selectedIndex].innerHTML);';
     puntaje1.disabled=false;
     puntajePregunta1.appendChild(puntaje1);
     //option select
@@ -525,6 +538,23 @@ function agrePregunta(x,e){
     opcion10.innerHTML='10';
     puntaje1.appendChild(opcion10);
 
+    //<div class="row" id="filaConSelect11">
+    var filaConSelect1 = document.getElementById('filaConSelect11').cloneNode(x);
+    filaConSelect1.id='filaConSelect'+numSeccion+numPregunta;
+    clon2.appendChild(filaConSelect1);
+    
+    //<div class="col-md-8" id="colConSelect11">   
+    var colConSelect1 = document.getElementById('colConSelect11').cloneNode(x);
+    colConSelect1.id='colConSelect'+numSeccion+numPregunta;
+    filaConSelect1.appendChild(colConSelect1);
+    
+    //<input type="hidden" class="form-control" id="conSelect11" name="conSelect11">
+    var conSelect1 = document.getElementById('conSelect11').cloneNode(x);
+    conSelect1.id='conSelect'+numSeccion+numPregunta;
+    conSelect1.name='conSelect'+numSeccion+numPregunta;
+    conSelect1.setAttribute('value','');
+    colConSelect1.appendChild(conSelect1);
+    
     //<div class="row" id="opcion111">
     var op1 = document.getElementById('opcion111').cloneNode(x);
     op1.id='opcion'+numSeccion+numPregunta+numOpcion;
@@ -545,7 +575,7 @@ function agrePregunta(x,e){
     var inputOpcion1 = document.getElementById('op111').cloneNode(x);
     inputOpcion1.id='op'+numSeccion+numPregunta+'1';
     inputOpcion1.name='op'+numSeccion+numPregunta+'1';
-    inputOpcion1.disabled=false;
+    inputOpcion1.removeAttribute('readonly');
     filaOpcion1.appendChild(inputOpcion1);
 
     //<div class="row" id="op2">
@@ -568,7 +598,7 @@ function agrePregunta(x,e){
     var inputOpcion2 = document.getElementById('op112').cloneNode(x);
     inputOpcion2.id='op'+numSeccion+numPregunta+'2';
     inputOpcion2.name='op'+numSeccion+numPregunta+'2';
-    inputOpcion2.disabled=false;
+    inputOpcion2.removeAttribute('readonly');
     filaOpcion2.appendChild(inputOpcion2);
     
     //<div class="row" id="filaConOpcion11">
@@ -657,12 +687,12 @@ function finSeccion(r){
     
     //alert('Se encontraron '+Elemento.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elemento.length;i++){
-        Elemento[i].disabled = true;
+        Elemento[i].setAttribute('readonly','readonly');
     }
     
     //alert('Se encontraron '+Elemento2.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elemento2.length;i++){
-        Elemento2[i].disabled = true;
+        Elemento2[i].disabled=true;
     }
     
     //alert('Se encontraron '+Elemento3.length+' Elementos que se van a deshabilitar');
@@ -683,12 +713,12 @@ function finalizarCuestionario(){
     
     //alert('Se encontraron '+Elementos.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elementos.length;i++){
-        Elementos[i].disabled = true;
+        Elementos[i].setAttribute('readonly','readonly');
     }
     
     //alert('Se encontraron '+Elementos2.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elementos2.length;i++){
-        Elementos2[i].disabled = true;
+        Elementos2[i].setAttribute('readonly','readonly');
     }
     
     //alert('Se encontraron '+Elementos2.length+' Elementos que se van a deshabilitar');
@@ -757,7 +787,7 @@ function agregarSeccion(c){
     instrucciones1.id='instrucciones'+numSeccion;
     instrucciones1.name='instrucciones'+numSeccion;
     instrucciones1.style='margin-bottom: 15px;';
-    instrucciones1.disabled=false;
+    instrucciones1.removeAttribute('readonly');
     columnaInstrucciones1.appendChild(instrucciones1);
     
     //<div class="row" id="Pregunta11">    
@@ -793,7 +823,7 @@ function agregarSeccion(c){
     var inputPregunta1 = document.getElementById('pregunta11').cloneNode(c);
     inputPregunta1.id='pregunta'+numSeccion+'1';
     inputPregunta1.name='pregunta'+numSeccion+'1';
-    inputPregunta1.disabled=false;
+    inputPregunta1.removeAttribute('readonly');
     columnaPregunta.appendChild(inputPregunta1);
 
     //<div class="row" id='filaRespuestas1'>
@@ -817,6 +847,7 @@ function agregarSeccion(c){
     puntaje1.id='puntaje'+numSeccion+'1';
     puntaje1.name='puntaje'+numSeccion+'1';
     puntaje1.style='margin-right: 150px;';
+    puntaje1.onchange='valor(this.options[this.selectedIndex].innerHTML);'
     puntaje1.disabled=false;
     puntajePregunta1.appendChild(puntaje1);
     //option select
@@ -881,6 +912,23 @@ function agregarSeccion(c){
     opcion10.nodeValue='10';
     opcion10.innerHTML='10';
     puntaje1.appendChild(opcion10);
+    
+    //<div class="row" id="filaConSelect11">
+    var filaConSelect1 = document.getElementById('filaConSelect11').cloneNode(c);
+    filaConSelect1.id='filaConSelect'+numSeccion+numPregunta;
+    clon2.appendChild(filaConSelect1);
+    
+    //<div class="col-md-8" id="colConSelect11">   
+    var colConSelect1 = document.getElementById('colConSelect11').cloneNode(c);
+    colConSelect1.id='colConSelect'+numSeccion+numPregunta;
+    filaConSelect1.appendChild(colConSelect1);
+    
+    //<input type="hidden" class="form-control" id="conSelect11" name="conSelect11">
+    var conSelect1 = document.getElementById('conSelect11').cloneNode(c);
+    conSelect1.id='conSelect'+numSeccion+numPregunta;
+    conSelect1.name='conSelect'+numSeccion+numPregunta;
+    conSelect1.setAttribute('value','')
+    colConSelect1.appendChild(conSelect1);
 
     //<div class="row" id="opcion111">
     var op1 = document.getElementById('opcion111').cloneNode(c);
@@ -903,7 +951,7 @@ function agregarSeccion(c){
     var inputOpcion1 = document.getElementById('op111').cloneNode(c);
     inputOpcion1.id='op'+numSeccion+'1'+'1';
     inputOpcion1.name='op'+numSeccion+'1'+'1';
-    inputOpcion1.disabled=false;
+    inputOpcion1.removeAttribute('readonly');
     filaOpcion1.appendChild(inputOpcion1);
 
     //<div class="row" id="op2">
@@ -927,7 +975,7 @@ function agregarSeccion(c){
     var inputOpcion2 = document.getElementById('op112').cloneNode(c);
     inputOpcion2.id='op'+numSeccion+'1'+'2';
     inputOpcion2.name='op'+numSeccion+'1'+'2';
-    inputOpcion2.disabled=false;
+    inputOpcion2.removeAttribute('readonly');
     filaOpcion2.appendChild(inputOpcion2);
     
     //<div class="row" id="filaConOpcion11">
