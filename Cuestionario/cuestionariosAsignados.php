@@ -18,6 +18,8 @@
             $paciente = cuestionariosPresentar_models::consultarPaciente($idPaciente);
             $paciente = mysqli_fetch_assoc($paciente);
             $cuestionarios = cuestionariosPresentar_models::consultarCuestionarios($idPaciente);
+
+            $totalCuestionarios = mysqli_num_rows($cuestionarios);
         ?>
         <!-- start: Content -->
         <div id="content" class="article-v1">
@@ -35,6 +37,9 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="col-md-10 col-md-offset-1 bg-border table-responsive">
+                                            <?php 
+                                                if($totalCuestionarios>0){
+                                            ?>
                                             <table class="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
@@ -58,9 +63,17 @@
                                                         <td><?php echo $row['nombre']; ?></td>
                                                         <td><a class="btn btn-info"  href="javascript:document.form_editar<?php echo $row['idCuestionarioResuelto']; ?>.submit()">Presentar cuestionario</a></td>
                                                     </tr>
-                                                    <?php } ?>
+                                                    <?php
+                                                    }                                        
+                                                
+                                                    ?>
                                                 </tbody>
                                             </table>
+                                            <?php
+                                            }else{
+                                                    echo "<h4>Aún no tienes asigando un cuestionario para presentar</h4>";
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>

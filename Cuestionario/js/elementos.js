@@ -705,7 +705,7 @@ function finSeccion(r){
     
     totalSeccion = document.getElementById('conSeccion1');
     totalSeccion.setAttribute('value',numSeccion);
-    alert(numSeccion);
+    /*alert(numSeccion);*/
 }
 
 

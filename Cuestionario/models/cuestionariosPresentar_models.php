@@ -77,19 +77,25 @@
 			return $arrayPregunta;
 		}
 
-		public static function recibirResultados($arrayPregunta,$total2){
+		public static function obtenerPuntaje($arrayPregunta,$total2){
+			$totalPuntaje = 0;
 			for($ini = 0; $ini < $total2; $ini++){
 				if(isset($_POST["opcion$ini"])){
-					$arrayPregunta[$ini]['respuestaSeleccionada'] = $_POST["opcion$ini"];
+					if($_POST["opcion$ini"]==$arrayPregunta[$ini]['respuestaCorrecta']){
+						echo "Es correcto";
+						$totalPuntaje += $arrayPregunta[$ini]['puntaje'];
+					}else{
+						echo "Es incorrecto";
+					}
 				}else{
-					$arrayPregunta[$ini]['respuestaSeleccionada'] = "";
+					echo "Es incorrecto";
 				}
 			}
-			return $arrayPregunta;
+			return $totalPuntaje;
 		}
-
-		public static function guardarCuestionarioResuelto(){
-
+		public static function guardarCuestionarioResuelto($idCuestionarioResuelto, $fecha, $tiempoInicio, $tiempoFin, $puntuacion){
+			$sql = "UPDATE cuestionarioresuelto SET estatus='1', fecha='$fecha', tiempoInicio='$tiempoInicio', tiempoFin='$tiempoFin', puntuacion='$puntuacion' WHERE idCuestionarioResuelto = '$idCuestionarioResuelto'";
+			Conexion::consultaSimple($sql);
 		}
 	}
 

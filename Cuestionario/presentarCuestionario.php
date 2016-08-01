@@ -22,6 +22,10 @@
             $total = count($arrayBloque);
             //Contamos el número de preguntas devueltas
             $total2 = count($arrayPregunta);
+
+            //Funcion para recuperar la hora de inicio del cuestionario
+            date_default_timezone_set('America/Mexico_City');
+            $tiempoInicio = date('H:i:s');
         ?>
         
         <div class="container">
@@ -83,7 +87,9 @@
                             }
                         ?>
                         <input type="hidden" name="datos" value='<?php echo base64_encode(serialize($arrayPregunta)); ?>'>
-                        <input type="hidden" name="total_opciones" value='<?php echo $total2; ?>'>
+                        <input type="hidden" name="total_opciones" value='<?php echo base64_encode($total2); ?>'>
+                        <input type="hidden" name="id_cuestionarioresuelto" value="<?php echo base64_encode($idCuestionarioResuelto); ?>">
+                        <input type="hidden" name="tiempo_inicio" value="<?php echo base64_encode($tiempoInicio); ?>">
                         <button type="submit" id="finalizar" name="finalizar" class="btn btn-primary">Finalizar</button>
                     </form>                    
                 </div>

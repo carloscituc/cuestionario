@@ -156,7 +156,7 @@ VALUES (null, 'Selecciona si es verdadero o falso el enunciado', '1'),
 (null, 'Selecciona sólo una respuesta correcta', '3');
 
 INSERT INTO preguntamultiple (idPreguntaMultiple, pregunta, respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6, respuesta7, respuesta8, respuesta9, respuesta10, numeroOrden, respuestaCorrecta, puntaje, idCuestionario, idBloquePregunta)
-VALUES (null, 'El TDAH es solamente un problema  de conducta.', 'Verdadero', 'Falso', null, null, null, null, null, null, null, null, '1', 'Verdadero', '5', '1', '1'),
+VALUES (null, 'El TDAH es solamente un problema  de conducta.', 'Verdadero', 'Falso', null, null, null, null, null, null, null, null, '1', 'Falso', '5', '1', '1'),
 (null, 'Los medicamentos son el único tratamiento para el TDAH.', 'Verdadero', 'Falso', null, null, null, null, null, null, null, null, '2', 'Falso', '5', '1', '1'),
 (null, 'El TDAH es una condición médica bastante común.', 'Verdadero', 'Falso', null, null, null, null, null, null, null, null, '3', 'Verdadero', '5', '1', '1'),
 (null, 'El TDAH es solamente un problema  de conducta.', 'Verdadero', 'Falso', null, null, null, null, null, null, null, null, '4', 'Falso', '5', '1', '1'),

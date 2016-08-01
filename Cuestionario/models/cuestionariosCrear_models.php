@@ -18,7 +18,7 @@
 				$cont = 1;
 				for($j = 1; $j < $totPre; $j++){
 					$pregunta = $_POST['pregunta'.$i.$j];
-					$puntaje = $_POST['puntaje'.$i.$j];					
+					$puntaje = $_POST['conSelect'.$i.$j];					
 					$totOp = $_POST['conOpcion'.$i.$j] + 1;
 					$datosCampos = "";					
 					for($k = 1; $k < 11; $k++){
