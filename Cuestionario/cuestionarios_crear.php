@@ -129,7 +129,7 @@
                                         <input class="submit btn btn-success" type="button" id="btnAgSeccion" value="Agregar sección" onclick="agregarSeccion(false);" disabled>
                                         <input type="hidden" name="submitted" value="TRUE">
 
-                                        <input class="submit btn btn-primary" type="submit" id="btnFinCuestionario" name="btnFinCuestionario" value="Finalizar cuestionario">
+                                        <input class="submit btn btn-primary" type="submit" id="btnFinCuestionario" name="btnFinCuestionario" value="Finalizar cuestionario" disabled>
                                         <input type="hidden" name="submitted" value="TRUE">
                                     </div>
                                     <div class="row" id="filaConSeccion1">

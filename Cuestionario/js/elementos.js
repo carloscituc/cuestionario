@@ -701,6 +701,11 @@ function finSeccion(r){
     }
     
     btnAgSeccion.disabled=false;
+    btnFinCuestionario.disabled=false;
+    
+    totalSeccion = document.getElementById('conSeccion1');
+    totalSeccion.setAttribute('value',numSeccion);
+    alert(numSeccion);
 }
 
 
@@ -736,6 +741,7 @@ function agregarSeccion(c){
     numSeccion++;
     
     btnAgSeccion.disabled=true;
+    btnFinCuestionario.disabled=true;
     
     //<div class="form-group" id="seccion1">
     var seccion1 = document.getElementById('seccion1').cloneNode(c);
