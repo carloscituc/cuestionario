@@ -112,7 +112,10 @@
                                                         <button type="button" id="btnAgPregunta1" class="btn btn-success btn-sm" onclick="agrePregunta(false,this.id);" disabled><span class="glyphicon glyphicon-plus"></span>Agregar Pregunta</button>
                                                     </div>
                                                     <div class="col-md-2" style="margin-top:15px;" id="columnaBtnFinalizarSec1">
-                                                        <button type="button" id="btnFinSec1" class="btn btn-primary btn-sm" onclick="finSeccion(this.id);" >Finalizar sección</button>
+                                                        <button type="button" id="btnFinSec1" class="btn btn-primary btn-sm" onclick="finSeccion(this.id);" disabled>Finalizar sección</button>
+                                                    </div>
+                                                    <div class="col-md-2" style="margin-top:15px;" id="columnaBtnModSec1">
+                                                        <button type="button" id="btnModSec1" class="btn btn-primary btn-sm" onclick="#" disabled>Modificar sección</button>
                                                     </div>
                                                     <div class="row" id="filaConPregunta1">
                                                         <div class="col-md-8" id="colConPregunta1">    

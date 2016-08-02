@@ -274,7 +274,7 @@ function eliminarOpcion(x){
 
 //Pasar valor del select al input para recuperar valor
 /*function valor(g){
-    
+
     document.getElementById('conSelect'+idSeccion+idPregunta).value=g;
 }*/
 
@@ -288,14 +288,14 @@ function finalizarPregunta(fin){
     /*alert(idFinalizar);
     alert(idSeccion);
     alert(idPregunta);*/
-    
+
     totalOpciones = document.getElementById('conOpcion'+idSeccion+idPregunta);
     tOpciones = numOpcion;
     //alert(tOpciones);
     totalOpciones.setAttribute('value',tOpciones);
     numOpcion=2;
     num=1;
-    
+
 
     formulario = document.getElementById("Pregunta"+idSeccion+idPregunta);
     eleInput = formulario.getElementsByTagName("input");
@@ -315,7 +315,7 @@ function finalizarPregunta(fin){
     val = document.getElementById('puntaje'+idSeccion+idPregunta);
     val1 = val.value;
     val.disabled=true;
-    
+
     document.getElementById('conSelect'+idSeccion+idPregunta).value=val1;
 
     btnFinalizar = document.getElementById('btnFinalizar'+idSeccion+idPregunta);
@@ -329,10 +329,9 @@ function finalizarPregunta(fin){
 
     btnAgPregunta = document.getElementById('btnAgPregunta'+idSeccion);
     btnAgPregunta.disabled=false;
-    
-    
-    
 
+    btnFinalizarSec = document.getElementById('btnFinSec'+idSeccion);
+    btnFinalizarSec.disabled=false;
 }
 
 //boton modificar
@@ -354,11 +353,11 @@ function modificarPregunta(b){
         eleInput[i].removeAttribute('readonly');
     }
 
-    //alert('Se encontraron '+eleButton.length+' Elementos que se van a deshabilitar');
+    //alert('Se encontraron '+eleButton.length+' Elementos que se van a habilitar');
     for (i=0;i<eleButton.length;i++){
         eleButton[i].disabled = false;
     }
-    
+
     //alert('Se encontraron '+eleLabel.length+' Elementos que se van a habilitar');
     document.getElementById('puntaje'+idSeccion+idPregunta).disabled=false;
 
@@ -377,13 +376,13 @@ function modificarPregunta(b){
     //------------------------------------------------------------------------------
     //Contar opciones para inicializar numOpcion y num
     cont=0;
-        for(i=1;i<11;i++){
-            opcion = document.getElementById('op'+idSeccion+idPregunta+i);
-            //alert(opcion);
-            if(opcion!=null){
-                var cont=cont+1;
-            }
+    for(i=1;i<11;i++){
+        opcion = document.getElementById('op'+idSeccion+idPregunta+i);
+        //alert(opcion);
+        if(opcion!=null){
+            var cont=cont+1;
         }
+    }
     numOpcion = cont;
     num = cont; 
     //alert(numOpcion);
@@ -393,6 +392,29 @@ function modificarPregunta(b){
     }else{
         btnAgregar.disabled=true; 
     }
+
+
+    //------------------------------------------------------------------------------
+    //Bloquear los demás modificar
+    //formSeccion = document.getElementById("bloque"+idSeccion);
+    //btnsModificar = /
+    //alert(btnsModificar);
+
+       
+        btnsModificar1 = document.getElementById('btnModificar'+idSeccion+'1');
+        btnsModificar = btnsModificar1.id;
+        alert(btnsModificar);
+        a=2;
+        while(btnsModificar3!=null){
+        btnsModificar3 = formSeccion.getAttribute('id','btnModificar'+a);
+            alert(btnsModificar3);
+            if(btnsModificar!=btnsModificar3){
+                alert('funciona');
+                btnsModificar3.disabled=true;
+            }
+        a++;
+        }
+
 }
 
 
@@ -410,12 +432,15 @@ function agrePregunta(x,e){
     j++;
     num++;
     numPregunta++;
-    
+
     btnPregunta1 = document.getElementById(e);
     btnPregunta2 = btnPregunta1.id;
     idSeccionPregunta = btnPregunta2.charAt(13);
     btnPregunta1.disabled=true;
-    
+
+    btnFinalizarSec = document.getElementById('btnFinSec'+idSeccionPregunta);
+    btnFinalizarSec.disabled=true;
+
     //<div class="row" id="Pregunta1">    
     var clon = document.getElementById('Pregunta11').cloneNode(x);
     clon.id='Pregunta'+numSeccion+numPregunta;
@@ -542,19 +567,19 @@ function agrePregunta(x,e){
     var filaConSelect1 = document.getElementById('filaConSelect11').cloneNode(x);
     filaConSelect1.id='filaConSelect'+numSeccion+numPregunta;
     clon2.appendChild(filaConSelect1);
-    
+
     //<div class="col-md-8" id="colConSelect11">   
     var colConSelect1 = document.getElementById('colConSelect11').cloneNode(x);
     colConSelect1.id='colConSelect'+numSeccion+numPregunta;
     filaConSelect1.appendChild(colConSelect1);
-    
+
     //<input type="hidden" class="form-control" id="conSelect11" name="conSelect11">
     var conSelect1 = document.getElementById('conSelect11').cloneNode(x);
     conSelect1.id='conSelect'+numSeccion+numPregunta;
     conSelect1.name='conSelect'+numSeccion+numPregunta;
     conSelect1.setAttribute('value','');
     colConSelect1.appendChild(conSelect1);
-    
+
     //<div class="row" id="opcion111">
     var op1 = document.getElementById('opcion111').cloneNode(x);
     op1.id='opcion'+numSeccion+numPregunta+numOpcion;
@@ -600,23 +625,23 @@ function agrePregunta(x,e){
     inputOpcion2.name='op'+numSeccion+numPregunta+'2';
     inputOpcion2.removeAttribute('readonly');
     filaOpcion2.appendChild(inputOpcion2);
-    
+
     //<div class="row" id="filaConOpcion11">
     var filaConOpcion1 = document.getElementById('filaConOpcion11').cloneNode(x);
     filaConOpcion1.id='filaConOpcion'+numSeccion+numPregunta;
     clon2.appendChild(filaConOpcion1);  
-    
+
     //<div class="col-md-8" id="colConOpcion11">
     var colConOpcion1 = document.getElementById('colConOpcion11').cloneNode(x);
     colConOpcion1.id='colConOpcion'+numSeccion+numPregunta;
     filaConOpcion1.appendChild(colConOpcion1);  
-    
+
     //<input type="hidden" class="form-control" id="conOpcion11" name="conOpcion11">
     var conOpcion1 = document.getElementById('conOpcion11').cloneNode(x);
     conOpcion1.id='conOpcion'+numSeccion+numPregunta;
     conOpcion1.name='conOpcion'+numSeccion+numPregunta;
     colConOpcion1.appendChild(conOpcion1);
-    
+
 
     //<div class="row" id="filaBtnAgregar11">
     var filaBtnAgregar1 = document.getElementById('filaBtnAgregar11').cloneNode(x);
@@ -675,34 +700,38 @@ function finSeccion(r){
     btnfinSec1 = document.getElementById(r);
     btnfinSec = btnfinSec1 .id;
     idFinSeccion = btnfinSec.charAt(9);//btnFinSec1
-    
+
     totalPreguntas = document.getElementById('conPregunta'+idFinSeccion);
     totalPreguntas.setAttribute('value',numPregunta);
     //alert(numPregunta);
-    
+
     Form = document.getElementById("bloque"+idFinSeccion);
     Elemento = Form.getElementsByTagName("input");
     Elemento2 = Form.getElementsByTagName("select");
     Elemento3 = Form.getElementsByTagName("button");
-    
+
     //alert('Se encontraron '+Elemento.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elemento.length;i++){
         Elemento[i].setAttribute('readonly','readonly');
     }
-    
+
     //alert('Se encontraron '+Elemento2.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elemento2.length;i++){
         Elemento2[i].disabled=true;
     }
-    
+
     //alert('Se encontraron '+Elemento3.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elemento3.length;i++){
         Elemento3[i].disabled = true;
     }
-    
+
     btnAgSeccion.disabled=false;
     btnFinCuestionario.disabled=false;
-    
+
+    btnModSec1 = document.getElementById('btnModSec'+idFinSeccion);
+    btnModSec1.style.visibility='visible';
+    btnModSec1.disabled=false;
+
     totalSeccion = document.getElementById('conSeccion1');
     totalSeccion.setAttribute('value',numSeccion);
     /*alert(numSeccion);*/
@@ -715,17 +744,17 @@ function finalizarCuestionario(){
     Elementos = Forma.getElementsByTagName("input");
     Elementos2 = Forma.getElementsByTagName("select");
     Elementos3 = Forma.getElementsByTagName("button");
-    
+
     //alert('Se encontraron '+Elementos.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elementos.length;i++){
         Elementos[i].setAttribute('readonly','readonly');
     }
-    
+
     //alert('Se encontraron '+Elementos2.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elementos2.length;i++){
         Elementos2[i].setAttribute('readonly','readonly');
     }
-    
+
     //alert('Se encontraron '+Elementos2.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elementos3.length;i++){
         Elementos3[i].disabled = true;
@@ -739,55 +768,55 @@ function agregarSeccion(c){
     num++;
     numPregunta=1;
     numSeccion++;
-    
+
     btnAgSeccion.disabled=true;
     btnFinCuestionario.disabled=true;
-    
+
     //<div class="form-group" id="seccion1">
     var seccion1 = document.getElementById('seccion1').cloneNode(c);
     seccion1.id='seccion'+numSeccion;
     document.getElementById('btnFinales').parentNode.insertBefore(seccion1,document.getElementById('btnFinales'));
-    
+
     //<div class="row" id="filaSeccion1">
     var filaSeccion1 = document.getElementById('filaSeccion1').cloneNode(c);
     filaSeccion1.id='filaSeccion'+numSeccion;
     seccion1.appendChild(filaSeccion1);
-    
+
     //<div class="col-sm-12" id="columnaSeccion1">
     var columnaSeccion1 = document.getElementById('columnaSeccion1').cloneNode(c);
     columnaSeccion1.id='columnaSeccion'+numSeccion;
     filaSeccion1.appendChild(columnaSeccion1);
-    
+
     //<div class="col-md-12 col-md-offset-0 well" id="bloque1">
     var bloque1 = document.getElementById('bloque1').cloneNode(c);
     bloque1.id='bloque'+numSeccion;
     bloque1.style = '-webkit-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75); -moz-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75); box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75); padding-bottom: 15px;';
     columnaSeccion1.appendChild(bloque1);
-    
+
     //<h3 id="numSeccion1">Sección #1</h3>
     var numSeccion1 = document.getElementById('numSeccion1').cloneNode(c);
     numSeccion1.id='numSeccion'+numSeccion;
     numSeccion1.innerHTML='Sección #'+numSeccion;
     bloque1.appendChild(numSeccion1);
-    
+
     //<div class="row" id="filaInstruciones1">
     var filaInstruciones1 = document.getElementById('filaInstruciones1').cloneNode(c);
     filaInstruciones1.id='filaInstruciones'+numSeccion;
     bloque1.appendChild(filaInstruciones1);
-    
+
     //<div class="col-md-12" id="columnaInstrucciones1">
     var columnaInstrucciones1 = document.getElementById('columnaInstrucciones1').cloneNode(c);
     columnaInstrucciones1.id='columnaInstrucciones'+numSeccion;
     filaInstruciones1.appendChild(columnaInstrucciones1);
-    
-    
+
+
     //<label for="instruccionesSeccion1" id="instruccionesSeccion1">
     var instruccionesSeccion1 = document.getElementById('instruccionesSeccion1').cloneNode(c);
     instruccionesSeccion1.setAttribute('for','instruccionesSeccion'+numSeccion);
     instruccionesSeccion1.id='instruccionesSeccion'+numSeccion;
     instruccionesSeccion1.innerHTML='Escribe las instrucciones de la sección:';
     columnaInstrucciones1.appendChild(instruccionesSeccion1);
-    
+
     //<input type="text" id="instrucciones1" name="instrucciones1" class="form-control">
     var instrucciones1 = document.getElementById('instrucciones1').cloneNode(c);
     instrucciones1.id='instrucciones'+numSeccion;
@@ -795,7 +824,7 @@ function agregarSeccion(c){
     instrucciones1.style='margin-bottom: 15px;';
     instrucciones1.removeAttribute('readonly');
     columnaInstrucciones1.appendChild(instrucciones1);
-    
+
     //<div class="row" id="Pregunta11">    
     var clon = document.getElementById('Pregunta11').cloneNode(c);
     clon.id='Pregunta'+numSeccion+'1';
@@ -918,17 +947,17 @@ function agregarSeccion(c){
     opcion10.nodeValue='10';
     opcion10.innerHTML='10';
     puntaje1.appendChild(opcion10);
-    
+
     //<div class="row" id="filaConSelect11">
     var filaConSelect1 = document.getElementById('filaConSelect11').cloneNode(c);
     filaConSelect1.id='filaConSelect'+numSeccion+numPregunta;
     clon2.appendChild(filaConSelect1);
-    
+
     //<div class="col-md-8" id="colConSelect11">   
     var colConSelect1 = document.getElementById('colConSelect11').cloneNode(c);
     colConSelect1.id='colConSelect'+numSeccion+numPregunta;
     filaConSelect1.appendChild(colConSelect1);
-    
+
     //<input type="hidden" class="form-control" id="conSelect11" name="conSelect11">
     var conSelect1 = document.getElementById('conSelect11').cloneNode(c);
     conSelect1.id='conSelect'+numSeccion+numPregunta;
@@ -983,17 +1012,17 @@ function agregarSeccion(c){
     inputOpcion2.name='op'+numSeccion+'1'+'2';
     inputOpcion2.removeAttribute('readonly');
     filaOpcion2.appendChild(inputOpcion2);
-    
+
     //<div class="row" id="filaConOpcion11">
     var filaConOpcion1 = document.getElementById('filaConOpcion11').cloneNode(c);
     filaConOpcion1.id='filaConOpcion'+numSeccion+numPregunta;
     clon2.appendChild(filaConOpcion1);  
-    
+
     //<div class="col-md-8" id="colConOpcion11">
     var colConOpcion1 = document.getElementById('colConOpcion11').cloneNode(c);
     colConOpcion1.id='colConOpcion'+numSeccion+numPregunta;
     filaConOpcion1.appendChild(colConOpcion1);  
-    
+
     //<input type="hidden" class="form-control" id="conOpcion11" name="conOpcion11">
     var conOpcion1 = document.getElementById('conOpcion11').cloneNode(c);
     conOpcion1.id='conOpcion'+numSeccion+numPregunta;
@@ -1048,51 +1077,62 @@ function agregarSeccion(c){
     btnModificar1.innerHTML='Modificar pregunta';
     btnModificar1.style='visibility: hidden;';
     modificarPregunta1.appendChild(btnModificar1);
-    
+
     //<div class="row" id="antes">
     var antes1 = document.getElementById('antes1').cloneNode(c);
     antes1.id='antes'+numSeccion;
     bloque1.appendChild(antes1);
-    
+
     //<div class="col-md-4" style="margin-top:15px;" id="columnaBtnFinalizar1">
     var columnaBtnFinalizar1 = document.getElementById('columnaBtnFinalizar1').cloneNode(c);
     columnaBtnFinalizar1.id='columnaBtnFinalizar'+numSeccion;
     antes1.appendChild(columnaBtnFinalizar1);
-    
+
     //<button type="button" id="btnAgPregunta1" class="btn btn-success btn-sm" onclick="agrePregunta(false);bloquearAgPregunta(this.id)" disabled>
     var btnAgPregunta1 = document.getElementById('btnAgPregunta1').cloneNode(c);
     btnAgPregunta1.id='btnAgPregunta'+numSeccion;
     btnAgPregunta1.innerHTML='Agregar pregunta';
     columnaBtnFinalizar1.appendChild(btnAgPregunta1);
-    
-   //<div class="col-md-2" style="margin-top:15px;" id="columnaBtnFinalizarSec1">
+
+    //<div class="col-md-2" style="margin-top:15px;" id="columnaBtnFinalizarSec1">
     var columnaBtnFinalizarSec1 = document.getElementById('columnaBtnFinalizarSec1').cloneNode(c);
     columnaBtnFinalizarSec1.id='columnaBtnFinalizarSec'+numSeccion;
     antes1.appendChild(columnaBtnFinalizarSec1);
-    
+
     // <button type="button" id="btnFinSec1" class="btn btn-primary btn-sm" onclick="finSeccion(this.id);" >
     var btnFinSec1 = document.getElementById('btnFinSec1').cloneNode(c);
     btnFinSec1.id='btnFinSec'+numSeccion;
     btnFinSec1.innerHTML='Finalizar sección';
-    btnFinSec1.disabled=false;
     columnaBtnFinalizarSec1.appendChild(btnFinSec1);
-    
+
+    //<div class="col-md-2" style="margin-top:15px;" id="columnaBtnModSec1">
+    var columnaBtnModSec1 = document.getElementById('columnaBtnModSec1').cloneNode(c);
+    columnaBtnModSec1.id='columnaBtnModSec'+numSeccion;
+    antes1.appendChild(columnaBtnModSec1);
+
+    //<button type="button" id="btnModSec1" class="btn btn-primary btn-sm" onclick="#" disabled>
+    var btnModSec1 = document.getElementById('btnModSec1').cloneNode(c);
+    btnModSec1.id='btnModSec'+numSeccion;
+    btnModSec1.innerHTML='Modificar sección';
+    btnModSec1.style='visibility: hidden;';
+    columnaBtnModSec1.appendChild(btnModSec1);
+
     //<div class="row" id="filaConPregunta11">
     var filaConPregunta1 = document.getElementById('filaConPregunta1').cloneNode(c);
     filaConPregunta1.id='filaConPregunta'+numSeccion+numPregunta;
     antes1.appendChild(filaConPregunta1);  
-    
+
     //<div class="col-md-8" id="colConPregunta11">
     var colConPregunta1 = document.getElementById('colConPregunta1').cloneNode(c);
     colConPregunta1.id='colConPregunta1'+numSeccion;
     filaConPregunta1.appendChild(colConPregunta1);  
-    
+
     //<input type="hidden" class="form-control" id="conPregunta11" name="conPregunta11">
     var conPregunta1 = document.getElementById('conPregunta1').cloneNode(c);
     conPregunta1.id='conPregunta'+numSeccion;
     conPregunta1.name='conPregunta'+numSeccion;
     colConPregunta1.appendChild(conPregunta1);
-    
+
     totalSeccion = document.getElementById('conSeccion1');
     totalSeccion.setAttribute('value',numSeccion);
     //alert(numSeccion);
