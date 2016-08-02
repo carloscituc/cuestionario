@@ -111,15 +111,16 @@
                                 
                                 <div class="panel-body">
                                     <div class="col-md-10 col-md-offset-1 well">
-                                        <form action="cuestionarioListarBuscarANP.php" method="post">
+                                        <form action="cuestionarioListarBuscarANP.php" method="post" id="form_buscarANP">
                                             <div class="form-group">
 
                                                 <div class="col-md-6">
                                                     <input class="form-control" id="nombre_ANP" name="nombre_ANP" placeholder="Buscar por nombre de paciente..." type="text" value="" />
+                                                    <input type="hidden" name="tipo_envio" id="tipo_envio1">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input id="btn_search" name="btn_search" type="submit" class="btn btn-danger" value="Buscar">
-                                                    <input id="btn_todos" name="btn_todos" class="btn btn-primary" value="Mostrar todos" onclick="limpiarANP();" type="submit">
+                                                    <button id="btn_search" name="btn_search" class="btn btn-danger" onclick="tipoBusqueda('1'),function(){document.getElementById('form_buscarANP').submit()};">Buscar</button>
+                                                    <button id="btn_todos" name="btn_todos" class="btn btn-primary" onclick="tipoBusqueda('1'),limpiarANP(),function(){document.getElementById('form_buscarANP').submit()};" type="submit">Mostrar todos</button>   
                                                 </div>
                                             </div>
                                         </form>
@@ -148,7 +149,7 @@
                                                     <td><?php echo $row['nombrePaciente'] . " " . $row['apellidoPaterno']. " " .$row['apellidoMaterno']; ?></td>
                                                     <td><?php echo $row['limiteTiempo']; ?></td>
                                                     <td><?php if($row['estatus'] == '0') echo "Sin presentar"; ?></td>
-                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalReasignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>','<?php echo $row['limiteTiempo'];?>');">Reasignar</button></td>
+                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalReasignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>','<?php echo $row['limiteTiempo'];?>','<?php echo $row['idCuestionarioResuelto'];?>');">Reasignar</button></td>
                                                     <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModalEliminar" onclick="eliminarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>');">Eliminar</button></td>
                                                 </tr>
                                                 <?php } ?>
@@ -176,7 +177,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Reasignar cuestionario</h4>
             </div>
-            <form method="post">
+            <form method="post" action="cuestionarioListarBuscarANP.php" id="form_reasignar">
                 <div class="modal-body">
                     <div class="row" id="paciente">
                         <div class="col-md-12 padding-0">
@@ -195,7 +196,7 @@
                         <div class="col-md-12 padding-1">
                             <label for="select-tiempo">Seleccionar límite de tiempo de evaluación</label>
                             <select class="form-control" name="seleccionar-tiempo">
-                                <option id="00:00:15" value="00:00:15">15 minutos</option>
+                                <option id="00:15:00" value="00:15:00">15 minutos</option>
                                 <option id="00:30:00" value="00:30:00">30 minutos</option>
                                 <option id="00:45:00" value="00:45:00">45 minutos</option>
                                 <option id="01:00:00" value="01:00:00">60 minutos</option>
@@ -207,35 +208,14 @@
                         </div>
                     </div>
                     <input type="hidden" name="reasignar_cuestionarioId" id="reasignar_cuestionarioId">
-                    <input type="hidden" name="reasignar_pacienteId" id="reasignar_pacienteId">                  
+                    <input type="hidden" name="reasignar_pacienteId" id="reasignar_pacienteId">
+                    <input type="hidden" name="id_cuestionarioresuelto" id="id_cuestionarioresuelto">
+                    <input type="hidden" name="tipo_envio" id="tipo_envio2">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button name="reasignar" id="reasignar" type="submit" class="btn btn-primary">Aceptar</button>
+                    <button name="reasignar" id="reasignar" class="btn btn-primary" onclick="tipoBusqueda('2'),function(){document.getElementById('form_reasignar').submit()};">Reasignar</button>
                 </div>
-                <?php 
-                //Si se presiona el botón submit(reasignar) del formulario reasignamos a un nuevo paciente
-                //el cuestionario, o en su debido caso sólo alteramos el límite de tiempo
-                if(isset($_REQUEST['reasignar'])){
-                    //Recuperamos el id del paciente a quien se le asignará el cuestionario
-                    $nuevoIdPaciente = $_POST['seleccionar-paciente'];
-
-                    //Recuperamos el límite de tiempo que seleccionó el especialista
-                    //para el cuestionario a presentar
-                    $tiempo = $_POST['seleccionar-tiempo'];
-
-                    //Recuperamos el id del paciente que tenía asiganado el cuestionario
-                    $idPaciente = $_POST['reasignar_pacienteId'];
-
-                    //Recuperamos el id del cuestionario que será reasignado
-                    $idCuestionario = $_POST['reasignar_cuestionarioId'];
-
-                    //Ejecutamos la función para reasignar el cuestionario a un nuevo paciente
-                    cuestionariosResueltos_models::reasignarPaciente($nuevoIdPaciente, $tiempo, $idPaciente, $idCuestionario);
-                    //Recargamos la página
-                    echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
-                }
-                ?>
             </form>
             
         </div>
@@ -291,9 +271,10 @@
     //Recuperamos el id del cuestionario y el id del paciente
     //para pasarselo al modal #myModalReasignar cuando el botón reasignar sea presionado
     //quedando almacenado en los dos inputs hidden que se encuentran dentro del modal
-    function recuperarId(idCuestionario,idPaciente,limiteTiempo){
+    function recuperarId(idCuestionario,idPaciente,limiteTiempo,idCuestionarioResuelto){
         document.getElementById("reasignar_cuestionarioId").value = idCuestionario;
         document.getElementById("reasignar_pacienteId").value = idPaciente;
+        document.getElementById("id_cuestionarioresuelto").value = idCuestionarioResuelto;
         document.getElementById(idPaciente).selected = 'selected';
         document.getElementById(limiteTiempo).selected = 'selected';
     }
@@ -316,6 +297,14 @@
     //de los cuestionarios presentados
     function limpiarRP(){
         document.getElementById("nombre_RP").value = "";
+    }
+
+    function tipoBusqueda(tipoBusqueda){
+        if(tipoBusqueda == 1){
+            document.getElementById("tipo_envio1").value = "1";
+        }else{
+            document.getElementById("tipo_envio2").value = "2";
+        }       
     }
 </script>
 <?php include("design/footer.php");?>

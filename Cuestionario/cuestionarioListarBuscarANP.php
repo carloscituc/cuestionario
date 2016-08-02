@@ -10,6 +10,23 @@
             //Llamamos a la función index la cual carga todos los includes que necesitamos
             cuestionariosResueltos::cuestionarioListarBuscarANP();
 
+            if(isset($_POST['seleccionar-paciente']) && isset($_POST['seleccionar-tiempo']) && isset($_POST['reasignar_pacienteId']) && isset($_POST['reasignar_cuestionarioId'])){
+                //Recuperamos el id del paciente a quien se le asignará el cuestionario
+                $nuevoIdPaciente = $_POST['seleccionar-paciente'];
+
+                //Recuperamos el límite de tiempo que seleccionó el especialista
+                //para el cuestionario a presentar
+                $tiempo = $_POST['seleccionar-tiempo'];
+
+                //Recuperamos el id del paciente que tenía asiganado el cuestionario
+                $idPaciente = $_POST['reasignar_pacienteId'];
+
+                //Recuperamos el id del cuestionario que será reasignado
+                $idCuestionario = $_POST['reasignar_cuestionarioId'];
+
+                //Ejecutamos la función para reasignar el cuestionario a un nuevo paciente
+                cuestionariosResueltos_models::reasignarPaciente($nuevoIdPaciente, $tiempo, $idPaciente, $idCuestionario);
+            }
             //Recibemos el nombre del paciente que queremos buscar
             //el cual lo recuperamos de cuestionarioListar.php
             //Es necesario verificar si realmente se está enviando un valor por post
@@ -18,9 +35,20 @@
             }else{
                 $cadena = "";
             }
-            //Recuperamos todas las asignaciones de cuestionarios aún o presentados
-            //en donde aparerezca el paciente x
-            $resultado2 = cuestionariosResueltos_models::buscarANP($cadena);
+            if(isset($_POST['tipo_envio'])){
+                if($_POST['tipo_envio']==1){
+                    //Recuperamos todas las asignaciones de cuestionarios aún o presentados
+                    //en donde aparerezca el paciente x
+                    $resultado2 = cuestionariosResueltos_models::buscarANP($cadena);
+                }else{
+                    $idCuestionarioResuelto = $_POST['id_cuestionarioresuelto'];
+                    $resultado2 = cuestionariosResueltos_models::buscarANPModificado($idCuestionarioResuelto);
+                }
+            }else{
+                //Recuperamos todas las asignaciones de cuestionarios aún o presentados
+                //en donde aparerezca el paciente x
+                $resultado2 = cuestionariosResueltos_models::buscarANP($cadena);
+            }
 
             //Ejecutamos la función para listar a todos los pacientes que podrá seleccionar el especialista
             //para reasignar el cuestionario
@@ -42,15 +70,16 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-md-10 col-md-offset-1 well">
-                                        <form action="cuestionarioListarBuscarANP.php" method="post">
+                                        <form action="cuestionarioListarBuscarANP.php" method="post" id="form_buscarANP">
                                             <div class="form-group">
 
                                                 <div class="col-md-6">
-                                                    <input class="form-control" id="nombre_ANP" name="nombre_ANP" placeholder="Buscar por nombre de paciente..." type="text" value="<?php echo $cadena; ?>" />
+                                                    <input class="form-control" id="nombre_ANP" name="nombre_ANP" placeholder="Buscar por nombre de paciente..." type="text">
+                                                    <input type="hidden" name="tipo_envio" id="tipo_envio1">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <input id="btn_search" name="btn_search" type="submit" class="btn btn-danger" value="Buscar" />
-                                                    <input id="btn_todos" name="btn_todos" class="btn btn-primary" value="Mostrar todos" onclick="limpiarANP();" type="submit">
+                                                    <button id="btn_search" name="btn_search" class="btn btn-danger" onclick="tipoBusqueda('1'),function(){document.getElementById('form_buscarANP').submit()};">Buscar</button>
+                                                    <button id="btn_todos" name="btn_todos" class="btn btn-primary" onclick="tipoBusqueda('1'),limpiarANP(),function(){document.getElementById('form_buscarANP').submit()};" type="submit">Mostrar todos</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -80,8 +109,8 @@
                                                     <td><?php echo $row['nombrePaciente'] . " " . $row['apellidoPaterno'] . " " . $row['apellidoMaterno']; ?></td>
                                                     <td><?php echo $row['limiteTiempo']; ?></td>
                                                     <td><?php if($row['estatus'] == '0') echo "Sin presentar"; ?></td>
-                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalReasignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>','<?php echo $row['limiteTiempo'];?>'),asignarValor();">Reasignar</button></td>
-                                                    <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModalEliminar" onclick="eliminarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>'),asignarValor();">Eliminar</button></td>
+                                                    <td><button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalReasignar" onclick="recuperarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>','<?php echo $row['limiteTiempo'];?>','<?php echo $row['idCuestionarioResuelto'];?>'),tipoBusqueda('2');">Reasignar</button></td>
+                                                    <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModalEliminar" onclick="eliminarId('<?php echo $row['idCuestionario'];?>','<?php echo $row['idPaciente']; ?>')">Eliminar</button></td>
                                                 </tr>
                                                 <?php } ?>
                                             </tbody>
@@ -108,7 +137,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Reasignar cuestionario</h4>
             </div>
-            <form method="post">
+            <form method="post" action="cuestionarioListarBuscarANP.php" id="form_reasignar">
                 <div class="modal-body">
                     <div class="row" id="paciente">
                         <div class="col-md-12 padding-0">
@@ -127,7 +156,7 @@
                         <div class="col-md-12 padding-1">
                             <label for="select-tiempo">Seleccionar límite de tiempo de evaluación</label>
                             <select class="form-control" name="seleccionar-tiempo">
-                                <option id="00:00:15" value="00:00:15">15 minutos</option>
+                                <option id="00:15:00" value="00:15:00">15 minutos</option>
                                 <option id="00:30:00" value="00:30:00">30 minutos</option>
                                 <option id="00:45:00" value="00:45:00">45 minutos</option>
                                 <option id="01:00:00" value="01:00:00">60 minutos</option>
@@ -140,36 +169,13 @@
                     </div>
                     <input type="hidden" name="reasignar_cuestionarioId" id="reasignar_cuestionarioId">
                     <input type="hidden" name="reasignar_pacienteId" id="reasignar_pacienteId">
-                    <input id="nombre_ANP2" name="nombre_ANP" type="hidden">
+                    <input type="hidden" name="id_cuestionarioresuelto" id="id_cuestionarioresuelto">
+                    <input type="hidden" name="tipo_envio" id="tipo_envio2">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                    <button name="reasignar" id="reasignar" type="submit" class="btn btn-primary"">Aceptar</button>
+                    <button name="reasignar" id="reasignar" class="btn btn-primary" onclick="tipoBusqueda('2'),function(){document.getElementById('form_reasignar').submit()};">Reasignar</button>
                 </div>
-                <?php 
-                //Si se presiona el botón submit(reasignar) del formulario reasignamos a un nuevo paciente
-                //el cuestionario, o en su debido caso sólo alteramos el límite de tiempo
-                if(isset($_REQUEST['reasignar'])){
-
-                    //Recuperamos el id del paciente a quien se le asignará el cuestionario
-                    $nuevoIdPaciente = $_POST['seleccionar-paciente'];
-
-                    //Recuperamos el límite de tiempo que seleccionó el especialista
-                    //para el cuestionario a presentar
-                    $tiempo = $_POST['seleccionar-tiempo'];
-
-                    //Recuperamos el id del paciente que tenía asiganado el cuestionario
-                    $idPaciente = $_POST['reasignar_pacienteId'];
-
-                    //Recuperamos el id del cuestionario que será reasignado
-                    $idCuestionario = $_POST['reasignar_cuestionarioId'];
-
-                    //Ejecutamos la función para reasignar el cuestionario a un nuevo paciente
-                    cuestionariosResueltos_models::reasignarPaciente($nuevoIdPaciente, $tiempo, $idPaciente, $idCuestionario);
-                    //Recargamos la página
-                    
-                }
-                ?>
             </form>            
         </div>
     </div>
@@ -196,7 +202,6 @@
                 </div>
                 <input type="hidden" name="eliminar_cuestionarioId" id="eliminar_cuestionarioId">
                 <input type="hidden" name="eliminar_pacienteId" id="eliminar_pacienteId">
-                <input id="nombre_ANP3" name="nombre_ANP" type="hidden">
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
                     <button name="eliminar" type="submit" class="btn btn-danger">Eliminar</button>
@@ -224,9 +229,10 @@
     </div>
 </div>
 <script>
-    function recuperarId(idCuestionario,idPaciente, limiteTiempo){
+    function recuperarId(idCuestionario,idPaciente, limiteTiempo,idCuestionarioResuelto){
         document.getElementById("reasignar_cuestionarioId").value = idCuestionario;
         document.getElementById("reasignar_pacienteId").value = idPaciente;
+        document.getElementById("id_cuestionarioresuelto").value = idCuestionarioResuelto;
         document.getElementById(idPaciente).selected = 'selected';
         document.getElementById(limiteTiempo).selected = 'selected';
     }
@@ -237,12 +243,14 @@
     function limpiarANP(){
         document.getElementById("nombre_ANP").value = "";
     }
-     //Con esta función logramos capturar el paciente consultado y al refrescar página se siga mostrando el paciente específicamente buscado 
-    function asignarValor(){
-        document.getElementById("nombre_ANP2").value = document.getElementById("nombre_ANP").value;
-        document.getElementById("nombre_ANP3").value = document.getElementById("nombre_ANP").value;
-    }
 
+    function tipoBusqueda(tipoBusqueda){
+        if(tipoBusqueda == 1){
+            document.getElementById("tipo_envio1").value = "1";
+        }else{
+            document.getElementById("tipo_envio2").value = "2";
+        }       
+    }
 </script>
 <?php include("design/footer.php");?>
 </body>

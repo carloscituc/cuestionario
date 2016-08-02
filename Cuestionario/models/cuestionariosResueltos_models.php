@@ -76,9 +76,8 @@
 				if($nuevoIdPaciente == $idPaciente){
 					$sql = "UPDATE cuestionarioresuelto SET limiteTiempo = '$tiempo' WHERE idPaciente = '$idPaciente' AND idCuestionario = '$idCuestionario' AND estatus = '0'";
 					Conexion::consultaSimple($sql);
-					echo '<script>alert("Tiempo límite de cuestionario modificado");</script>'
-					;
-					echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
+					echo '<script>alert("Tiempo límite de cuestionario modificado");</script>';
+					// echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
 				//Si no es el mismo paciente se hace la reasignación de paciente
 				}else{
 					//si $id != 0 significa que el usuario a quien se le quiere asignar el cuestionario es el mismo
@@ -94,7 +93,7 @@
 						$sql = "UPDATE cuestionarioresuelto SET intento = '$intento', idPaciente = '$nuevoIdPaciente', limiteTiempo = '$tiempo' WHERE idPaciente = '$idPaciente' AND idCuestionario = '$idCuestionario' AND estatus = '0'";
 						Conexion::consultaSimple($sql);
 						echo '<script>alert("Cuestionario reasignado a un nuevo paciente");</script>';
-						echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
+						// echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
 					}else{
 						echo '<script>alert("El paciente ya tiene asignado este cuestionario");</script>';
 					}
@@ -129,6 +128,16 @@
 			return $resultado;
 			//echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
 
+		}
+
+		//Se utiliza para mostrarle al especilista que cuestionario reasignó, debido
+		//a que sólo este se mostrará
+		public static function buscarANPModificado($idCuestionarioResuelto){
+			$sql = "SELECT cuestionarioresuelto.idCuestionarioResuelto, cuestionarioresuelto.idCuestionario, cuestionarioresuelto.idPaciente, cuestionario.nombre AS nombreCuestionario, paciente.nombre AS nombrePaciente, paciente.apellidoPaterno, paciente.apellidoMaterno, cuestionarioresuelto.limiteTiempo, cuestionarioresuelto.estatus FROM cuestionario INNER JOIN cuestionarioresuelto ON cuestionario.idCuestionario = cuestionarioresuelto.idCuestionario INNER JOIN paciente ON cuestionarioresuelto.idPaciente = paciente.idPaciente WHERE cuestionarioresuelto.estatus = '0' AND cuestionarioresuelto.idCuestionarioResuelto = '$idCuestionarioResuelto'";
+			
+			$resultado = Conexion::consultaDevolver($sql);
+			
+			return $resultado;
 		}
 		public static function dividirCadena($cadena){
 			$lon = strlen($cadena);
