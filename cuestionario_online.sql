@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema cuestionario
+-- Schema u442918852_cues
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema cuestionario
+-- Schema u442918852_cues
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `cuestionario` DEFAULT CHARACTER SET utf8 ;
-USE `cuestionario` ;
+CREATE SCHEMA IF NOT EXISTS `u442918852_cues` DEFAULT CHARACTER SET utf8 ;
+USE `u442918852_cues` ;
 
 -- -----------------------------------------------------
--- Table `cuestionario`.`Paciente`
+-- Table `u442918852_cues`.`Paciente`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `cuestionario`.`paciente` (
+CREATE TABLE IF NOT EXISTS `u442918852_cues`.`paciente` (
   `idPaciente` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(100) NOT NULL,
   `apellidoPaterno` VARCHAR(100) NOT NULL,
@@ -39,9 +39,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `cuestionario`.`cuestionario`
+-- Table `u442918852_cues`.`cuestionario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `cuestionario`.`cuestionario` (
+CREATE TABLE IF NOT EXISTS `u442918852_cues`.`cuestionario` (
   `idCuestionario` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`idCuestionario`))
@@ -49,9 +49,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `cuestionario`.`bloquepregunta`
+-- Table `u442918852_cues`.`bloquepregunta`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `cuestionario`.`bloquepregunta` (
+CREATE TABLE IF NOT EXISTS `u442918852_cues`.`bloquepregunta` (
   `idBloquePregunta` INT NOT NULL AUTO_INCREMENT,
   `instruccion` VARCHAR(300) NULL,
   `idCuestionario` INT NOT NULL,
@@ -59,16 +59,16 @@ CREATE TABLE IF NOT EXISTS `cuestionario`.`bloquepregunta` (
   INDEX `fk_bloquepregunta_cuestionario1_idx` (`idCuestionario` ASC),
   CONSTRAINT `fk_bloquepregunta_cuestionario1`
     FOREIGN KEY (`idCuestionario`)
-    REFERENCES `cuestionario`.`cuestionario` (`idCuestionario`)
+    REFERENCES `u442918852_cues`.`cuestionario` (`idCuestionario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `cuestionario`.`preguntamultiple`
+-- Table `u442918852_cues`.`preguntamultiple`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `cuestionario`.`preguntamultiple` (
+CREATE TABLE IF NOT EXISTS `u442918852_cues`.`preguntamultiple` (
   `idPreguntaMultiple` INT NOT NULL AUTO_INCREMENT,
   `pregunta` VARCHAR(200) NOT NULL,
   `respuesta1` VARCHAR(100) NOT NULL,
@@ -91,21 +91,21 @@ CREATE TABLE IF NOT EXISTS `cuestionario`.`preguntamultiple` (
   INDEX `fk_preguntamultiple_cuestionario1_idx` (`idCuestionario` ASC),
   CONSTRAINT `fk_preguntamultiple_bloquepregunta1`
     FOREIGN KEY (`idBloquePregunta`)
-    REFERENCES `cuestionario`.`bloquepregunta` (`idBloquePregunta`)
+    REFERENCES `u442918852_cues`.`bloquepregunta` (`idBloquePregunta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_preguntamultiple_cuestionario1`
     FOREIGN KEY (`idCuestionario`)
-    REFERENCES `cuestionario`.`cuestionario` (`idCuestionario`)
+    REFERENCES `u442918852_cues`.`cuestionario` (`idCuestionario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `cuestionario`.`cuestionarioResuelto`
+-- Table `u442918852_cues`.`cuestionarioResuelto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `cuestionario`.`cuestionarioresuelto` (
+CREATE TABLE IF NOT EXISTS `u442918852_cues`.`cuestionarioresuelto` (
   `idCuestionarioResuelto` INT NOT NULL AUTO_INCREMENT,
   `estatus` TINYINT(1) NULL,
   `fecha` DATE NULL,
@@ -121,12 +121,12 @@ CREATE TABLE IF NOT EXISTS `cuestionario`.`cuestionarioresuelto` (
   INDEX `fk_cuestionarioResuelto_cuestionario1_idx` (`idCuestionario` ASC),
   CONSTRAINT `fk_cuestionarioResuelto_Paciente1`
     FOREIGN KEY (`idPaciente`)
-    REFERENCES `cuestionario`.`Paciente` (`idPaciente`)
+    REFERENCES `u442918852_cues`.`Paciente` (`idPaciente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cuestionarioResuelto_cuestionario1`
     FOREIGN KEY (`idCuestionario`)
-    REFERENCES `cuestionario`.`cuestionario` (`idCuestionario`)
+    REFERENCES `u442918852_cues`.`cuestionario` (`idCuestionario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
