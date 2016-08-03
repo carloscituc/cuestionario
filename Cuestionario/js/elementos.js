@@ -306,7 +306,9 @@ function finalizarPregunta(fin){
         $("#pregunta"+idSeccion+idPregunta).parent().attr("class","col-md-12");
     }
     
-    
+    /*for(i){
+        
+    }*/
     
     
     
