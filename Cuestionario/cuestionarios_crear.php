@@ -43,6 +43,7 @@
                                                             <div class="col-md-12" style="margin-top: 15px;" id='columnaPregunta1'>
                                                                 <label for="id_instrucciones" id="id_instrucciones">Escribe la pregunta:</label>
                                                                 <input type="text" class="form-control" id="pregunta11" name="pregunta11">
+                                                                <span></span>
                                                             </div>
                                                         </div>
                                                         <div class="row" id='filaRespuestas1'>
@@ -115,7 +116,7 @@
                                                         <button type="button" id="btnFinSec1" class="btn btn-primary btn-sm" onclick="finSeccion(this.id);" disabled>Finalizar sección</button>
                                                     </div>
                                                     <div class="col-md-2" style="margin-top:15px;" id="columnaBtnModSec1">
-                                                        <button type="button" id="btnModSec1" class="btn btn-primary btn-sm" onclick="#" disabled>Modificar sección</button>
+                                                        <button type="button" id="btnModSec1" class="btn btn-primary btn-sm" onclick="modificarCuestionario(this.id);" disabled>Modificar sección</button>
                                                     </div>
                                                     <div class="row" id="filaConPregunta1">
                                                         <div class="col-md-8" id="colConPregunta1">    

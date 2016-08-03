@@ -296,7 +296,20 @@ function finalizarPregunta(fin){
     numOpcion=2;
     num=1;
 
+    //Validación input Escribe pregunta
+    inputEscribePre = document.getElementById('pregunta'+idSeccion+idPregunta).value;
 
+    if(inputEscribePre == null || inputEscribePre.length == 0 || /^\s+$/.test(inputEscribePre)){
+        $("#pregunta"+idSeccion+idPregunta).parent().attr("class","col-md-4 has-error");
+        //$("#pregunta"+idSeccion+idPregunta).parent().children("span").attr("class","glyphicon glyphicon-plus");
+    }else{
+        $("#pregunta"+idSeccion+idPregunta).parent().attr("class","col-md-12");
+    }
+    
+    
+    
+    
+    
     formulario = document.getElementById("Pregunta"+idSeccion+idPregunta);
     eleInput = formulario.getElementsByTagName("input");
     eleLabel = formulario.getElementsByTagName("select");
@@ -332,6 +345,19 @@ function finalizarPregunta(fin){
 
     btnFinalizarSec = document.getElementById('btnFinSec'+idSeccion);
     btnFinalizarSec.disabled=false;
+    
+    //Desbloquear los demás modificar
+    //alert(numPregunta);
+    for(i=1;i<=numPregunta;i++){
+        btnsModificar1 = document.getElementById('btnModificar'+idSeccion+i);
+        btnsModificar = btnsModificar1.id;
+        //alert(btnsModificar);
+        //alert(idModificar);
+        if(btnModificar!=btnsModificar){
+            //alert(btnsModificar);
+            btnsModificar1.disabled=false;
+        }
+    }  
 }
 
 //boton modificar
@@ -367,7 +393,10 @@ function modificarPregunta(b){
 
     btnFinalizar.disabled=false;
     btnModificar.style.visibility='hidden';
-
+    
+    btnFinSec1 = document.getElementById('btnFinSec'+idSeccion);
+    btnFinSec1.disabled=true;
+    
     btnAgPregunta = document.getElementById('btnAgPregunta'+idSeccion);
     btnAgPregunta.disabled=true;
 
@@ -396,25 +425,17 @@ function modificarPregunta(b){
 
     //------------------------------------------------------------------------------
     //Bloquear los demás modificar
-    //formSeccion = document.getElementById("bloque"+idSeccion);
-    //btnsModificar = /
-    //alert(btnsModificar);
-
-       
-        btnsModificar1 = document.getElementById('btnModificar'+idSeccion+'1');
+    //alert(numPregunta);
+    for(i=1;i<=numPregunta;i++){
+        btnsModificar1 = document.getElementById('btnModificar'+idSeccion+i);
         btnsModificar = btnsModificar1.id;
-        alert(btnsModificar);
-        a=2;
-        while(btnsModificar3!=null){
-        btnsModificar3 = formSeccion.getAttribute('id','btnModificar'+a);
-            alert(btnsModificar3);
-            if(btnsModificar!=btnsModificar3){
-                alert('funciona');
-                btnsModificar3.disabled=true;
-            }
-        a++;
+        //alert(btnsModificar);
+        //alert(idModificar);
+        if(idModificar!=btnsModificar){
+            //alert(btnsModificar);
+            btnsModificar1.disabled=true;
         }
-
+    }
 }
 
 
@@ -733,10 +754,71 @@ function finSeccion(r){
     btnModSec1.disabled=false;
 
     totalSeccion = document.getElementById('conSeccion1');
-    totalSeccion.setAttribute('value',numSeccion);
-    /*alert(numSeccion);*/
+    totalSeccion.setAttribute('value',numSeccion); 
+    
+    //Desbloquear los botones modificar sección
+    a=1;
+    btnsModificarSec = document.getElementById('btnModSec'+a);
+    //btnsModificar = btnsModificar1.id;
+    
+    while(btnsModificarSec!=null){
+        btnsModificarSec = document.getElementById('btnModSec'+a);
+        typeof btnsModificarSec;
+        if(btnsModificarSec!=null){
+            btnsModificarSec.disabled=false;
+        }
+        a++;
+    }
 }
 
+function modificarCuestionario(h){
+    btnModSec1 = document.getElementById(h);
+    btnModSec = btnModSec1.id;
+    idModSeccion = btnModSec.charAt(9);//btnModSec1   
+    
+    btnModSec1.style.visibility='hidden';
+
+    //Bloquear los demás modificar sección
+    //alert(numSeccion);
+    for(i=1;i<=numSeccion;i++){
+        btnsSecModificar1 = document.getElementById('btnModSec'+i);
+        btnsSecModificar = btnsSecModificar1.id;
+        //alert(btnsModificar);
+        //alert(idModificar);
+        if(btnModSec!=btnsSecModificar){
+            //alert(btnsModificar);
+            btnsSecModificar1.disabled=true;
+        }
+    }
+    
+    //Desbloquear los botones modificar Pregunta de la sección
+    //alert(numPregunta);
+    //alert(idModSeccion);
+    a=1;
+    btnsModificar = document.getElementById('btnModificar'+idModSeccion+a);
+    //btnsModificar = btnsModificar1.id;
+    //alert(btnsModificar);
+    
+    while(btnsModificar!=null){
+        btnsModificar = document.getElementById('btnModificar'+idModSeccion+a);
+        typeof btnsModificar;
+       //alert(btnsModificar);
+        if(btnsModificar!=null){
+            btnsModificar.disabled=false;
+        }
+               a++;
+        //alert(a);
+    }
+
+    /*for(i=1;i<=numPregunta;i++){
+        btnsModificar1 = document.getElementById('btnModificar'+idModSeccion+i);
+        btnsModificar = btnsModificar1.id;
+            btnsModificar1.disabled=false;
+    }*/
+    
+    btnAgSeccion.disabled=true;
+    btnFinCuestionario.disabled=true;
+}
 
 //boton finalizar cuestionario
 function finalizarCuestionario(){
