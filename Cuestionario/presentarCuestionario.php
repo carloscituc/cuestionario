@@ -2,9 +2,8 @@
 <!DOCTYPE html>
 <html lang="es">
     <?php include("design/head.php"); ?>
-    <body>
+    <body onload="nobackbutton();">
         <?php
-            include("design/header.php");
             include("php/cuestionariosPresentar.php");
             
             //Llamamos a la función detalleEA la cual carga todos los includes que necesitamos
@@ -18,7 +17,14 @@
                 $idCuestionarioResuelto = $_POST['id_cuestionarioresuelto'];
 
                 if(cuestionariosPresentar_models::consultarCuestionarioPresentado($idCuestionarioResuelto)){
-                
+                //Recuperamos la fecha y hora en que el paciente da inicio a presentar el cuestionario
+                date_default_timezone_set('America/Mexico_City');
+                $tiempoInicio = date('H:i:s');
+
+                $fecha = date('Y-m-d');
+
+                //Actualizamos el estatus del cuestionario ha presentado
+                cuestionariosPresentar_models::presentar($idCuestionarioResuelto,$fecha);
                 //Ejectamos la consulta que nos devuelve todos los bloques del cuestionario seleccionado
                 $arrayBloque = cuestionariosPresentar_models::detalleCuestionarioBloques($idCuestionario);
                 //Ejecutamos la consulta que nos debuelve todos las preguntas del cuestionario seleccionado
@@ -27,10 +33,6 @@
                 $total = count($arrayBloque);
                 //Contamos el número de preguntas devueltas
                 $total2 = count($arrayPregunta);
-
-                //Recuperamos la hora en que el paciente da inicio a presentar el cuestionario
-                date_default_timezone_set('America/Mexico_City');
-                $tiempoInicio = date('H:i:s');
         ?>
         
         <div class="container">
@@ -39,7 +41,7 @@
                     <h2><strong><?php echo $arrayBloque[0]['nombre']; ?></strong></h2>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="post" action="mostrarResultados.php">
+                    <form name="cuestionario" id="cuestionario" class="form-horizontal" method="post" action="mostrarResultados.php" onsubmit="return validarRadio(<?php echo $total2;?>);">
                         
                         <?php
                                         //Esta variable nos servirá para detener la comparacion de si determinada pregunta pertene a un determinado bloque
@@ -56,7 +58,7 @@
                                     if($arrayBloque[$i]['idBloquePregunta'] == $arrayPregunta[$j]['idBloquePregunta']){  
                             ?>
                                 <div class="form-group pregunta">
-                                    <label class="col-xs-12 titulo_pregunta"><?php echo ($j+1). ".- " .$arrayPregunta[$j]['pregunta']; ?></label>
+                                    <label id="<?php echo "pregunta".$j; ?>" class="col-xs-12 titulo_pregunta"><?php echo ($j+1). ".- " .$arrayPregunta[$j]['pregunta']; ?></label>
                                     <?php
                                                         //Iniciamos un ciclo que se repetirá 10 veces(sólo hay 10 posibles respuestas)
                                                         //eso no implica que tenga 10 respuestas
@@ -73,6 +75,7 @@
                                             }
                                         }
                                     ?>
+                                    <div id="<?php echo "opcion".$j; ?>" class="alert alert-danger hide"><strong>Selecciona una opción</strong></div>
                                 </div>
                             <?php
                                     
@@ -109,6 +112,67 @@
         }
         ?>
         <!-- end: content -->
+        <script>
+            // function validarRadio(totalInputs){
+                
+            //     for(cont = 0;cont<totalInputs;cont++){                    
+            //         booleano = false;
+            //         var radioElements = document.getElementsByName("opcion"+cont);
+            //         document.getElementById("opcion"+cont).className = "alert alert-danger hide";
+            //         for (i=0;i<radioElements.length;i++){
+            //             if (radioElements[i].checked){
+            //                 booleano = true;
+            //                 break;
+            //             }
+            //             if (booleano == false && i == (radioElements.length-1)){
+            //                 document.getElementById("opcion"+cont).className = "alert alert-danger";
+            //                 return false;
+            //             }
+            //         }
+            //     }
+            //     return booleano;
+            // }
+            //Esta función se utiliza para verificar que en todas la preguntas se ha seleccionado alguna opción
+            function validarRadio(totalInputs){
+                boolGeneral = true;
+                orden = 0;
+                pregunta = 0;
+                for(cont = 0;cont<totalInputs;cont++){
+                    booleano = false;
+                    var radioElements = document.getElementsByName("opcion"+cont);
+                    document.getElementById("opcion"+cont).className = "alert alert-danger hide";
+                    for (i=0;i<radioElements.length;i++){
+                        if (radioElements[i].checked){
+                            booleano = true;
+                            break;
+                        }
+                        if (booleano == false && i == (radioElements.length-1)){
+                            document.getElementById("opcion"+cont).className = "alert alert-danger";
+                            booleano = false;
+                            if(orden == 0){
+                                pregunta = cont;
+                                orden++;
+                            }
+                        }
+                    }
+                    if(boolGeneral && booleano){
+                        boolGeneral = true;
+                    }else{
+                        boolGeneral = false;
+                    }
+                }
+                if(orden!=0){
+                    document.getElementById("pregunta"+pregunta).scrollIntoView();
+                }
+                return boolGeneral;
+            }
+            //Esta función sirve para deshabilitar el botón de regresar a página anterior que incluyen todos los navegadores
+            function nobackbutton(){
+                window.location.hash="no-back-button";
+                window.location.hash="Again-No-back-button"
+                window.onhashchange=function(){window.location.hash="no-back-button";}
+            }
+        </script>
         <?php include("design/footer.php");?>
     </body>
 </html>

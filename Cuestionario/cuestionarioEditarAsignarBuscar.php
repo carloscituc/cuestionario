@@ -138,7 +138,7 @@
                         <div class="col-md-12 padding-1">
                             <label for="select-tiempo">Seleccionar límite de tiempo de evaluación</label>
                             <select class="form-control" name="seleccionar-tiempo">
-                                <option value="00:00:15">15 minutos</option>
+                                <option value="00:15:00">15 minutos</option>
                                 <option value="00:30:00">30 minutos</option>
                                 <option value="00:45:00">45 minutos</option>
                                 <option value="01:00:00">60 minutos</option>

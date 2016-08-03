@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="Tpo_realizacion">Tiempo de realización</label>
-                                    <h4><label class="label label-default"><?php echo $row['tiempoRealizacion']; ?></label></h4>
+                                    <h4><label class="label label-default"><?php if($row['tiempoRealizacion']=='00:00:00'){ echo "El paciente no terminó de presentar el cuestionario"; }else{ echo $row['tiempoRealizacion']; } ?></label></h4>
                                 </div>
                                 <div class="form-group">
                                     <label for="Lim_tpo">Límite de tiempo</label>

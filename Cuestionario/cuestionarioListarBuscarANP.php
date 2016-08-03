@@ -7,9 +7,11 @@
             include("design/header.php");
             include("php/cuestionariosResueltos.php");
 
-            //Llamamos a la función index la cual carga todos los includes que necesitamos
+            //Llamamos a la función cuestionarioListarBuscarANP la cual carga todos los includes que necesitamos
             cuestionariosResueltos::cuestionarioListarBuscarANP();
 
+            //Este fragmente if sirve para verificar si es que se están recibiendo datos
+            //tras haber dado clic en el botón "Reasignar del modal"
             if(isset($_POST['seleccionar-paciente']) && isset($_POST['seleccionar-tiempo']) && isset($_POST['reasignar_pacienteId']) && isset($_POST['reasignar_cuestionarioId'])){
                 //Recuperamos el id del paciente a quien se le asignará el cuestionario
                 $nuevoIdPaciente = $_POST['seleccionar-paciente'];
@@ -35,13 +37,21 @@
             }else{
                 $cadena = "";
             }
+
+            //Con este fragmento if verificamos si es que se está haciendo un tipo de búsqueda
+            //por nombre del paciente al dar clic en el botón "Buscar" o "Mostrar todos"
+            //o si es que se dio clic sobre el botón "Reasingar" dentro del modal
             if(isset($_POST['tipo_envio'])){
+                //1 significa que se está realizando una búsqueda por el nombre del paciente
                 if($_POST['tipo_envio']==1){
-                    //Recuperamos todas las asignaciones de cuestionarios aún o presentados
+                    //Recuperamos todas las asignaciones de cuestionarios aún no presentados
                     //en donde aparerezca el paciente x
                     $resultado2 = cuestionariosResueltos_models::buscarANP($cadena);
+                //De lo contrario si no es 1, significa que se dio clic en "Reasignar"
                 }else{
+                    //Recuperamos el id de la asignación paciente cuestionario
                     $idCuestionarioResuelto = $_POST['id_cuestionarioresuelto'];
+                    //Recuperamos solamente los datos del cuestionario que hemos modificado
                     $resultado2 = cuestionariosResueltos_models::buscarANPModificado($idCuestionarioResuelto);
                 }
             }else{
@@ -219,9 +229,6 @@
                     //al paciente, y para identificar este asignación le necesitamos pasar
                     //el id del paciente y el id del cuestionario
                     cuestionariosResueltos_models::eliminarAsignacion($idPaciente, $idCuestionario);
-
-                    //Recargamos la página para ver resultados
-                    //echo "<script> location.href='cuestionarioListarBuscarANP.php'; </script>";
                 }
                 ?>
             </form>
@@ -229,21 +236,31 @@
     </div>
 </div>
 <script>
-    function recuperarId(idCuestionario,idPaciente, limiteTiempo,idCuestionarioResuelto){
+    //Recuperamos el id del cuestionario y el id del paciente, el limite de Tiempo, el id de la relación de asignación paciente-cuestionario
+    //para pasarselo al modal #myModalReasignar cuando el botón reasignar sea presionado
+    //quedando almacenado en los dos inputs hidden que se encuentran dentro del modal
+    function recuperarId(idCuestionario,idPaciente,limiteTiempo,idCuestionarioResuelto){
         document.getElementById("reasignar_cuestionarioId").value = idCuestionario;
         document.getElementById("reasignar_pacienteId").value = idPaciente;
         document.getElementById("id_cuestionarioresuelto").value = idCuestionarioResuelto;
         document.getElementById(idPaciente).selected = 'selected';
         document.getElementById(limiteTiempo).selected = 'selected';
     }
+    //Recuperamos el id del cuestionario y el id del paciente
+    //para pasarselo al modal #myModalEliminar cuando el botón eliminar sea presionado
+    //quedando almacenado en los dos inputs hidden que se encuentran dentro del modal
     function eliminarId(idCuestionario,idPaciente){
         document.getElementById("eliminar_cuestionarioId").value = idCuestionario;
         document.getElementById("eliminar_pacienteId").value = idPaciente;   
     }
+    //Esta función nos sirve para limpiar el valor del input buscar
+    //de los cuestionarios no presentados
     function limpiarANP(){
         document.getElementById("nombre_ANP").value = "";
     }
-
+    //Esta función nos permite establecer el tipo de consulta de búsqueda que se ejecutará en cuestionarioListarBuscarANP
+    //en base al botón seleccionado, tipo_envio1 = se pulsó el botón "Buscar" o "Mostrar todos" de la sección cuestionarios asignados no presentados
+    //tipo_envio2 = se pulsó el botón "Reasignar" del modal reasignar cuestionario
     function tipoBusqueda(tipoBusqueda){
         if(tipoBusqueda == 1){
             document.getElementById("tipo_envio1").value = "1";

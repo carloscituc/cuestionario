@@ -139,6 +139,9 @@
 			
 			return $resultado;
 		}
+
+		//Esta se utiliza para que al recibir algún dato en los input de búsqueda
+		//recibamos sólo la primera palabra de la cadena
 		public static function dividirCadena($cadena){
 			$lon = strlen($cadena);
 			$ind = 0;

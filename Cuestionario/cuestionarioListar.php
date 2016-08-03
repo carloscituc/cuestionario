@@ -7,7 +7,7 @@
             include("design/header.php");
             include("php/cuestionariosResueltos.php");
 
-            //Llamamos a la función index la cual carga todos los includes que necesitamos
+            //Llamamos a la función cuestionarioListar la cual carga todos los includes que necesitamos
             cuestionariosResueltos::cuestionarioListar();
 
             //Ejecutamos la función listar la cual nos devuelve todos los datos de la primera tabla
@@ -268,7 +268,7 @@
     </div>
 </div>
 <script>
-    //Recuperamos el id del cuestionario y el id del paciente
+    //Recuperamos el id del cuestionario y el id del paciente, el limite de Tiempo, el id de la relación de asignación paciente-cuestionario
     //para pasarselo al modal #myModalReasignar cuando el botón reasignar sea presionado
     //quedando almacenado en los dos inputs hidden que se encuentran dentro del modal
     function recuperarId(idCuestionario,idPaciente,limiteTiempo,idCuestionarioResuelto){
@@ -299,6 +299,9 @@
         document.getElementById("nombre_RP").value = "";
     }
 
+    //Esta función nos permite establecer el tipo de consulta de búsqueda que se ejecutará en cuestionarioListarBuscarANP
+    //en base al botón seleccionado, tipo_envio1 = se pulsó el botón "Buscar" o "Mostrar todos" de la sección cuestionarios asignados no presentados
+    //tipo_envio2 = se pulsó el botón "Reasignar" del modal reasignar cuestionario
     function tipoBusqueda(tipoBusqueda){
         if(tipoBusqueda == 1){
             document.getElementById("tipo_envio1").value = "1";
