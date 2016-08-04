@@ -1,0 +1,9 @@
+Tareas en general para terminar en back-end
+  Sección puntaje
+  ☐ Modificar la base de datos para poder obtener el puntaje por sección.
+  ☐ Almacenar el valor por sección en la base de datos al termino de cada presentación de un cuestionario.
+  ☐ Mostrar el puntaje obtenido por sección de cada cuestionario.
+  Opción puntaje
+   ☐ Modificar la base de datos para poder obtener un puntaje por cada pregunta.
+   ☐ Almacenar el valor de cada pregunta y cada opción si es el caso.
+   ☐ Recuperar el puntaje obtenido por cada pregunta según el cuestionario presentado.
