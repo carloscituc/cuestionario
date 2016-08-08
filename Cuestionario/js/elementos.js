@@ -345,8 +345,7 @@ function finalizarPregunta(fin){
     tOpciones = numOpcion;
     //alert(tOpciones);
     totalOpciones.setAttribute('value',tOpciones);
-    //numOpcion=2;
-    //num=1;
+
 
     //Validación input Escribe pregunta
     inputEscribePre = document.getElementById('pregunta'+idSeccion+idPregunta).value;
@@ -394,6 +393,8 @@ function finalizarPregunta(fin){
 
 
     if(resultado && resultado2 && resultado3 == true){
+        numOpcion=2;
+        num=1;
         formulario = document.getElementById("Pregunta"+idSeccion+idPregunta);
         eleInput = formulario.getElementsByTagName("input");
         eleLabel = formulario.getElementsByTagName("select");
@@ -444,7 +445,7 @@ function finalizarPregunta(fin){
         }
     }
      //Contar opciones para inicializar numOpcion y num
-    cont=0;
+    /*cont=0;
     for(i=1;i<11;i++){
         opcion = document.getElementById('op'+idSeccion+idPregunta+i);
         //alert(opcion);
@@ -453,7 +454,7 @@ function finalizarPregunta(fin){
         }
     }
     numOpcion = cont;
-    num = cont; 
+    num = cont; */
 
 }
 
@@ -546,7 +547,7 @@ function idBtnPregunta(e){
 j=1;
 num=2;
 function agrePregunta(x,e){
-    numOpcion=2;
+    //numOpcion=2;
     j++;
     num++;
     numPregunta++;
@@ -873,6 +874,9 @@ function agrePregunta(x,e){
     btnModificar1.innerHTML='Modificar pregunta';
     btnModificar1.style='visibility: hidden;';
     modificarPregunta1.appendChild(btnModificar1);
+    
+    //numOpcion=2;
+   // num=2;
 
 }
 
