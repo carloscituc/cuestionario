@@ -20,7 +20,8 @@
 					$pregunta = $_POST['pregunta'.$i.$j];
 					$puntaje = $_POST['conSelect'.$i.$j];					
 					$totOp = $_POST['conOpcion'.$i.$j] + 1;
-					$datosCampos = "";					
+					$datosCampos = "";
+					$radioCorrecta = $_POST['radioOp'.$i.$j];
 					for($k = 1; $k < 11; $k++){
 						if($k < $totOp){
 							$opcion = $_POST['op'.$i.$j.$k];
@@ -28,7 +29,7 @@
 						}else{
 							$datosCampos = $datosCampos . ",null";
 						}					
-						if($k == 1){
+						if($radioCorrecta == $k){
 							$respuestaCorrecta = $_POST['op'.$i.$j.$k];
 						}
 					}

@@ -53,11 +53,27 @@
                                                             //Se verifica si la respuesta existe y si no, no la imprimimos
                                                 if(isset($arrayPregunta[$j]['respuesta'.$k])){
                                     ?>
+                                    
+                                    <?php
+                                        if($arrayPregunta[$j]['respuesta'.$k]==$arrayPregunta[$j]['respuestaCorrecta']){
+                                    ?>  
+                                    <div class="col-xs-12 radio_correcto">
+                                        <label class="radio_opcion radio-inline">
+                                            <input type="radio" checked name="<?php echo $j; ?>"><strong><?php echo " " . $arrayPregunta[$j]['respuesta'.$k]; ?></strong>
+                                        </label>
+                                    </div>
+                                    <?php
+                                        }else{
+                                    ?>
                                     <div class="col-xs-12">
                                         <label class="radio_opcion radio-inline">
                                             <input type="radio" name="<?php echo $j; ?>"><?php echo " " . $arrayPregunta[$j]['respuesta'.$k]; ?>
-                                        </label>
+                                    </label>
                                     </div>
+                                    <?php
+                                        }
+                                    ?>
+                                        
                                     <?php
                                             }
                                         }
