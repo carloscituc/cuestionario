@@ -77,7 +77,7 @@ function crear(obj) {
     ele8.appendChild(ele9);
 
     ele10 = document.createElement('input');
-    ele10.id='radioOp'+idSeccion+idPregunta;
+    ele10.id='radioOp'+idSeccion+idPregunta+numOpcion;
     ele10.type='radio';
     ele10.name='radioOp'+idSeccion+idPregunta;
     ele10.setAttribute('value',num);
@@ -129,6 +129,10 @@ function eliminarOpcion(x){
                     idlabel.setAttribute('for','label'+idSeccion+idPregunta+j);
                     idlabel.id='label'+idSeccion+idPregunta+j;
                     idlabel.innerHTML='Opción'+j+':';
+                    //renombrar radio button
+                    radioBut = document.getElementById('radioOp'+idSeccion+idPregunta+k);
+                    radioBut.setAttribute('value',j);
+                    radioBut.id='radioOp'+idSeccion+idPregunta+j;
                     j++;            
                 }
             }
@@ -153,6 +157,10 @@ function eliminarOpcion(x){
                     idlabel.setAttribute('for','label'+idSeccion+idPregunta+j);
                     idlabel.id='label'+idSeccion+idPregunta+j;
                     idlabel.innerHTML='Opción'+j+':';
+                    //renombrar radio button
+                    radioBut = document.getElementById('radioOp'+idSeccion+idPregunta+k);
+                    radioBut.setAttribute('value',j);
+                    radioBut.id='radioOp'+idSeccion+idPregunta+j;
                     j++;  
                 }
             }
@@ -178,6 +186,10 @@ function eliminarOpcion(x){
                     idlabel.setAttribute('for','label'+idSeccion+idPregunta+j);
                     idlabel.id='label'+idSeccion+idPregunta+j;
                     idlabel.innerHTML='Opción'+j+':';
+                    //renombrar radio button
+                    radioBut = document.getElementById('radioOp'+idSeccion+idPregunta+k);
+                    radioBut.setAttribute('value',j);
+                    radioBut.id='radioOp'+idSeccion+idPregunta+j;
                     j++;  
                 }
             }
@@ -203,6 +215,10 @@ function eliminarOpcion(x){
                     idlabel.setAttribute('for','label'+idSeccion+idPregunta+j);
                     idlabel.id='label'+idSeccion+idPregunta+j;
                     idlabel.innerHTML='Opción'+j+':';
+                    //renombrar radio button
+                    radioBut = document.getElementById('radioOp'+idSeccion+idPregunta+k);
+                    radioBut.setAttribute('value',j);
+                    radioBut.id='radioOp'+idSeccion+idPregunta+j;
                     j++;  
                 }
             }
@@ -228,6 +244,10 @@ function eliminarOpcion(x){
                     idlabel.setAttribute('for','label'+idSeccion+idPregunta+j);
                     idlabel.id='label'+idSeccion+idPregunta+j;
                     idlabel.innerHTML='Opción'+j+':';
+                    //renombrar radio button
+                    radioBut = document.getElementById('radioOp'+idSeccion+idPregunta+k);
+                    radioBut.setAttribute('value',j);
+                    radioBut.id='radioOp'+idSeccion+idPregunta+j;
                     j++;  
                 }
             }
@@ -251,6 +271,10 @@ function eliminarOpcion(x){
                     idlabel.setAttribute('for','label'+idSeccion+idPregunta+j);
                     idlabel.id='label'+idSeccion+idPregunta+j;
                     idlabel.innerHTML='Opción'+j+':';
+                    //renombrar radio button
+                    radioBut = document.getElementById('radioOp'+idSeccion+idPregunta+k);
+                    radioBut.setAttribute('value',j);
+                    radioBut.id='radioOp'+idSeccion+idPregunta+j;
                     j++;  
                 }
             }
@@ -276,6 +300,10 @@ function eliminarOpcion(x){
                     idlabel.setAttribute('for','label'+idSeccion+idPregunta+j);
                     idlabel.id='label'+idSeccion+idPregunta+j;
                     idlabel.innerHTML='Opción'+j+':';
+                    //renombrar radio button
+                    radioBut = document.getElementById('radioOp'+idSeccion+idPregunta+k);
+                    radioBut.setAttribute('value',j);
+                    radioBut.id='radioOp'+idSeccion+idPregunta+j;
                     j++;  
                 }
             }
@@ -720,7 +748,7 @@ function agrePregunta(x,e){
 
     //<input type="radio" value="" id="radioOp11">
     var radioOp1 = document.getElementById('radioOp11').cloneNode(x);
-    radioOp1.id='radioOp'+numSeccion+numPregunta;
+    radioOp1.id='radioOp'+numSeccion+numPregunta+'1';
     radioOp1.name='radioOp'+numSeccion+numPregunta;
     radioOp1.setAttribute('checked','checked');
     radioOp1.setAttribute('value','1');
@@ -768,7 +796,7 @@ function agrePregunta(x,e){
 
     //<input type="radio" value="" id="radioOp11">
     var radioOp12 = document.getElementById('radioOp11').cloneNode(x);
-    radioOp12.id='radioOp'+numSeccion+numPregunta;
+    radioOp12.id='radioOp'+numSeccion+numPregunta+'2';
     radioOp12.name='radioOp'+numSeccion+numPregunta;
     radioOp12.setAttribute('value','2');
     conRadio12.appendChild(radioOp12);
@@ -1264,7 +1292,7 @@ function agregarSeccion(c){
 
     //<input type="radio" value="" id="radioOp111">
     var radioOp1 = document.getElementById('radioOp11').cloneNode(c);
-    radioOp1.id='radioOp'+numSeccion+numPregunta;
+    radioOp1.id='radioOp'+numSeccion+numPregunta+'1';
     radioOp1.name='radioOp'+numSeccion+numPregunta;
     radioOp1.setAttribute('checked','checked');
     radioOp1.setAttribute('value','1');
@@ -1313,7 +1341,7 @@ function agregarSeccion(c){
 
     //<input type="radio" value="" id="radioOp11">
     var radioOp12 = document.getElementById('radioOp11').cloneNode(c);
-    radioOp12.id='radioOp'+numSeccion+numPregunta;
+    radioOp12.id='radioOp'+numSeccion+numPregunta+'2';
     radioOp12.name='radioOp'+numSeccion+numPregunta;
     radioOp12.setAttribute('value','2');
     conRadio12.appendChild(radioOp12);
