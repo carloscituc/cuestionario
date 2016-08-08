@@ -20,7 +20,7 @@
                         <div class="panel-body" style="padding-bottom:30px;">
                             <form id="form1" method="post">
                                 <div class="form-group">
-                                    <div class="col-sm-12" id="titulo">
+                                    <div class="col-sm-12" id="Coltitulo">
                                         <div class="col-sm-12 padding-0">
                                             <input id="titulo" name="titulo" type="text" class="form-control" placeholder="Escribe el título del cuestionario">
                                         </div>
@@ -47,7 +47,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="row" id='filaRespuestas1'>
-                                                            <div class="col-md-1" style="margin-top:15px;" id="columnaRespuestas1">
+                                                            <div class="col-md-2" style="margin-top:15px;" id="columnaRespuestas1">
                                                                 <label for="puntajePregunta1" id="puntajePregunta1">Puntaje:</label>
                                                                 <select class="form-control" id="puntaje11" name="puntaje11" onchange="valor(this.options[this.selectedIndex].innerHTML);">
                                                                     <option id="opcion1" value="1">1</option>
@@ -61,6 +61,9 @@
                                                                     <option id="opcion9" value="9">9</option>
                                                                     <option id="opcion10" value="10">10</option>
                                                                 </select>
+                                                            </div>
+                                                            <div class="col-md-10" style="margin-top:45px;" id="columnaLabPuntaje1">
+                                                            <label id="lblPuntaje1">Puntaje de la respuesta correcta.</label>
                                                             </div>
                                                         </div>
                                                         <div class="row" id="filaConSelect11">
@@ -78,6 +81,12 @@
 </span>-->
                                                                 <!--</div>-->
                                                             </div>
+                                                            <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp11">
+                                                                <div class="radio" id="conRadio11">
+                                                                   <input type="radio" value="1" id="radioOp11" name="radioOp11" checked="checked">
+                                                                    <label id="labelOp11" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
+                                                                </div>
+                                                            </div> 
                                                         </div>
                                                         <div class="row" id="opcion112">
                                                             <div class="col-md-8" style="margin-top:15px;" id="filaOpcion2">
@@ -88,7 +97,14 @@
 <button class="btn btn-danger" type="button"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
 </span>-->
                                                                 <!--</div>-->
+                                                                
                                                             </div>
+                                                            <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp11">
+                                                                <div class="radio" id="conRadio11">
+                                                                   <input type="radio" value="2" id="radioOp11" name="radioOp11">Respuesta correcta</label>
+                                                                    <label id="labelOp11" style="margin-top: -5px">
+                                                                </div>
+                                                            </div> 
                                                         </div>
                                                         <div class="row" id="filaConOpcion11">
                                                             <div class="col-md-8" id="colConOpcion11">    

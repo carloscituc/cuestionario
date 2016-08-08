@@ -65,6 +65,30 @@ function crear(obj) {
     ele6.setAttribute('aria-hidden','true');
     ele5.appendChild(ele6);
 
+    ele8 = document.createElement('div');
+    ele8.id='colRadioOp'+idSeccion+idPregunta;
+    ele8.className='col-md-4';
+    ele8.style='margin-top:33px;';
+    op1.appendChild(ele8);
+
+    ele9 = document.createElement('div');
+    ele9.id='conRadio'+idSeccion+idPregunta;
+    ele9.className='radio';
+    ele8.appendChild(ele9);
+
+    ele10 = document.createElement('input');
+    ele10.id='radioOp'+idSeccion+idPregunta;
+    ele10.type='radio';
+    ele10.name='radioOp'+idSeccion+idPregunta;
+    ele10.setAttribute('value',num);
+    ele9.appendChild(ele10);
+
+    ele11 = document.createElement('label');
+    ele11.id='labelOp'+idSeccion+idPregunta;
+    ele11.style='margin-left: -19px;margin-top: 3px;';
+    ele11.innerHTML='Respuesta correcta';
+    ele9.appendChild(ele11);
+
     if(num==10){
         idCrear1.disabled=true;
     }
@@ -293,73 +317,116 @@ function finalizarPregunta(fin){
     tOpciones = numOpcion;
     //alert(tOpciones);
     totalOpciones.setAttribute('value',tOpciones);
-    numOpcion=2;
-    num=1;
+    //numOpcion=2;
+    //num=1;
 
     //Validación input Escribe pregunta
     inputEscribePre = document.getElementById('pregunta'+idSeccion+idPregunta).value;
 
     if(inputEscribePre == null || inputEscribePre.length == 0 || /^\s+$/.test(inputEscribePre)){
-        $("#pregunta"+idSeccion+idPregunta).parent().attr("class","col-md-4 has-error");
+        $("#pregunta"+idSeccion+idPregunta).parent().attr("class","col-md-12 has-error");
         //$("#pregunta"+idSeccion+idPregunta).parent().children("span").attr("class","glyphicon glyphicon-plus");
+        $("#pregunta"+idSeccion+idPregunta).focus();
+        var resultado = false;
     }else{
         $("#pregunta"+idSeccion+idPregunta).parent().attr("class","col-md-12");
-    }
-    
-    /*for(i){
-        
-    }*/
-    
-    
-    
-    formulario = document.getElementById("Pregunta"+idSeccion+idPregunta);
-    eleInput = formulario.getElementsByTagName("input");
-    eleLabel = formulario.getElementsByTagName("select");
-    eleButton = formulario.getElementsByTagName("button");
-    //alert('Se encontraron '+eleInput.length+' Elementos que se van a deshabilitar');
-    for (i=0;i<eleInput.length;i++){
-        eleInput[i].setAttribute('readonly','readonly');
+        var resultado = true;
     }
 
-    //alert('Se encontraron '+eleButton.length+' Elementos que se van a deshabilitar');
-    for (i=0;i<eleButton.length;i++){
-        eleButton[i].disabled = true;
-    }
 
-    //alert('Se encontraron '+eleLabel.length+' Elementos que se van a deshabilitar');
-    val = document.getElementById('puntaje'+idSeccion+idPregunta);
-    val1 = val.value;
-    val.disabled=true;
-
-    document.getElementById('conSelect'+idSeccion+idPregunta).value=val1;
-
-    btnFinalizar = document.getElementById('btnFinalizar'+idSeccion+idPregunta);
-    btnAgregar = document.getElementById('btnAgregar'+idSeccion+idPregunta);
-    btnModificar = document.getElementById('btnModificar'+idSeccion+idPregunta);
-
-    btnFinalizar.disabled=true;
-    btnAgregar.disabled=true;
-    btnModificar.style.visibility='visible';
-    btnModificar.disabled=false;
-
-    btnAgPregunta = document.getElementById('btnAgPregunta'+idSeccion);
-    btnAgPregunta.disabled=false;
-
-    btnFinalizarSec = document.getElementById('btnFinSec'+idSeccion);
-    btnFinalizarSec.disabled=false;
-    
-    //Desbloquear los demás modificar
-    //alert(numPregunta);
-    for(i=1;i<=numPregunta;i++){
-        btnsModificar1 = document.getElementById('btnModificar'+idSeccion+i);
-        btnsModificar = btnsModificar1.id;
-        //alert(btnsModificar);
-        //alert(idModificar);
-        if(btnModificar!=btnsModificar){
-            //alert(btnsModificar);
-            btnsModificar1.disabled=false;
+    //Validacion de los campos de las opciones 1 y 2
+    for(i=1;i<=2;i++){
+        inputOpciones = document.getElementById('op'+idSeccion+idPregunta+i).value;
+        if(inputOpciones == null || inputOpciones.length == 0 || /^\s+$/.test(inputOpciones)){
+            $("#op"+idSeccion+idPregunta+i).parent().attr("class","col-md-8 has-error");
+            var resultado2 = false;
+        }else{
+            $("#op"+idSeccion+idPregunta+i).parent().attr("class","col-md-8");
+            var resultado2 = true;
         }
-    }  
+    }
+
+    //Validacion de los campos de las opciones 3 a 10
+    inputOpcion = document.getElementById('op'+idSeccion+idPregunta+'3');
+    typeof inputOpcion
+    resultado3 = true;
+    if(inputOpcion!=null){
+        for(i=3;i<=tOpciones;i++){
+            inputOpciones = document.getElementById('op'+idSeccion+idPregunta+i).value;
+            if(inputOpciones == null || inputOpciones.length == 0 || /^\s+$/.test(inputOpciones)){
+                $("#op"+idSeccion+idPregunta+i).parent().attr("class","input-group has-error");
+                 $("#op"+idSeccion+idPregunta+i).focus();
+                var resultado3 = false;
+            }else{
+                $("#op"+idSeccion+idPregunta+i).parent().attr("class","input-group");
+                var resultado3 = true;
+            }
+        }
+    }
+
+
+    if(resultado && resultado2 && resultado3 == true){
+        formulario = document.getElementById("Pregunta"+idSeccion+idPregunta);
+        eleInput = formulario.getElementsByTagName("input");
+        eleLabel = formulario.getElementsByTagName("select");
+        eleButton = formulario.getElementsByTagName("button");
+        alert('Se encontraron '+eleInput.length+' Elementos que se van a deshabilitar');
+        for (i=0;i<eleInput.length;i++){
+            eleInput[i].setAttribute('readonly','readonly');
+        }
+
+        //alert('Se encontraron '+eleButton.length+' Elementos que se van a deshabilitar');
+        for (i=0;i<eleButton.length;i++){
+            eleButton[i].disabled = true;
+        }
+
+        //alert('Se encontraron '+eleLabel.length+' Elementos que se van a deshabilitar');
+        val = document.getElementById('puntaje'+idSeccion+idPregunta);
+        val1 = val.value;
+        val.disabled=true;
+
+        document.getElementById('conSelect'+idSeccion+idPregunta).value=val1;
+
+        btnFinalizar = document.getElementById('btnFinalizar'+idSeccion+idPregunta);
+        btnAgregar = document.getElementById('btnAgregar'+idSeccion+idPregunta);
+        btnModificar = document.getElementById('btnModificar'+idSeccion+idPregunta);
+
+        btnFinalizar.disabled=true;
+        btnAgregar.disabled=true;
+        btnModificar.style.visibility='visible';
+        btnModificar.disabled=false;
+
+        btnAgPregunta = document.getElementById('btnAgPregunta'+idSeccion);
+        btnAgPregunta.disabled=false;
+
+        btnFinalizarSec = document.getElementById('btnFinSec'+idSeccion);
+        btnFinalizarSec.disabled=false;
+
+        //Desbloquear los demás modificar
+        //alert(numPregunta);
+        for(i=1;i<=numPregunta;i++){
+            btnsModificar1 = document.getElementById('btnModificar'+idSeccion+i);
+            btnsModificar = btnsModificar1.id;
+            //alert(btnsModificar);
+            //alert(idModificar);
+            if(btnModificar!=btnsModificar){
+                //alert(btnsModificar);
+                btnsModificar1.disabled=false;
+            }
+        }
+    }
+     //Contar opciones para inicializar numOpcion y num
+    cont=0;
+    for(i=1;i<11;i++){
+        opcion = document.getElementById('op'+idSeccion+idPregunta+i);
+        //alert(opcion);
+        if(opcion!=null){
+            var cont=cont+1;
+        }
+    }
+    numOpcion = cont;
+    num = cont; 
+
 }
 
 //boton modificar
@@ -395,10 +462,10 @@ function modificarPregunta(b){
 
     btnFinalizar.disabled=false;
     btnModificar.style.visibility='hidden';
-    
+
     btnFinSec1 = document.getElementById('btnFinSec'+idSeccion);
     btnFinSec1.disabled=true;
-    
+
     btnAgPregunta = document.getElementById('btnAgPregunta'+idSeccion);
     btnAgPregunta.disabled=true;
 
@@ -451,10 +518,12 @@ function idBtnPregunta(e){
 j=1;
 num=2;
 function agrePregunta(x,e){
-
+    numOpcion=2;
     j++;
     num++;
     numPregunta++;
+    
+    
 
     btnPregunta1 = document.getElementById(e);
     btnPregunta2 = btnPregunta1.id;
@@ -497,6 +566,7 @@ function agrePregunta(x,e){
     inputPregunta1.id='pregunta'+numSeccion+numPregunta;
     inputPregunta1.name='pregunta'+numSeccion+numPregunta;
     inputPregunta1.removeAttribute('readonly');
+    inputPregunta1.value="";
     columnaPregunta.appendChild(inputPregunta1);
 
     //<div class="row" id='filaRespuestas1'>
@@ -585,6 +655,17 @@ function agrePregunta(x,e){
     opcion10.nodeValue='10';
     opcion10.innerHTML='10';
     puntaje1.appendChild(opcion10);
+    
+    //<div class="col-md-10" style="margin-top:45px;" id="columnaLabPuntaje1">
+    var columnaLabPuntaje1 = document.getElementById('columnaLabPuntaje1').cloneNode(x);
+    columnaLabPuntaje1.id='columnaLabPuntaje'+numSeccion;
+    filaRespuestas1.appendChild(columnaLabPuntaje1);
+    
+    //<label id="lblPuntaje1">
+    var lblPuntaje1 = document.getElementById('lblPuntaje1').cloneNode(x);
+    lblPuntaje1.id='lblPuntaje1'+numSeccion;
+    lblPuntaje1.innerHTML='Puntaje de la respuesta correcta';
+    filaRespuestas1.appendChild(lblPuntaje1);
 
     //<div class="row" id="filaConSelect11">
     var filaConSelect1 = document.getElementById('filaConSelect11').cloneNode(x);
@@ -600,7 +681,7 @@ function agrePregunta(x,e){
     var conSelect1 = document.getElementById('conSelect11').cloneNode(x);
     conSelect1.id='conSelect'+numSeccion+numPregunta;
     conSelect1.name='conSelect'+numSeccion+numPregunta;
-    conSelect1.setAttribute('value','');
+    conSelect1.setAttribute('value','1');
     colConSelect1.appendChild(conSelect1);
 
     //<div class="row" id="opcion111">
@@ -624,7 +705,32 @@ function agrePregunta(x,e){
     inputOpcion1.id='op'+numSeccion+numPregunta+'1';
     inputOpcion1.name='op'+numSeccion+numPregunta+'1';
     inputOpcion1.removeAttribute('readonly');
+    inputOpcion1.value="";
     filaOpcion1.appendChild(inputOpcion1);
+
+    //<div class="col-md-4" style="margin-top: 33px;" id="colRadioOp11">
+    var colRadioOp1 = document.getElementById('colRadioOp11').cloneNode(x);
+    colRadioOp1.id='colRadioOp'+numSeccion+numPregunta;
+    op1.appendChild(colRadioOp1);
+
+    //<div class="radio" id="conRadio11">
+    var conRadio1 = document.getElementById('conRadio11').cloneNode(x);
+    conRadio1.id='conRadio'+numSeccion+numPregunta;
+    colRadioOp1.appendChild(conRadio1);
+
+    //<input type="radio" value="" id="radioOp11">
+    var radioOp1 = document.getElementById('radioOp11').cloneNode(x);
+    radioOp1.id='radioOp'+numSeccion+numPregunta;
+    radioOp1.name='radioOp'+numSeccion+numPregunta;
+    radioOp1.setAttribute('checked','checked');
+    radioOp1.setAttribute('value','1');
+    conRadio1.appendChild(radioOp1);
+
+    //<label id="labelOp11" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
+    var labelOp1 = document.getElementById('labelOp11').cloneNode(x);
+    labelOp1.id='labelOp'+numSeccion+numPregunta;
+    labelOp1.innerHTML='Respuesta correcta';
+    conRadio1.appendChild(labelOp1);
 
     //<div class="row" id="op2">
     var op2 = document.getElementById('opcion112').cloneNode(x);
@@ -647,7 +753,32 @@ function agrePregunta(x,e){
     inputOpcion2.id='op'+numSeccion+numPregunta+'2';
     inputOpcion2.name='op'+numSeccion+numPregunta+'2';
     inputOpcion2.removeAttribute('readonly');
+    inputOpcion2.value="";
     filaOpcion2.appendChild(inputOpcion2);
+
+    //<div class="col-md-4" style="margin-top: 33px;" id="colRadioOp11">
+    var colRadioOp12 = document.getElementById('colRadioOp11').cloneNode(x);
+    colRadioOp12.id='colRadioOp'+numSeccion+numPregunta;
+    op2.appendChild(colRadioOp12);
+
+    //<div class="radio" id="conRadio11">
+    var conRadio12 = document.getElementById('conRadio11').cloneNode(x);
+    conRadio12.id='conRadio'+numSeccion+numPregunta;
+    colRadioOp12.appendChild(conRadio12);
+
+    //<input type="radio" value="" id="radioOp11">
+    var radioOp12 = document.getElementById('radioOp11').cloneNode(x);
+    radioOp12.id='radioOp'+numSeccion+numPregunta;
+    radioOp12.name='radioOp'+numSeccion+numPregunta;
+    radioOp12.setAttribute('value','2');
+    conRadio12.appendChild(radioOp12);
+
+    //<label id="labelOp11" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
+    var labelOp12 = document.getElementById('labelOp11').cloneNode(x);
+    labelOp12.id='labelOp'+numSeccion+numPregunta;
+    labelOp12.name='labelOp'+numSeccion+numPregunta;
+    labelOp12.innerHTML='Respuesta correcta';
+    conRadio12.appendChild(labelOp12);
 
     //<div class="row" id="filaConOpcion11">
     var filaConOpcion1 = document.getElementById('filaConOpcion11').cloneNode(x);
@@ -728,48 +859,80 @@ function finSeccion(r){
     totalPreguntas.setAttribute('value',numPregunta);
     //alert(numPregunta);
 
-    Form = document.getElementById("bloque"+idFinSeccion);
-    Elemento = Form.getElementsByTagName("input");
-    Elemento2 = Form.getElementsByTagName("select");
-    Elemento3 = Form.getElementsByTagName("button");
 
-    //alert('Se encontraron '+Elemento.length+' Elementos que se van a deshabilitar');
-    for (i=0;i<Elemento.length;i++){
-        Elemento[i].setAttribute('readonly','readonly');
+    //Validar input titulo del cuestionario
+    inputInstrucciones = document.getElementById('instrucciones'+idFinSeccion).value;
+
+    if(inputInstrucciones == null || inputInstrucciones.length == 0 || /^\s+$/.test(inputInstrucciones)){
+        $("#instrucciones"+idFinSeccion).parent().attr("class","col-md-12 has-error");
+        $("#instrucciones"+idFinSeccion).focus();
+        //$("#pregunta"+idSeccion+idPregunta).parent().children("span").attr("class","glyphicon glyphicon-plus");
+        var resultado = false;
+    }else{
+        $("#instrucciones"+idFinSeccion).parent().attr("class","col-md-12");
+        $("#instrucciones"+idFinSeccion).attr('readonly','readonly');
+        var resultado = true;
     }
 
-    //alert('Se encontraron '+Elemento2.length+' Elementos que se van a deshabilitar');
-    for (i=0;i<Elemento2.length;i++){
-        Elemento2[i].disabled=true;
+    //Validar input titulo del cuestionario
+    inputTitulo = document.getElementById('titulo').value;
+
+    if(inputTitulo == null || inputTitulo.length == 0 || /^\s+$/.test(inputTitulo)){
+        $("#titulo").parent().attr("class","col-md-12 has-error");
+        $("#titulo").focus();
+        //$("#pregunta"+idSeccion+idPregunta).parent().children("span").attr("class","glyphicon glyphicon-plus");
+        var resultado2 = false;
+    }else{
+        $("#titulo").parent().attr("class","col-md-12");
+        var resultado2 = true;
     }
 
-    //alert('Se encontraron '+Elemento3.length+' Elementos que se van a deshabilitar');
-    for (i=0;i<Elemento3.length;i++){
-        Elemento3[i].disabled = true;
-    }
 
-    btnAgSeccion.disabled=false;
-    btnFinCuestionario.disabled=false;
 
-    btnModSec1 = document.getElementById('btnModSec'+idFinSeccion);
-    btnModSec1.style.visibility='visible';
-    btnModSec1.disabled=false;
+    if(resultado && resultado2 == true){
+        Form = document.getElementById("bloque"+idFinSeccion);
+        Elemento = Form.getElementsByTagName("input");
+        Elemento2 = Form.getElementsByTagName("select");
+        Elemento3 = Form.getElementsByTagName("button");
 
-    totalSeccion = document.getElementById('conSeccion1');
-    totalSeccion.setAttribute('value',numSeccion); 
-    
-    //Desbloquear los botones modificar sección
-    a=1;
-    btnsModificarSec = document.getElementById('btnModSec'+a);
-    //btnsModificar = btnsModificar1.id;
-    
-    while(btnsModificarSec!=null){
-        btnsModificarSec = document.getElementById('btnModSec'+a);
-        typeof btnsModificarSec;
-        if(btnsModificarSec!=null){
-            btnsModificarSec.disabled=false;
+        //alert('Se encontraron '+Elemento.length+' Elementos que se van a deshabilitar');
+        for (i=0;i<Elemento.length;i++){
+            Elemento[i].setAttribute('readonly','readonly');
         }
-        a++;
+
+        //alert('Se encontraron '+Elemento2.length+' Elementos que se van a deshabilitar');
+        for (i=0;i<Elemento2.length;i++){
+            Elemento2[i].disabled=true;
+        }
+
+        //alert('Se encontraron '+Elemento3.length+' Elementos que se van a deshabilitar');
+        for (i=0;i<Elemento3.length;i++){
+            Elemento3[i].disabled = true;
+        }
+
+        btnAgSeccion.disabled=false;
+        btnFinCuestionario.disabled=false;
+
+        btnModSec1 = document.getElementById('btnModSec'+idFinSeccion);
+        btnModSec1.style.visibility='visible';
+        btnModSec1.disabled=false;
+
+        totalSeccion = document.getElementById('conSeccion1');
+        totalSeccion.setAttribute('value',numSeccion); 
+
+        //Desbloquear los botones modificar sección
+        a=1;
+        btnsModificarSec = document.getElementById('btnModSec'+a);
+        //btnsModificar = btnsModificar1.id;
+
+        while(btnsModificarSec!=null){
+            btnsModificarSec = document.getElementById('btnModSec'+a);
+            typeof btnsModificarSec;
+            if(btnsModificarSec!=null){
+                btnsModificarSec.disabled=false;
+            }
+            a++;
+        }
     }
 }
 
@@ -777,7 +940,7 @@ function modificarCuestionario(h){
     btnModSec1 = document.getElementById(h);
     btnModSec = btnModSec1.id;
     idModSeccion = btnModSec.charAt(9);//btnModSec1   
-    
+
     btnModSec1.style.visibility='hidden';
 
     //Bloquear los demás modificar sección
@@ -792,7 +955,7 @@ function modificarCuestionario(h){
             btnsSecModificar1.disabled=true;
         }
     }
-    
+
     //Desbloquear los botones modificar Pregunta de la sección
     //alert(numPregunta);
     //alert(idModSeccion);
@@ -800,15 +963,15 @@ function modificarCuestionario(h){
     btnsModificar = document.getElementById('btnModificar'+idModSeccion+a);
     //btnsModificar = btnsModificar1.id;
     //alert(btnsModificar);
-    
+
     while(btnsModificar!=null){
         btnsModificar = document.getElementById('btnModificar'+idModSeccion+a);
         typeof btnsModificar;
-       //alert(btnsModificar);
+        //alert(btnsModificar);
         if(btnsModificar!=null){
             btnsModificar.disabled=false;
         }
-               a++;
+        a++;
         //alert(a);
     }
 
@@ -817,17 +980,19 @@ function modificarCuestionario(h){
         btnsModificar = btnsModificar1.id;
             btnsModificar1.disabled=false;
     }*/
-    
+
     btnAgSeccion.disabled=true;
     btnFinCuestionario.disabled=true;
 }
 
 //boton finalizar cuestionario
 function finalizarCuestionario(){
+
     Forma = document.getElementById("form1");
     Elementos = Forma.getElementsByTagName("input");
     Elementos2 = Forma.getElementsByTagName("select");
     Elementos3 = Forma.getElementsByTagName("button");
+
 
     //alert('Se encontraron '+Elementos.length+' Elementos que se van a deshabilitar');
     for (i=0;i<Elementos.length;i++){
@@ -907,6 +1072,7 @@ function agregarSeccion(c){
     instrucciones1.name='instrucciones'+numSeccion;
     instrucciones1.style='margin-bottom: 15px;';
     instrucciones1.removeAttribute('readonly');
+    instrucciones1.value="";
     columnaInstrucciones1.appendChild(instrucciones1);
 
     //<div class="row" id="Pregunta11">    
@@ -943,6 +1109,7 @@ function agregarSeccion(c){
     inputPregunta1.id='pregunta'+numSeccion+'1';
     inputPregunta1.name='pregunta'+numSeccion+'1';
     inputPregunta1.removeAttribute('readonly');
+    inputPregunta1.value="";
     columnaPregunta.appendChild(inputPregunta1);
 
     //<div class="row" id='filaRespuestas1'>
@@ -1031,6 +1198,17 @@ function agregarSeccion(c){
     opcion10.nodeValue='10';
     opcion10.innerHTML='10';
     puntaje1.appendChild(opcion10);
+    
+    //<div class="col-md-10" style="margin-top:45px;" id="columnaLabPuntaje1">
+    var columnaLabPuntaje1 = document.getElementById('columnaLabPuntaje1').cloneNode(c);
+    columnaLabPuntaje1.id='columnaLabPuntaje'+numSeccion;
+    filaRespuestas1.appendChild(columnaLabPuntaje1);
+    
+    //<label id="lblPuntaje1">
+    var lblPuntaje1 = document.getElementById('lblPuntaje1').cloneNode(c);
+    lblPuntaje1.id='lblPuntaje1'+numSeccion;
+    lblPuntaje1.innerHTML='Puntaje de la respuesta correcta';
+    filaRespuestas1.appendChild(lblPuntaje1);
 
     //<div class="row" id="filaConSelect11">
     var filaConSelect1 = document.getElementById('filaConSelect11').cloneNode(c);
@@ -1046,7 +1224,7 @@ function agregarSeccion(c){
     var conSelect1 = document.getElementById('conSelect11').cloneNode(c);
     conSelect1.id='conSelect'+numSeccion+numPregunta;
     conSelect1.name='conSelect'+numSeccion+numPregunta;
-    conSelect1.setAttribute('value','')
+    conSelect1.setAttribute('value','1');
     colConSelect1.appendChild(conSelect1);
 
     //<div class="row" id="opcion111">
@@ -1071,7 +1249,32 @@ function agregarSeccion(c){
     inputOpcion1.id='op'+numSeccion+'1'+'1';
     inputOpcion1.name='op'+numSeccion+'1'+'1';
     inputOpcion1.removeAttribute('readonly');
+    inputOpcion1.value="";
     filaOpcion1.appendChild(inputOpcion1);
+
+    //<div class="col-md-4" style="margin-top: 33px;" id="colRadioOp11">
+    var colRadioOp1 = document.getElementById('colRadioOp11').cloneNode(c);
+    colRadioOp1.id='colRadioOp'+numSeccion+numPregunta;
+    op1.appendChild(colRadioOp1);
+
+    //<div class="radio" id="conRadio11">
+    var conRadio1 = document.getElementById('conRadio11').cloneNode(c);
+    conRadio1.id='conRadio'+numSeccion+numPregunta;
+    colRadioOp1.appendChild(conRadio1);
+
+    //<input type="radio" value="" id="radioOp111">
+    var radioOp1 = document.getElementById('radioOp11').cloneNode(c);
+    radioOp1.id='radioOp'+numSeccion+numPregunta;
+    radioOp1.name='radioOp'+numSeccion+numPregunta;
+    radioOp1.setAttribute('checked','checked');
+    radioOp1.setAttribute('value','1');
+    conRadio1.appendChild(radioOp1);
+
+    //<label id="labelOp11" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
+    var labelOp1 = document.getElementById('labelOp11').cloneNode(c);
+    labelOp1.id='labelOp'+numSeccion+numPregunta;
+    labelOp1.innerHTML='Respuesta correcta';
+    conRadio1.appendChild(labelOp1);
 
     //<div class="row" id="op2">
     var op2 = document.getElementById('opcion112').cloneNode(c);
@@ -1095,7 +1298,31 @@ function agregarSeccion(c){
     inputOpcion2.id='op'+numSeccion+'1'+'2';
     inputOpcion2.name='op'+numSeccion+'1'+'2';
     inputOpcion2.removeAttribute('readonly');
+    inputOpcion2.value="";
     filaOpcion2.appendChild(inputOpcion2);
+
+    //<div class="col-md-4" style="margin-top: 33px;" id="colRadioOp11">
+    var colRadioOp12 = document.getElementById('colRadioOp11').cloneNode(c);
+    colRadioOp12.id='colRadioOp'+numSeccion+numPregunta;
+    op2.appendChild(colRadioOp12);
+
+    //<div class="radio" id="conRadio11">
+    var conRadio12 = document.getElementById('conRadio11').cloneNode(c);
+    conRadio12.id='conRadio'+numSeccion+numPregunta;
+    colRadioOp12.appendChild(conRadio12);
+
+    //<input type="radio" value="" id="radioOp11">
+    var radioOp12 = document.getElementById('radioOp11').cloneNode(c);
+    radioOp12.id='radioOp'+numSeccion+numPregunta;
+    radioOp12.name='radioOp'+numSeccion+numPregunta;
+    radioOp12.setAttribute('value','2');
+    conRadio12.appendChild(radioOp12);
+
+    //<label id="labelOp11" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
+    var labelOp12 = document.getElementById('labelOp11').cloneNode(c);
+    labelOp12.id='labelOp'+numSeccion+numPregunta;
+    labelOp12.innerHTML='Respuesta correcta';
+    conRadio12.appendChild(labelOp12);
 
     //<div class="row" id="filaConOpcion11">
     var filaConOpcion1 = document.getElementById('filaConOpcion11').cloneNode(c);
