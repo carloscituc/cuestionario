@@ -81,12 +81,12 @@ function crear(obj) {
     ele10.type='radio';
     ele10.name='radioOp'+idSeccion+idPregunta;
     ele10.setAttribute('value',num);
-    ele9.appendChild(ele10);
+    //ele9.appendChild(ele10);
 
     ele11 = document.createElement('label');
     ele11.id='labelOp'+idSeccion+idPregunta;
     ele11.style='margin-left: -19px;margin-top: 3px;';
-    ele11.innerHTML='Respuesta correcta';
+    ele11.innerHTML='Respuesta correcta' + ele10;
     ele9.appendChild(ele11);
 
     if(num==10){
@@ -382,7 +382,7 @@ function finalizarPregunta(fin){
             inputOpciones = document.getElementById('op'+idSeccion+idPregunta+i).value;
             if(inputOpciones == null || inputOpciones.length == 0 || /^\s+$/.test(inputOpciones)){
                 $("#op"+idSeccion+idPregunta+i).parent().attr("class","input-group has-error");
-                 $("#op"+idSeccion+idPregunta+i).focus();
+                $("#op"+idSeccion+idPregunta+i).focus();
                 var resultado3 = false;
             }else{
                 $("#op"+idSeccion+idPregunta+i).parent().attr("class","input-group");
@@ -395,11 +395,11 @@ function finalizarPregunta(fin){
     if(resultado && resultado2 && resultado3 == true){
         numOpcion=2;
         num=1;
-        formulario = document.getElementById("Pregunta"+idSeccion+idPregunta);
+        formulario = document.getElementById("panelBody"+idSeccion+idPregunta);
         eleInput = formulario.getElementsByTagName("input");
         eleLabel = formulario.getElementsByTagName("select");
         eleButton = formulario.getElementsByTagName("button");
-        alert('Se encontraron '+eleInput.length+' Elementos que se van a deshabilitar');
+        //alert('Se encontraron '+eleInput.length+' Elementos que se van a deshabilitar');
         for (i=0;i<eleInput.length;i++){
             eleInput[i].setAttribute('readonly','readonly');
         }
@@ -444,17 +444,6 @@ function finalizarPregunta(fin){
             }
         }
     }
-     //Contar opciones para inicializar numOpcion y num
-    /*cont=0;
-    for(i=1;i<11;i++){
-        opcion = document.getElementById('op'+idSeccion+idPregunta+i);
-        //alert(opcion);
-        if(opcion!=null){
-            var cont=cont+1;
-        }
-    }
-    numOpcion = cont;
-    num = cont; */
 
 }
 
@@ -551,8 +540,6 @@ function agrePregunta(x,e){
     j++;
     num++;
     numPregunta++;
-    
-    
 
     btnPregunta1 = document.getElementById(e);
     btnPregunta2 = btnPregunta1.id;
@@ -562,22 +549,48 @@ function agrePregunta(x,e){
     btnFinalizarSec = document.getElementById('btnFinSec'+idSeccionPregunta);
     btnFinalizarSec.disabled=true;
 
-    //<div class="row" id="Pregunta1">    
-    var clon = document.getElementById('Pregunta11').cloneNode(x);
-    clon.id='Pregunta'+numSeccion+numPregunta;
-    clon.style='-webkit-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);-moz-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);padding-bottom: 15px;';
-    document.getElementById('antes'+idSeccionPregunta).parentNode.insertBefore(clon,document.getElementById('antes'+idSeccionPregunta));
+    //<div class="panel-group" id="accordion11">
+    var accordion2 = document.getElementById('accordion11').cloneNode(x);
+    accordion2.id='accordion'+numSeccion+numPregunta;
+    document.getElementById('antes'+idSeccionPregunta).parentNode.insertBefore(accordion2,document.getElementById('antes'+idSeccionPregunta));
 
-    //<div class="col-md-12" id="pregunta">
-    var clon2 = document.getElementById('divInstrucciones1').cloneNode(x);
-    clon2.id='divInstrucciones'+numPregunta;
-    clon2.style='margin-bottom: 15px;';
-    clon.appendChild(clon2);
+    //<div class="panel panel-default" id="panelDefault11">
+    var panelDefault1 = document.getElementById('panelDefault11').cloneNode(x);
+    panelDefault1.id='panelDefault'+numSeccion+numPregunta;
+    accordion2.appendChild(panelDefault1);
+
+    //<div class="panel-heading" id="panelHeading11">
+    var panelHeading1 = document.getElementById('panelHeading11').cloneNode(x);
+    panelHeading1.id='panelHeading'+numSeccion+numPregunta;
+    panelDefault1.appendChild(panelHeading1);
+
+    //<h4 class="panel-title" id="panelTitle11">
+    var panelTitle1 = document.getElementById('panelTitle11').cloneNode(x);
+    panelTitle1.id='panelTitle'+numSeccion+numPregunta;
+    panelHeading1.appendChild(panelTitle1);
+
+    //<a data-toggle="collapse" data-parent="#accordion11" href="#collapse11" id="acordion11">
+    var acordion1 = document.getElementById('acordion11').cloneNode(x);
+    acordion1.id='acordion'+numSeccion+numPregunta;
+    acordion1.setAttribute('data-parent','#accordion'+numSeccion+numPregunta);
+    acordion1.setAttribute('href','#collapse'+numSeccion+numPregunta);
+    acordion1.innerHTML='Pregunta '+numPregunta;
+    panelTitle1.appendChild(acordion1);
+
+    //<div id="collapse11" class="panel-collapse collapse in">
+    var collapse1 = document.getElementById('collapse11').cloneNode(x);
+    collapse1.id='collapse'+numSeccion+numPregunta;
+    panelDefault1.appendChild(collapse1);
+
+    //<div class="panel-body" id="panelBody11">
+    var panelBody1 = document.getElementById('panelBody11').cloneNode(x);
+    panelBody1.id='panelBody'+numSeccion+numPregunta;
+    collapse1.appendChild(panelBody1);
 
     //<div class="row" id="filaPregunta1">
     var filaPregunta = document.getElementById('filaPregunta1').cloneNode(x);
     filaPregunta.id='filaPregunta'+numPregunta;
-    clon2.appendChild(filaPregunta);
+    panelBody1.appendChild(filaPregunta);
 
     //<div class="col-md-12" style="margin-top: 15px;" id='columnaPregunta1'>
     var columnaPregunta = document.getElementById('columnaPregunta1').cloneNode(x);
@@ -601,7 +614,7 @@ function agrePregunta(x,e){
     //<div class="row" id='filaRespuestas1'>
     var filaRespuestas1 = document.getElementById('filaRespuestas1').cloneNode(x);
     filaRespuestas1.id='filaRespuestas'+j;
-    clon2.appendChild(filaRespuestas1);
+    panelBody1.appendChild(filaRespuestas1);
 
     //<div class="col-md-1" style="margin-top:15px;" id="columnaRespuestas1">
     var columnaRespuestas1 = document.getElementById('columnaRespuestas1').cloneNode(x);
@@ -684,12 +697,12 @@ function agrePregunta(x,e){
     opcion10.nodeValue='10';
     opcion10.innerHTML='10';
     puntaje1.appendChild(opcion10);
-    
+
     //<div class="col-md-10" style="margin-top:45px;" id="columnaLabPuntaje1">
     var columnaLabPuntaje1 = document.getElementById('columnaLabPuntaje1').cloneNode(x);
     columnaLabPuntaje1.id='columnaLabPuntaje'+numSeccion;
     filaRespuestas1.appendChild(columnaLabPuntaje1);
-    
+
     //<label id="lblPuntaje1">
     var lblPuntaje1 = document.getElementById('lblPuntaje1').cloneNode(x);
     lblPuntaje1.id='lblPuntaje1'+numSeccion;
@@ -699,7 +712,7 @@ function agrePregunta(x,e){
     //<div class="row" id="filaConSelect11">
     var filaConSelect1 = document.getElementById('filaConSelect11').cloneNode(x);
     filaConSelect1.id='filaConSelect'+numSeccion+numPregunta;
-    clon2.appendChild(filaConSelect1);
+    panelBody1.appendChild(filaConSelect1);
 
     //<div class="col-md-8" id="colConSelect11">   
     var colConSelect1 = document.getElementById('colConSelect11').cloneNode(x);
@@ -716,7 +729,7 @@ function agrePregunta(x,e){
     //<div class="row" id="opcion111">
     var op1 = document.getElementById('opcion111').cloneNode(x);
     op1.id='opcion'+numSeccion+numPregunta+numOpcion;
-    clon2.appendChild(op1);
+    panelBody1.appendChild(op1);
 
     //<div class="col-md-8" style="margin-top:15px;" id="filaOpcion1">
     var filaOpcion1 = document.getElementById('filaOpcion1').cloneNode(x);
@@ -764,7 +777,7 @@ function agrePregunta(x,e){
     //<div class="row" id="op2">
     var op2 = document.getElementById('opcion112').cloneNode(x);
     op2.id='opcion'+numSeccion+numPregunta+'2';
-    clon2.appendChild(op2);
+    panelBody1.appendChild(op2);
 
     // <div class="col-md-8" style="margin-top:15px;" id="filaOpcion2"
     var filaOpcion2 = document.getElementById('filaOpcion2').cloneNode(x);
@@ -812,7 +825,7 @@ function agrePregunta(x,e){
     //<div class="row" id="filaConOpcion11">
     var filaConOpcion1 = document.getElementById('filaConOpcion11').cloneNode(x);
     filaConOpcion1.id='filaConOpcion'+numSeccion+numPregunta;
-    clon2.appendChild(filaConOpcion1);  
+    panelBody1.appendChild(filaConOpcion1);  
 
     //<div class="col-md-8" id="colConOpcion11">
     var colConOpcion1 = document.getElementById('colConOpcion11').cloneNode(x);
@@ -829,7 +842,7 @@ function agrePregunta(x,e){
     //<div class="row" id="filaBtnAgregar11">
     var filaBtnAgregar1 = document.getElementById('filaBtnAgregar11').cloneNode(x);
     filaBtnAgregar1.id='filaBtnAgregar'+numSeccion+numPregunta;
-    clon2.appendChild(filaBtnAgregar1);    
+    panelBody1.appendChild(filaBtnAgregar1);    
 
     //<div class="col-md-4 col-xs-4 col-xs-push-1" id="agregar">
     var agregar1 = document.getElementById('agregar1').cloneNode(x);
@@ -874,9 +887,9 @@ function agrePregunta(x,e){
     btnModificar1.innerHTML='Modificar pregunta';
     btnModificar1.style='visibility: hidden;';
     modificarPregunta1.appendChild(btnModificar1);
-    
+
     //numOpcion=2;
-   // num=2;
+    // num=2;
 
 }
 
@@ -890,7 +903,6 @@ function finSeccion(r){
     totalPreguntas = document.getElementById('conPregunta'+idFinSeccion);
     totalPreguntas.setAttribute('value',numPregunta);
     //alert(numPregunta);
-
 
     //Validar input titulo del cuestionario
     inputInstrucciones = document.getElementById('instrucciones'+idFinSeccion).value;
@@ -922,7 +934,7 @@ function finSeccion(r){
 
 
     if(resultado && resultado2 == true){
-        Form = document.getElementById("bloque"+idFinSeccion);
+        Form = document.getElementById("panelBody"+idFinSeccion);
         Elemento = Form.getElementsByTagName("input");
         Elemento2 = Form.getElementsByTagName("select");
         Elemento3 = Form.getElementsByTagName("button");
@@ -1042,8 +1054,6 @@ function finalizarCuestionario(){
     }
 }
 
-
-
 function agregarSeccion(c){
     j++;
     num++;
@@ -1053,93 +1063,138 @@ function agregarSeccion(c){
     btnAgSeccion.disabled=true;
     btnFinCuestionario.disabled=true;
 
-    //<div class="form-group" id="seccion1">
-    var seccion1 = document.getElementById('seccion1').cloneNode(c);
-    seccion1.id='seccion'+numSeccion;
-    document.getElementById('btnFinales').parentNode.insertBefore(seccion1,document.getElementById('btnFinales'));
-
     //<div class="row" id="filaSeccion1">
     var filaSeccion1 = document.getElementById('filaSeccion1').cloneNode(c);
     filaSeccion1.id='filaSeccion'+numSeccion;
-    seccion1.appendChild(filaSeccion1);
+    document.getElementById('btnFinales').parentNode.insertBefore(filaSeccion1,document.getElementById('btnFinales'));
 
     //<div class="col-sm-12" id="columnaSeccion1">
     var columnaSeccion1 = document.getElementById('columnaSeccion1').cloneNode(c);
     columnaSeccion1.id='columnaSeccion'+numSeccion;
     filaSeccion1.appendChild(columnaSeccion1);
-
-    //<div class="col-md-12 col-md-offset-0 well" id="bloque1">
-    var bloque1 = document.getElementById('bloque1').cloneNode(c);
-    bloque1.id='bloque'+numSeccion;
-    bloque1.style = '-webkit-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75); -moz-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75); box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75); padding-bottom: 15px;';
-    columnaSeccion1.appendChild(bloque1);
-
-    //<h3 id="numSeccion1">Sección #1</h3>
+    
+    //<div class="panel-group" id="accordion">
+    var accordion = document.getElementById('accordion').cloneNode(c);
+    accordion.id='accordion'+numSeccion;
+    columnaSeccion1.appendChild(accordion);
+    
+    //<div class="panel panel-default" id="panelDefaul1">
+    var panelDefaul1 = document.getElementById('panelDefaul1').cloneNode(c);
+    panelDefaul1.id='panelDefaul'+numSeccion;
+    accordion.appendChild(panelDefaul1);
+    
+    //<div class="panel-heading" id="panelHeading1">
+    var panelHeading1 = document.getElementById('panelHeading1').cloneNode(c);
+    panelHeading1.id='panelHeading'+numSeccion;
+    panelDefaul1.appendChild(panelHeading1);
+    
+    //<h2 class="panel-title" id="panelTitle1">
+    var panelTitle1 = document.getElementById('panelTitle1').cloneNode(c);
+    panelTitle1.id='panelTitle'+numSeccion;
+    panelHeading1.appendChild(panelTitle1);
+    
+    //<a data-toggle="collapse" data-parent="#accordion" href="#collapse" id="numSeccion1">
     var numSeccion1 = document.getElementById('numSeccion1').cloneNode(c);
     numSeccion1.id='numSeccion'+numSeccion;
+    numSeccion1.setAttribute('data-parent','#accordion'+numSeccion);
+    numSeccion1.setAttribute('href','#collapse'+numSeccion);
     numSeccion1.innerHTML='Sección #'+numSeccion;
-    bloque1.appendChild(numSeccion1);
+    panelTitle1.appendChild(numSeccion1);
+    
+    //<div id="collapse" class="panel-collapse collapse in">
+    var collapse = document.getElementById('collapse').cloneNode(c);
+    collapse.id='collapse'+numSeccion;
+    panelDefaul1.appendChild(collapse);
+    
+    //<div class="panel-body" id="panelBody1">
+    var panelBody1 = document.getElementById('panelBody1').cloneNode(c);
+    panelBody1.id='panelBody'+numSeccion;
+    collapse.appendChild(panelBody1);
 
     //<div class="row" id="filaInstruciones1">
     var filaInstruciones1 = document.getElementById('filaInstruciones1').cloneNode(c);
     filaInstruciones1.id='filaInstruciones'+numSeccion;
-    bloque1.appendChild(filaInstruciones1);
+    panelBody1.appendChild(filaInstruciones1);
 
     //<div class="col-md-12" id="columnaInstrucciones1">
     var columnaInstrucciones1 = document.getElementById('columnaInstrucciones1').cloneNode(c);
     columnaInstrucciones1.id='columnaInstrucciones'+numSeccion;
     filaInstruciones1.appendChild(columnaInstrucciones1);
-
-
-    //<label for="instruccionesSeccion1" id="instruccionesSeccion1">
+    
+    //<label for="instruccionesSeccion1" id="instruccionesSeccion1">Escribe las instrucciones de la sección:</label>
     var instruccionesSeccion1 = document.getElementById('instruccionesSeccion1').cloneNode(c);
-    instruccionesSeccion1.setAttribute('for','instruccionesSeccion'+numSeccion);
     instruccionesSeccion1.id='instruccionesSeccion'+numSeccion;
+    instruccionesSeccion1.setAttribute('for','instruccionesSeccion'+numSeccion);
     instruccionesSeccion1.innerHTML='Escribe las instrucciones de la sección:';
     columnaInstrucciones1.appendChild(instruccionesSeccion1);
-
+    
     //<input type="text" id="instrucciones1" name="instrucciones1" class="form-control">
     var instrucciones1 = document.getElementById('instrucciones1').cloneNode(c);
     instrucciones1.id='instrucciones'+numSeccion;
     instrucciones1.name='instrucciones'+numSeccion;
+    instrucciones1.removeAttribute("readonly");
+    instruccionesSeccion1.value="";
     instrucciones1.style='margin-bottom: 15px;';
-    instrucciones1.removeAttribute('readonly');
-    instrucciones1.value="";
     columnaInstrucciones1.appendChild(instrucciones1);
+    
+   //<div class="panel-group" id="accordion1">
+    var accordion2 = document.getElementById('accordion11').cloneNode(c);
+    accordion2.id='accordion'+numSeccion+numPregunta;
+    panelBody1.appendChild(accordion2);
 
-    //<div class="row" id="Pregunta11">    
-    var clon = document.getElementById('Pregunta11').cloneNode(c);
-    clon.id='Pregunta'+numSeccion+'1';
-    clon.style='-webkit-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);-moz-box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);box-shadow: inset 0px 0px 5px -1px rgba(0,0,0,0.75);padding-bottom: 15px;';
-    bloque1.appendChild(clon);
-    //document.getElementById('antes').parentNode.insertBefore(clon,document.getElementById('antes'));
+//<div class="panel panel-default" id="panelDefault11">
+    var panelDefault1 = document.getElementById('panelDefault11').cloneNode(c);
+    panelDefault1.id='panelDefault'+numSeccion+numPregunta;
+    accordion2.appendChild(panelDefault1);
 
-    //<div class="col-md-12" id="pregunta">
-    var clon2 = document.getElementById('divInstrucciones1').cloneNode(c);
-    clon2.id='divInstrucciones'+numPregunta;
-    clon2.style='margin-bottom: 15px;';
-    clon.appendChild(clon2);
+    //<div class="panel-heading" id="panelHeading11">
+    var panelHeading1 = document.getElementById('panelHeading11').cloneNode(c);
+    panelHeading1.id='panelHeading'+numSeccion+numPregunta;
+    panelDefault1.appendChild(panelHeading1);
+
+    //<h4 class="panel-title" id="panelTitle11">
+    var panelTitle1 = document.getElementById('panelTitle11').cloneNode(c);
+    panelTitle1.id='panelTitle'+numSeccion+numPregunta;
+    panelHeading1.appendChild(panelTitle1);
+
+    //<a data-toggle="collapse" data-parent="#accordion11" href="#collapse11" id="acordion11">
+    var acordion1 = document.getElementById('acordion11').cloneNode(c);
+    acordion1.id='acordion'+numSeccion+numPregunta;
+    acordion1.setAttribute('data-parent','#accordion'+numSeccion+numPregunta);
+    acordion1.setAttribute('href','#collapse'+numSeccion+numPregunta);
+    acordion1.innerHTML='Pregunta '+numPregunta;
+    panelTitle1.appendChild(acordion1);
+
+    //<div id="collapse11" class="panel-collapse collapse in">
+    var collapse1 = document.getElementById('collapse11').cloneNode(c);
+    collapse1.id='collapse'+numSeccion+numPregunta;
+    panelDefault1.appendChild(collapse1);
+
+    //<div class="panel-body" id="panelBody11">
+    var panelBody1 = document.getElementById('panelBody11').cloneNode(c);
+    panelBody1.id='panelBody'+numSeccion+numPregunta;
+    collapse1.appendChild(panelBody1);
 
     //<div class="row" id="filaPregunta1">
     var filaPregunta = document.getElementById('filaPregunta1').cloneNode(c);
-    filaPregunta.id='filaPregunta'+'1';
-    clon2.appendChild(filaPregunta);
+    filaPregunta.id='filaPregunta'+numPregunta;
+    panelBody1.appendChild(filaPregunta);
 
     //<div class="col-md-12" style="margin-top: 15px;" id='columnaPregunta1'>
     var columnaPregunta = document.getElementById('columnaPregunta1').cloneNode(c);
-    columnaPregunta.id='columnaPregunta'+'1';
+    columnaPregunta.id='columnaPregunta'+numPregunta;
     filaPregunta.appendChild(columnaPregunta);
 
     //<label for="id_instrucciones">
     var escribePregunta1 = document.getElementById('id_instrucciones').cloneNode(c);
-    escribePregunta1.id='labelpregunta'+numSeccion+'1';
+    escribePregunta1.id='labelpregunta'+numSeccion+numPregunta;
     escribePregunta1.innerHTML='Escribe la pregunta';
     columnaPregunta.appendChild(escribePregunta1);
 
     //<input type="text" class="form-control" id="inputPregunta1">
     var inputPregunta1 = document.getElementById('pregunta11').cloneNode(c);
-    inputPregunta1.id='pregunta'+numSeccion+'1';
-    inputPregunta1.name='pregunta'+numSeccion+'1';
+    inputPregunta1.id='pregunta'+numSeccion+numPregunta;
+    inputPregunta1.name='pregunta'+numSeccion+numPregunta;
     inputPregunta1.removeAttribute('readonly');
     inputPregunta1.value="";
     columnaPregunta.appendChild(inputPregunta1);
@@ -1147,25 +1202,25 @@ function agregarSeccion(c){
     //<div class="row" id='filaRespuestas1'>
     var filaRespuestas1 = document.getElementById('filaRespuestas1').cloneNode(c);
     filaRespuestas1.id='filaRespuestas'+j;
-    clon2.appendChild(filaRespuestas1);
+    panelBody1.appendChild(filaRespuestas1);
 
     //<div class="col-md-1" style="margin-top:15px;" id="columnaRespuestas1">
     var columnaRespuestas1 = document.getElementById('columnaRespuestas1').cloneNode(c);
-    columnaRespuestas1.id='columnaRespuestas'+'1';
+    columnaRespuestas1.id='columnaRespuestas'+numPregunta;
     filaRespuestas1.appendChild(columnaRespuestas1);
 
     //<label for="id_puntaje" id="puntajePregunta1">
     var puntajePregunta1 = document.getElementById('puntajePregunta1').cloneNode(c);
-    puntajePregunta1.id='puntajePregunta'+numSeccion+'1';
-    puntajePregunta1.setAttribute('for','puntajePregunta'+numSeccion1+'1');
+    puntajePregunta1.id='puntajePregunta'+numPregunta;
+    puntajePregunta1.setAttribute('for','puntajePregunta'+numPregunta);
     columnaRespuestas1.appendChild(puntajePregunta1);
 
     //<select class="form-control" id="puntaje1">
     var puntaje1 = document.getElementById('puntaje11').cloneNode(c);
-    puntaje1.id='puntaje'+numSeccion+'1';
-    puntaje1.name='puntaje'+numSeccion+'1';
+    puntaje1.id='puntaje'+numSeccion+numPregunta;
+    puntaje1.name='puntaje'+numSeccion+numPregunta;
     puntaje1.style='margin-right: 150px;';
-    puntaje1.onchange='valor(this.options[this.selectedIndex].innerHTML);'
+    puntaje1.onchange='valor(this.options[this.selectedIndex].innerHTML);';
     puntaje1.disabled=false;
     puntajePregunta1.appendChild(puntaje1);
     //option select
@@ -1230,12 +1285,12 @@ function agregarSeccion(c){
     opcion10.nodeValue='10';
     opcion10.innerHTML='10';
     puntaje1.appendChild(opcion10);
-    
+
     //<div class="col-md-10" style="margin-top:45px;" id="columnaLabPuntaje1">
     var columnaLabPuntaje1 = document.getElementById('columnaLabPuntaje1').cloneNode(c);
     columnaLabPuntaje1.id='columnaLabPuntaje'+numSeccion;
     filaRespuestas1.appendChild(columnaLabPuntaje1);
-    
+
     //<label id="lblPuntaje1">
     var lblPuntaje1 = document.getElementById('lblPuntaje1').cloneNode(c);
     lblPuntaje1.id='lblPuntaje1'+numSeccion;
@@ -1245,7 +1300,7 @@ function agregarSeccion(c){
     //<div class="row" id="filaConSelect11">
     var filaConSelect1 = document.getElementById('filaConSelect11').cloneNode(c);
     filaConSelect1.id='filaConSelect'+numSeccion+numPregunta;
-    clon2.appendChild(filaConSelect1);
+    panelBody1.appendChild(filaConSelect1);
 
     //<div class="col-md-8" id="colConSelect11">   
     var colConSelect1 = document.getElementById('colConSelect11').cloneNode(c);
@@ -1261,25 +1316,24 @@ function agregarSeccion(c){
 
     //<div class="row" id="opcion111">
     var op1 = document.getElementById('opcion111').cloneNode(c);
-    op1.id='opcion'+numSeccion+'1'+numOpcion;
-    clon2.appendChild(op1);
+    op1.id='opcion'+numSeccion+numPregunta+numOpcion;
+    panelBody1.appendChild(op1);
 
     //<div class="col-md-8" style="margin-top:15px;" id="filaOpcion1">
     var filaOpcion1 = document.getElementById('filaOpcion1').cloneNode(c);
-    filaOpcion1.id='filaOpcion'+numSeccion+'1'+numOpcion;
+    filaOpcion1.id='filaOpcion'+numSeccion+numPregunta+numOpcion;
     op1.appendChild(filaOpcion1);
 
     //<label for="opcion12" id="opcion12" >
     var opcion12 = document.getElementById('label111').cloneNode(c);
-    opcion12.id='label'+numSeccion+'1'+'1';
-    opcion12.setAttribute('for','label'+numSeccion+'1'+'1');
+    opcion12.id='label'+numSeccion+numPregunta+'1';
     opcion12.innerHTML='Opcion 1:';
     filaOpcion1.appendChild(opcion12);
 
     //<input type="text" class="form-control" id="inputOpcion1">
     var inputOpcion1 = document.getElementById('op111').cloneNode(c);
-    inputOpcion1.id='op'+numSeccion+'1'+'1';
-    inputOpcion1.name='op'+numSeccion+'1'+'1';
+    inputOpcion1.id='op'+numSeccion+numPregunta+'1';
+    inputOpcion1.name='op'+numSeccion+numPregunta+'1';
     inputOpcion1.removeAttribute('readonly');
     inputOpcion1.value="";
     filaOpcion1.appendChild(inputOpcion1);
@@ -1294,7 +1348,7 @@ function agregarSeccion(c){
     conRadio1.id='conRadio'+numSeccion+numPregunta;
     colRadioOp1.appendChild(conRadio1);
 
-    //<input type="radio" value="" id="radioOp111">
+    //<input type="radio" value="" id="radioOp11">
     var radioOp1 = document.getElementById('radioOp11').cloneNode(c);
     radioOp1.id='radioOp'+numSeccion+numPregunta+'1';
     radioOp1.name='radioOp'+numSeccion+numPregunta;
@@ -1310,8 +1364,8 @@ function agregarSeccion(c){
 
     //<div class="row" id="op2">
     var op2 = document.getElementById('opcion112').cloneNode(c);
-    op2.id='opcion'+numSeccion+'1'+'2';
-    clon2.appendChild(op2);
+    op2.id='opcion'+numSeccion+numPregunta+'2';
+    panelBody1.appendChild(op2);
 
     // <div class="col-md-8" style="margin-top:15px;" id="filaOpcion2"
     var filaOpcion2 = document.getElementById('filaOpcion2').cloneNode(c);
@@ -1320,15 +1374,14 @@ function agregarSeccion(c){
 
     //<label for="opcion2" id="opcion21" name="opcion2">
     var opcion21 = document.getElementById('label112').cloneNode(c);
-    opcion21.id='label'+numSeccion+'1'+'2';
-    opcion21.setAttribute('for','label'+numSeccion+'1'+'2');
+    opcion21.id='label'+numSeccion+numPregunta+'2';
     opcion21.innerHTML='Opcion 2:';
     filaOpcion2.appendChild(opcion21);
 
     //<input type="text" class="form-control" id="inputOpcion2">
     var inputOpcion2 = document.getElementById('op112').cloneNode(c);
-    inputOpcion2.id='op'+numSeccion+'1'+'2';
-    inputOpcion2.name='op'+numSeccion+'1'+'2';
+    inputOpcion2.id='op'+numSeccion+numPregunta+'2';
+    inputOpcion2.name='op'+numSeccion+numPregunta+'2';
     inputOpcion2.removeAttribute('readonly');
     inputOpcion2.value="";
     filaOpcion2.appendChild(inputOpcion2);
@@ -1353,13 +1406,14 @@ function agregarSeccion(c){
     //<label id="labelOp11" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
     var labelOp12 = document.getElementById('labelOp11').cloneNode(c);
     labelOp12.id='labelOp'+numSeccion+numPregunta;
+    labelOp12.name='labelOp'+numSeccion+numPregunta;
     labelOp12.innerHTML='Respuesta correcta';
     conRadio12.appendChild(labelOp12);
 
     //<div class="row" id="filaConOpcion11">
     var filaConOpcion1 = document.getElementById('filaConOpcion11').cloneNode(c);
     filaConOpcion1.id='filaConOpcion'+numSeccion+numPregunta;
-    clon2.appendChild(filaConOpcion1);  
+    panelBody1.appendChild(filaConOpcion1);  
 
     //<div class="col-md-8" id="colConOpcion11">
     var colConOpcion1 = document.getElementById('colConOpcion11').cloneNode(c);
@@ -1372,10 +1426,11 @@ function agregarSeccion(c){
     conOpcion1.name='conOpcion'+numSeccion+numPregunta;
     colConOpcion1.appendChild(conOpcion1);
 
+
     //<div class="row" id="filaBtnAgregar11">
     var filaBtnAgregar1 = document.getElementById('filaBtnAgregar11').cloneNode(c);
-    filaBtnAgregar1.id='filaBtnAgregar'+numSeccion+'1';
-    clon2.appendChild(filaBtnAgregar1);    
+    filaBtnAgregar1.id='filaBtnAgregar'+numSeccion+numPregunta;
+    panelBody1.appendChild(filaBtnAgregar1);    
 
     //<div class="col-md-4 col-xs-4 col-xs-push-1" id="agregar">
     var agregar1 = document.getElementById('agregar1').cloneNode(c);
@@ -1384,7 +1439,7 @@ function agregarSeccion(c){
 
     //<button type="button" class="btn btn-success btn-sm" onclick="crear(this);" id="btnAgregar11">
     var btnAgregar1 = document.getElementById('btnAgregar11').cloneNode(c);
-    btnAgregar1.id='btnAgregar'+numSeccion+'1';
+    btnAgregar1.id='btnAgregar'+numSeccion+numPregunta;
     btnAgregar1.innerHTML='Agregar Opción';
     btnAgregar1.style='margin-top: 40px;margin-left: -10px;';
     btnAgregar1.disabled=false;
@@ -1392,18 +1447,18 @@ function agregarSeccion(c){
 
     //<span class="glyphicon glyphicon-plus" id='iconoOp11'>
     var iconoOp = document.getElementById('iconoOp11').cloneNode(c);
-    iconoOp.id='iconoOp'+numSeccion+'1';
+    iconoOp.id='iconoOp'+numSeccion+numPregunta;
     btnAgregar1.appendChild(iconoOp);
 
     //<div class="col-md-4 col-xs-4 col-md-offset-0 col-xs-push-1" id="finPregunta11">
     var finPregunta1 = document.getElementById('finPregunta11').cloneNode(c);
-    finPregunta1.id='finPregunta'+numSeccion+'1';
+    finPregunta1.id='finPregunta'+numSeccion+numPregunta;
     finPregunta1.style='margin-top: 40px;margin-left: -10px;';
     filaBtnAgregar1.appendChild(finPregunta1);
 
     //<button id="btnFinalizar11" type="button" class="btn btn-primary btn-sm" onclick="finalizarPregunta();">
     var btnFinalizar1 = document.getElementById('btnFinalizar11').cloneNode(c);
-    btnFinalizar1.id='btnFinalizar'+numSeccion+'1';
+    btnFinalizar1.id='btnFinalizar'+numSeccion+numPregunta;
     btnFinalizar1.innerHTML='Finalizar pregunta';
     btnFinalizar1.disabled=false;
     finPregunta1.appendChild(btnFinalizar1);
@@ -1411,12 +1466,12 @@ function agregarSeccion(c){
 
     //<div class="col-md-4 col-xs-4 col-md-offset-2 col-xs-push-1" id="modificarPregunta11" style="margin-left:-10px">
     var modificarPregunta1 = document.getElementById('modificarPregunta11').cloneNode(c);
-    modificarPregunta1.id='modificarPregunta'+numSeccion+'1';
+    modificarPregunta1.id='modificarPregunta'+numSeccion+numPregunta;
     filaBtnAgregar1.appendChild(modificarPregunta1);
 
     //<button id="btnModificar11" type="button" class="btn btn-primary btn-sm" onclick="modificarPregunta();">
     var btnModificar1 = document.getElementById('btnModificar11').cloneNode(c);
-    btnModificar1.id='btnModificar'+numSeccion+'1';
+    btnModificar1.id='btnModificar'+numSeccion+numPregunta;
     btnModificar1.innerHTML='Modificar pregunta';
     btnModificar1.style='visibility: hidden;';
     modificarPregunta1.appendChild(btnModificar1);
@@ -1424,7 +1479,7 @@ function agregarSeccion(c){
     //<div class="row" id="antes">
     var antes1 = document.getElementById('antes1').cloneNode(c);
     antes1.id='antes'+numSeccion;
-    bloque1.appendChild(antes1);
+    panelBody1.appendChild(antes1);
 
     //<div class="col-md-4" style="margin-top:15px;" id="columnaBtnFinalizar1">
     var columnaBtnFinalizar1 = document.getElementById('columnaBtnFinalizar1').cloneNode(c);
