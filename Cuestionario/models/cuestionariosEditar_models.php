@@ -112,7 +112,7 @@
 		//Recuperamos las preguntas en base al id del cuestionario
 		public static function detalleCuestionarioPreguntas($idCuestionario){
 			//Consultamos las preguntas
-			$sql = "SELECT bloquepregunta.idBloquePregunta, idPreguntaMultiple, pregunta, respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6, respuesta7, respuesta8, respuesta9, respuesta10, numeroOrden, respuestaCorrecta FROM cuestionario INNER JOIN bloquepregunta ON bloquepregunta.idCuestionario = cuestionario.idCuestionario INNER JOIN preguntamultiple ON preguntamultiple.idBloquePregunta = bloquepregunta.idBloquePregunta WHERE cuestionario.idCuestionario = '$idCuestionario'";
+			$sql = "SELECT bloquepregunta.idBloquePregunta, idPreguntaMultiple, pregunta, respuesta1, respuesta2, respuesta3, respuesta4, respuesta5, respuesta6, respuesta7, respuesta8, respuesta9, respuesta10, numeroOrden, respuestaCorrecta, puntaje FROM cuestionario INNER JOIN bloquepregunta ON bloquepregunta.idCuestionario = cuestionario.idCuestionario INNER JOIN preguntamultiple ON preguntamultiple.idBloquePregunta = bloquepregunta.idBloquePregunta WHERE cuestionario.idCuestionario = '$idCuestionario'";
 			//Ejecutamos la consulta
 			$resultado = Conexion::consultaDevolver($sql);
 			//Contamos el número de registros devueltos
@@ -137,10 +137,13 @@
 				$arrayPregunta[$i]['respuesta10'] = $pregunta['respuesta10'];
 				$arrayPregunta[$i]['numeroOrden'] = $pregunta['numeroOrden'];
 				$arrayPregunta[$i]['respuestaCorrecta'] = $pregunta['respuestaCorrecta'];
+				$arrayPregunta[$i]['puntaje'] = $pregunta['puntaje'];
 			}
 			//Devolvemos el array que contiene a todas las preguntas
 			return $arrayPregunta;
 		}
+
+
 	}
 
 ?>

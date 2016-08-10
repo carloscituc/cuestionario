@@ -67,6 +67,9 @@
                                                     <form name="form_editar<?php echo $row['idCuestionario']; ?>" action="detalle-E-A.php" method="POST">
                                                         <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionario']; ?>">
                                                     </form>
+                                                    <form name="form_editarModificar<?php echo $row['idCuestionario']; ?>" action="cuestionarioEditarAsignarModificar.php" method="POST">
+                                                        <input type="hidden" name="id_cuestionario" id="id_cuestionario" value="<?php echo $row['idCuestionario']; ?>">
+                                                    </form>
                                                     <tr>                  
                                                         <td><?php echo $row['idCuestionario']; ?></td>
                                                         <td><?php echo $row['nombre']; ?></td>
@@ -75,7 +78,7 @@
                                                         <?php 
                                                             if($idExiste == 0){
                                                         ?> 
-                                                            <td><button type="button" class="btn btn-success btn-md">Editar</button></td>
+                                                            <td><a class="btn btn-success"  href="javascript:document.form_editarModificar<?php echo $row['idCuestionario']; ?>.submit()">Editar</a></td>
                                                             <td><button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#myModalEliminar" onclick="eliminarId('<?php echo $row['idCuestionario'];?>');">Eliminar</button></td>
                                                         <?php
                                                             }else{

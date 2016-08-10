@@ -16,5 +16,9 @@
 			include("conexion/conexion.php");
 			include("models/cuestionariosEditar_models.php");
 		}
+		public static function cuestionarioEditarAsignarModificar(){
+			include("conexion/conexion.php");
+			include("models/cuestionariosEditar_models.php");
+		}
 	}
 ?>

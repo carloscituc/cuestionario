@@ -76,7 +76,7 @@
                                         }
                                     ?>
                                     <div id="<?php echo "opcion".$j; ?>" class="alert alert-danger hide"><strong>Selecciona una opción</strong></div>
-                                </div>
+                                    </div>
                             <?php
                                     
                                     }else{
