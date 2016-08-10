@@ -81,12 +81,12 @@ function crear(obj) {
     ele10.type='radio';
     ele10.name='radioOp'+idSeccion+idPregunta;
     ele10.setAttribute('value',num);
-    //ele9.appendChild(ele10);
+    ele9.appendChild(ele10);
 
     ele11 = document.createElement('label');
     ele11.id='labelOp'+idSeccion+idPregunta;
     ele11.style='margin-left: -19px;margin-top: 3px;';
-    ele11.innerHTML='Respuesta correcta' + ele10;
+    ele11.innerHTML='Respuesta correcta';
     ele9.appendChild(ele11);
 
     if(num==10){
@@ -1142,7 +1142,7 @@ function agregarSeccion(c){
     accordion2.id='accordion'+numSeccion+numPregunta;
     panelBody1.appendChild(accordion2);
 
-//<div class="panel panel-default" id="panelDefault11">
+   //<div class="panel panel-default" id="panelDefault11">
     var panelDefault1 = document.getElementById('panelDefault11').cloneNode(c);
     panelDefault1.id='panelDefault'+numSeccion+numPregunta;
     accordion2.appendChild(panelDefault1);
@@ -1171,14 +1171,14 @@ function agregarSeccion(c){
     panelDefault1.appendChild(collapse1);
 
     //<div class="panel-body" id="panelBody11">
-    var panelBody1 = document.getElementById('panelBody11').cloneNode(c);
-    panelBody1.id='panelBody'+numSeccion+numPregunta;
-    collapse1.appendChild(panelBody1);
+    var panelBody11 = document.getElementById('panelBody11').cloneNode(c);
+    panelBody11.id='panelBody'+numSeccion+numPregunta;
+    collapse1.appendChild(panelBody11);
 
     //<div class="row" id="filaPregunta1">
     var filaPregunta = document.getElementById('filaPregunta1').cloneNode(c);
     filaPregunta.id='filaPregunta'+numPregunta;
-    panelBody1.appendChild(filaPregunta);
+    panelBody11.appendChild(filaPregunta);
 
     //<div class="col-md-12" style="margin-top: 15px;" id='columnaPregunta1'>
     var columnaPregunta = document.getElementById('columnaPregunta1').cloneNode(c);
@@ -1202,7 +1202,7 @@ function agregarSeccion(c){
     //<div class="row" id='filaRespuestas1'>
     var filaRespuestas1 = document.getElementById('filaRespuestas1').cloneNode(c);
     filaRespuestas1.id='filaRespuestas'+j;
-    panelBody1.appendChild(filaRespuestas1);
+    panelBody11.appendChild(filaRespuestas1);
 
     //<div class="col-md-1" style="margin-top:15px;" id="columnaRespuestas1">
     var columnaRespuestas1 = document.getElementById('columnaRespuestas1').cloneNode(c);
@@ -1300,7 +1300,7 @@ function agregarSeccion(c){
     //<div class="row" id="filaConSelect11">
     var filaConSelect1 = document.getElementById('filaConSelect11').cloneNode(c);
     filaConSelect1.id='filaConSelect'+numSeccion+numPregunta;
-    panelBody1.appendChild(filaConSelect1);
+    panelBody11.appendChild(filaConSelect1);
 
     //<div class="col-md-8" id="colConSelect11">   
     var colConSelect1 = document.getElementById('colConSelect11').cloneNode(c);
@@ -1317,7 +1317,7 @@ function agregarSeccion(c){
     //<div class="row" id="opcion111">
     var op1 = document.getElementById('opcion111').cloneNode(c);
     op1.id='opcion'+numSeccion+numPregunta+numOpcion;
-    panelBody1.appendChild(op1);
+    panelBody11.appendChild(op1);
 
     //<div class="col-md-8" style="margin-top:15px;" id="filaOpcion1">
     var filaOpcion1 = document.getElementById('filaOpcion1').cloneNode(c);
@@ -1365,7 +1365,7 @@ function agregarSeccion(c){
     //<div class="row" id="op2">
     var op2 = document.getElementById('opcion112').cloneNode(c);
     op2.id='opcion'+numSeccion+numPregunta+'2';
-    panelBody1.appendChild(op2);
+    panelBody11.appendChild(op2);
 
     // <div class="col-md-8" style="margin-top:15px;" id="filaOpcion2"
     var filaOpcion2 = document.getElementById('filaOpcion2').cloneNode(c);
@@ -1413,7 +1413,7 @@ function agregarSeccion(c){
     //<div class="row" id="filaConOpcion11">
     var filaConOpcion1 = document.getElementById('filaConOpcion11').cloneNode(c);
     filaConOpcion1.id='filaConOpcion'+numSeccion+numPregunta;
-    panelBody1.appendChild(filaConOpcion1);  
+    panelBody11.appendChild(filaConOpcion1);  
 
     //<div class="col-md-8" id="colConOpcion11">
     var colConOpcion1 = document.getElementById('colConOpcion11').cloneNode(c);
@@ -1430,7 +1430,7 @@ function agregarSeccion(c){
     //<div class="row" id="filaBtnAgregar11">
     var filaBtnAgregar1 = document.getElementById('filaBtnAgregar11').cloneNode(c);
     filaBtnAgregar1.id='filaBtnAgregar'+numSeccion+numPregunta;
-    panelBody1.appendChild(filaBtnAgregar1);    
+    panelBody11.appendChild(filaBtnAgregar1);    
 
     //<div class="col-md-4 col-xs-4 col-xs-push-1" id="agregar">
     var agregar1 = document.getElementById('agregar1').cloneNode(c);
