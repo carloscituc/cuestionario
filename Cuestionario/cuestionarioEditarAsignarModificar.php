@@ -98,7 +98,7 @@
                                         <?php
                                             }
                                         ?>
-                                        
+
                                                 
                                                     <div class="panel-body" id="panelBody<?php echo $numSeccion; ?>">
                                                         <div class="row" id="filaInstruciones<?php echo $numSeccion; ?>">
@@ -117,7 +117,7 @@
                                                             <div class="panel panel-default" id="panelDefault<?php echo $numSeccion.$numPregunta; ?>">
                                                                 <div class="panel-heading" id="panelHeading<?php echo $numSeccion.$numPregunta; ?>">
                                                                     <h4 class="panel-title" id="panelTitle<?php echo $numSeccion.$numPregunta; ?>">
-                                                                        <a data-toggle="collapse" data-parent="#accordion<?php echo $numSeccion; ?>" href="#collapse<?php echo $numSeccion.$numPregunta; ?>" id="acordion<?php echo $numSeccion.$numPregunta; ?>">
+                                                                        <a data-toggle="collapse" data-parent="#accordion1" href="#collapse<?php echo $numSeccion.$numPregunta; ?>" id="acordion<?php echo $numSeccion.$numPregunta; ?>">
                                                                             Pregunta <?php echo $numPregunta; ?></a>
                                                                     </h4>
                                                                 </div>
