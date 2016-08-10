@@ -30,7 +30,7 @@
                 <div class="col-md-12">
                     <div class="panel form-element-padding">
                         <div class="panel-heading">
-                            <h4>Crear nuevo cuestionario</h4>
+                            <h4>Modificar cuestionario</h4>
                         </div>
                         <div class="panel-body" style="padding-bottom:30px;">
                             <form id="form1" method="post">

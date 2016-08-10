@@ -6,7 +6,7 @@
         <?php
             include("php/cuestionariosPresentar.php");
             
-            //Llamamos a la función detalleEA la cual carga todos los includes que necesitamos
+            //Llamamos a la función presentarCuestionario la cual carga todos los includes que necesitamos
             cuestionariosPresentar::presentarCuestionario();
 
             //Verificamos si se está recibiendo el id del cuestionario y el id de la asignación para desplegar su información
