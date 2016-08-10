@@ -104,7 +104,7 @@
                                                         <div class="row" id="filaInstruciones<?php echo $numSeccion; ?>">
                                                             <div class="col-md-12" id="columnaInstrucciones<?php echo $numSeccion; ?>">
                                                                 <label for="instruccionesSeccion<?php echo $numSeccion; ?>" id="instruccionesSeccion<?php echo $numSeccion; ?>">Escribe las instrucciones de la sección:</label>
-                                                                <input type="text" id="instrucciones<?php echo $numSeccion; ?>" name="instrucciones<?php echo $numSeccion; ?>" class="form-control">
+                                                                <input value="<?php echo $arrayBloque[$i]['instruccion']; ?>" type="text" id="instrucciones<?php echo $numSeccion; ?>" name="instrucciones<?php echo $numSeccion; ?>" class="form-control">
                                                             </div>
                                                         </div>
                             <?php
@@ -127,7 +127,7 @@
                                                                         <div class="row" id="filaPregunta<?php echo $numSeccion; ?>">
                                                                             <div class="col-md-12" style="margin-top: 15px;" id='columnaPregunta<?php echo $numSeccion; ?>'>
                                                                                 <label for="id_instrucciones" id="id_instrucciones">Escribe la pregunta:</label>
-                                                                                <input type="text" class="form-control" id="pregunta<?php echo $numSeccion.$numPregunta; ?>" name="pregunta<?php echo $numSeccion.$numPregunta; ?>">
+                                                                                <input value="<?php echo $arrayPregunta[$j]['pregunta']; ?>" type="text" class="form-control" id="pregunta<?php echo $numSeccion.$numPregunta; ?>" name="pregunta<?php echo $numSeccion.$numPregunta; ?>">
                                                                                 <span></span>
                                                                             </div>
                                                                         </div>
@@ -135,16 +135,132 @@
                                                                             <div class="col-md-2" style="margin-top:15px;" id="columnaRespuestas<?php echo $numSeccion; ?>">
                                                                                 <label for="puntajePregunta<?php echo $numSeccion; ?>" id="puntajePregunta<?php echo $numSeccion; ?>">Puntaje:</label>
                                                                                 <select class="form-control" id="puntaje<?php echo $numSeccion.$numPregunta; ?>" name="puntaje<?php echo $numSeccion.$numPregunta; ?>" onchange="valor(this.options[this.selectedIndex].innerHTML);">
-                                                                                    <option id="opcion1" value="1">1</option>
-                                                                                    <option id="opcion2" value="2">2</option>
-                                                                                    <option id="opcion3" value="3">3</option>
-                                                                                    <option id="opcion4" value="4">4</option>
-                                                                                    <option id="opcion5" value="5">5</option>
-                                                                                    <option id="opcion6" value="6">6</option>
-                                                                                    <option id="opcion7" value="7">7</option>
-                                                                                    <option id="opcion8" value="8">8</option>
-                                                                                    <option id="opcion9" value="9">9</option>
-                                                                                    <option id="opcion10" value="10">10</option>
+                                                                                    <?php
+                                                                                        switch ($arrayPregunta[$j]['puntaje']) {
+                                                                                            case '1':
+                                                                                                echo "<option id='opcion1' value='1' selected>1</option>";
+                                                                                                echo "<option id='opcion2' value='2'>2</option>";
+                                                                                                echo "<option id='opcion3' value='3'>3</option>";
+                                                                                                echo "<option id='opcion4' value='4'>4</option>";
+                                                                                                echo "<option id='opcion5' value='5'>5</option>";
+                                                                                                echo "<option id='opcion6' value='6'>6</option>";
+                                                                                                echo "<option id='opcion7' value='7'>7</option>";
+                                                                                                echo "<option id='opcion8' value='8'>8</option>";
+                                                                                                echo "<option id='opcion9' value='9'>9</option>";
+                                                                                                echo "<option id='opcion10' value='10'>10</option>";
+                                                                                                break;
+                                                                                            case '2':
+                                                                                                echo "<option id='opcion1' value='1'>1</option>";
+                                                                                                echo "<option id='opcion2' value='2' selected>2</option>";
+                                                                                                echo "<option id='opcion3' value='3'>3</option>";
+                                                                                                echo "<option id='opcion4' value='4'>4</option>";
+                                                                                                echo "<option id='opcion5' value='5'>5</option>";
+                                                                                                echo "<option id='opcion6' value='6'>6</option>";
+                                                                                                echo "<option id='opcion7' value='7'>7</option>";
+                                                                                                echo "<option id='opcion8' value='8'>8</option>";
+                                                                                                echo "<option id='opcion9' value='9'>9</option>";
+                                                                                                echo "<option id='opcion10' value='10'>10</option>";
+                                                                                                break;
+                                                                                            case '3':
+                                                                                                echo "<option id='opcion1' value='1'>1</option>";
+                                                                                                echo "<option id='opcion2' value='2'>2</option>";
+                                                                                                echo "<option id='opcion3' value='3' selected>3</option>";
+                                                                                                echo "<option id='opcion4' value='4'>4</option>";
+                                                                                                echo "<option id='opcion5' value='5'>5</option>";
+                                                                                                echo "<option id='opcion6' value='6'>6</option>";
+                                                                                                echo "<option id='opcion7' value='7'>7</option>";
+                                                                                                echo "<option id='opcion8' value='8'>8</option>";
+                                                                                                echo "<option id='opcion9' value='9'>9</option>";
+                                                                                                echo "<option id='opcion10' value='10'>10</option>";
+                                                                                                break;
+                                                                                            case '4':
+                                                                                                echo "<option id='opcion1' value='1'>1</option>";
+                                                                                                echo "<option id='opcion2' value='2'>2</option>";
+                                                                                                echo "<option id='opcion3' value='3'>3</option>";
+                                                                                                echo "<option id='opcion4' value='4' selected>4</option>";
+                                                                                                echo "<option id='opcion5' value='5'>5</option>";
+                                                                                                echo "<option id='opcion6' value='6'>6</option>";
+                                                                                                echo "<option id='opcion7' value='7'>7</option>";
+                                                                                                echo "<option id='opcion8' value='8'>8</option>";
+                                                                                                echo "<option id='opcion9' value='9'>9</option>";
+                                                                                                echo "<option id='opcion10' value='10'>10</option>";
+                                                                                                break;
+                                                                                            case '5':
+                                                                                                echo "<option id='opcion1' value='1'>1</option>";
+                                                                                                echo "<option id='opcion2' value='2'>2</option>";
+                                                                                                echo "<option id='opcion3' value='3'>3</option>";
+                                                                                                echo "<option id='opcion4' value='4'>4</option>";
+                                                                                                echo "<option id='opcion5' value='5' selected>5</option>";
+                                                                                                echo "<option id='opcion6' value='6'>6</option>";
+                                                                                                echo "<option id='opcion7' value='7'>7</option>";
+                                                                                                echo "<option id='opcion8' value='8'>8</option>";
+                                                                                                echo "<option id='opcion9' value='9'>9</option>";
+                                                                                                echo "<option id='opcion10' value='10'>10</option>";
+                                                                                                break;
+                                                                                            case '6':
+                                                                                                echo "<option id='opcion1' value='1'>1</option>";
+                                                                                                echo "<option id='opcion2' value='2'>2</option>";
+                                                                                                echo "<option id='opcion3' value='3'>3</option>";
+                                                                                                echo "<option id='opcion4' value='4'>4</option>";
+                                                                                                echo "<option id='opcion5' value='5'>5</option>";
+                                                                                                echo "<option id='opcion6' value='6' selected>6</option>";
+                                                                                                echo "<option id='opcion7' value='7'>7</option>";
+                                                                                                echo "<option id='opcion8' value='8'>8</option>";
+                                                                                                echo "<option id='opcion9' value='9'>9</option>";
+                                                                                                echo "<option id='opcion10' value='10'>10</option>";
+                                                                                                break;
+                                                                                            case '7':
+                                                                                                echo "<option id='opcion1' value='1'>1</option>";
+                                                                                                echo "<option id='opcion2' value='2'>2</option>";
+                                                                                                echo "<option id='opcion3' value='3'>3</option>";
+                                                                                                echo "<option id='opcion4' value='4'>4</option>";
+                                                                                                echo "<option id='opcion5' value='5'>5</option>";
+                                                                                                echo "<option id='opcion6' value='6'>6</option>";
+                                                                                                echo "<option id='opcion7' value='7' selected>7</option>";
+                                                                                                echo "<option id='opcion8' value='8'>8</option>";
+                                                                                                echo "<option id='opcion9' value='9'>9</option>";
+                                                                                                echo "<option id='opcion10' value='10'>10</option>";
+                                                                                                break;
+                                                                                            case '8':
+                                                                                                echo "<option id='opcion1' value='1'>1</option>";
+                                                                                                echo "<option id='opcion2' value='2'>2</option>";
+                                                                                                echo "<option id='opcion3' value='3'>3</option>";
+                                                                                                echo "<option id='opcion4' value='4'>4</option>";
+                                                                                                echo "<option id='opcion5' value='5'>5</option>";
+                                                                                                echo "<option id='opcion6' value='6'>6</option>";
+                                                                                                echo "<option id='opcion7' value='7'>7</option>";
+                                                                                                echo "<option id='opcion8' value='8' selected>8</option>";
+                                                                                                echo "<option id='opcion9' value='9'>9</option>";
+                                                                                                echo "<option id='opcion10' value='10'>10</option>";
+                                                                                                break;
+                                                                                            case '9':
+                                                                                                echo "<option id='opcion1' value='1'>1</option>";
+                                                                                                echo "<option id='opcion2' value='2'>2</option>";
+                                                                                                echo "<option id='opcion3' value='3'>3</option>";
+                                                                                                echo "<option id='opcion4' value='4'>4</option>";
+                                                                                                echo "<option id='opcion5' value='5'>5</option>";
+                                                                                                echo "<option id='opcion6' value='6'>6</option>";
+                                                                                                echo "<option id='opcion7' value='7'>7</option>";
+                                                                                                echo "<option id='opcion8' value='8'>8</option>";
+                                                                                                echo "<option id='opcion9' value='9' selected>9</option>";
+                                                                                                echo "<option id='opcion10' value='10'>10</option>";
+                                                                                                break;
+                                                                                            case '10':
+                                                                                                echo "<option id='opcion1' value='1'>1</option>";
+                                                                                                echo "<option id='opcion2' value='2'>2</option>";
+                                                                                                echo "<option id='opcion3' value='3'>3</option>";
+                                                                                                echo "<option id='opcion4' value='4'>4</option>";
+                                                                                                echo "<option id='opcion5' value='5'>5</option>";
+                                                                                                echo "<option id='opcion6' value='6'>6</option>";
+                                                                                                echo "<option id='opcion7' value='7'>7</option>";
+                                                                                                echo "<option id='opcion8' value='8'>8</option>";
+                                                                                                echo "<option id='opcion9' value='9'>9</option>";
+                                                                                                echo "<option id='opcion10' value='10' selected>10</option>";
+                                                                                                break;
+                                                                                            default:
+                                                                                                break;
+                                                                                        }
+                                                                                    ?>
                                                                                 </select>
                                                                             </div>
                                                                             <div class="col-md-10" style="margin-top:45px;" id="columnaLabPuntaje<?php echo $numSeccion; ?>">
@@ -153,7 +269,7 @@
                                                                         </div>
                                                                         <div class="row" id="filaConSelect<?php echo $numSeccion.$numPregunta; ?>">
                                                                             <div class="col-md-8" id="colConSelect<?php echo $numSeccion.$numPregunta; ?>">    
-                                                                                <input type="hidden" class="form-control" id="conSelect<?php echo $numSeccion.$numPregunta; ?>" name="conSelect<?php echo $numSeccion.$numPregunta; ?>" value="">
+                                                                                <input value="<?php echo $arrayPregunta[$j]['puntaje']; ?>" type="hidden" class="form-control" id="conSelect<?php echo $numSeccion.$numPregunta; ?>" name="conSelect<?php echo $numSeccion.$numPregunta; ?>">
                                                                             </div>
                                                                         </div>
                                     <?php
@@ -174,7 +290,7 @@
                                                                             <div class="col-md-8" style="margin-top:15px;" id="filaOpcion<?php echo $numSeccion; ?>">
                                                                                 <label for="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" id="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" >Opción <?php echo $numOpcion; ?>:</label>
 
-                                                                                <input type="text" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
+                                                                                <input value="<?php echo $arrayPregunta[$j]['respuesta'.$k]; ?>" type="text" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
 
                                                                             </div>
                                                                             <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp<?php echo $numSeccion.$numPregunta; ?>">
@@ -191,7 +307,7 @@
                                                                             <div class="col-md-8" style="margin-top:15px;" id="filaOpcion<?php echo $numSeccion; ?>">
                                                                                 <label for="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" id="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" >Opción <?php echo $numOpcion; ?>:</label>
 
-                                                                                <input type="text" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
+                                                                                <input value="<?php echo $arrayPregunta[$j]['respuesta'.$k]; ?>" type="text" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
 
                                                                             </div>
                                                                             <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp<?php echo $numSeccion.$numPregunta; ?>">
