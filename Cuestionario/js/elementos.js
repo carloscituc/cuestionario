@@ -455,7 +455,7 @@ function modificarPregunta(b){
     idSeccion=idModificar.charAt(12);//btnModificar11
     idPregunta=idModificar.charAt(13);//btnModificar11
 
-    formulario = document.getElementById("Pregunta"+idSeccion+idPregunta);
+    formulario = document.getElementById("panelBody"+idSeccion+idPregunta);
     eleInput = formulario.getElementsByTagName("input");
     eleLabel = formulario.getElementsByTagName("select");
     eleButton = formulario.getElementsByTagName("button");
