@@ -1,0 +1,7 @@
+boton "Agregar opción" ---> bntAgregar11
+boton "Finalizar Pregunta" -->btnFinalizar11
+boton "Modificar Pregunta"--->btnModificar11
+boton "Agregar pregunta"---->btnAgPregunta1
+boton "Finalizar sección"---->btnFinSec1
+boton "Agregar sección"----->btnAgSeccion
+boton "Finalizar cuestionario"-->btnFinCuestionario
