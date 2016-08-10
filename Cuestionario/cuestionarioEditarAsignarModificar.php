@@ -281,13 +281,15 @@
                                                             //Se verifica si la respuesta existe y si no, no la imprimimos
                                                 if(isset($arrayPregunta[$j]['respuesta'.$k])){
 
+                                                    //Verificamos que no sean las dos preguntas por defecto
+                                                    if($numOpcion < 3){
                                     ?>
                                     
                                     <?php
                                         if($arrayPregunta[$j]['respuesta'.$k]==$arrayPregunta[$j]['respuestaCorrecta']){
                                     ?>  
                                                                         <div class="row" id="opcion<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
-                                                                            <div class="col-md-8" style="margin-top:15px;" id="filaOpcion<?php echo $numSeccion; ?>">
+                                                                            <div class="col-md-8" style="margin-top:15px;" id="filaOpcion<?php echo $numOpcion; ?>">
                                                                                 <label for="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" id="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" >Opción <?php echo $numOpcion; ?>:</label>
 
                                                                                 <input readonly="readonly" value="<?php echo $arrayPregunta[$j]['respuesta'.$k]; ?>" type="text" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
@@ -295,7 +297,7 @@
                                                                             </div>
                                                                             <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp<?php echo $numSeccion.$numPregunta; ?>">
                                                                                 <div class="radio" id="conRadio<?php echo $numSeccion.$numPregunta; ?>">
-                                                                                    <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>" checked="checked">
+                                                                                    <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>" checked="checked">
                                                                                     <label id="labelOp<?php echo $numSeccion.$numPregunta; ?>" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
                                                                                 </div>
                                                                             </div> 
@@ -304,7 +306,7 @@
                                         }else{
                                     ?>
                                                                         <div class="row" id="opcion<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
-                                                                            <div class="col-md-8" style="margin-top:15px;" id="filaOpcion<?php echo $numSeccion; ?>">
+                                                                            <div class="col-md-8" style="margin-top:15px;" id="filaOpcion<?php echo $numOpcion; ?>">
                                                                                 <label for="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" id="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" >Opción <?php echo $numOpcion; ?>:</label>
 
                                                                                 <input readonly="readonly" value="<?php echo $arrayPregunta[$j]['respuesta'.$k]; ?>" type="text" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
@@ -312,16 +314,59 @@
                                                                             </div>
                                                                             <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp<?php echo $numSeccion.$numPregunta; ?>">
                                                                                 <div class="radio" id="conRadio<?php echo $numSeccion.$numPregunta; ?>">
-                                                                                    <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>">
+                                                                                    <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>">
                                                                                     <label id="labelOp<?php echo $numSeccion.$numPregunta; ?>" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
                                                                                 </div>
                                                                             </div> 
                                                                         </div>
                                     <?php
                                         }
+                                        }else{
                                     ?>
-                                        
+
                                     <?php
+                                        if($arrayPregunta[$j]['respuesta'.$k]==$arrayPregunta[$j]['respuestaCorrecta']){
+                                    ?>  
+                                                                        <div class="row" id="opcion<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
+                                                                            <div class="col-md-8" style="margin-top:15px;" id="filaOpcion<?php echo $numOpcion; ?>">
+                                                                                <label for="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" id="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" >Opción <?php echo $numOpcion; ?>:</label>
+                                                                                <div class="input-group">
+                                                                                    <input readonly="readonly" value="<?php echo $arrayPregunta[$j]['respuesta'.$k]; ?>" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" type="text">
+                                                                                    <span class="input-group-btn"><button disabled="" onclick="eliminarOpcion(this.id);" id="btn<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" type="button" class="btn btn-danger">
+                                                                                    <span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button></span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp<?php echo $numSeccion.$numPregunta; ?>">
+                                                                                <div class="radio" id="conRadio<?php echo $numSeccion.$numPregunta; ?>">
+                                                                                    <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>" checked="checked">
+                                                                                    <label id="labelOp<?php echo $numSeccion.$numPregunta; ?>" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
+                                                                                </div>
+                                                                            </div> 
+                                                                        </div>
+
+                                    <?php
+                                        }else{
+                                    ?>
+                                                                        <div class="row" id="opcion<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
+                                                                            <div class="col-md-8" style="margin-top:15px;" id="filaOpcion<?php echo $numOpcion; ?>">
+                                                                                <label for="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" id="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" >Opción <?php echo $numOpcion; ?>:</label>
+
+                                                                                <div class="input-group">
+                                                                                    <input readonly="readonly" value="<?php echo $arrayPregunta[$j]['respuesta'.$k]; ?>" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" type="text">
+                                                                                    <span class="input-group-btn"><button disabled="" onclick="eliminarOpcion(this.id);" id="btn<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" type="button" class="btn btn-danger">
+                                                                                    <span aria-hidden="true" class="glyphicon glyphicon-remove"></span></button></span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp<?php echo $numSeccion.$numPregunta; ?>">
+                                                                                <div class="radio" id="conRadio<?php echo $numSeccion.$numPregunta; ?>">
+                                                                                    <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>">
+                                                                                    <label id="labelOp<?php echo $numSeccion.$numPregunta; ?>" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
+                                                                                </div>
+                                                                            </div> 
+                                                                        </div>
+                                    <?php
+                                        }
+                                        }
                                             $numOpcion++;
                                             }
 
@@ -334,14 +379,14 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="row" id="filaBtnAgregar<?php echo $numSeccion.$numPregunta; ?>">
-                                                                            <div class="col-md-4 col-xs-4 col-xs-push-1" id="agregar<?php echo $numSeccion; ?>">
+                                                                            <div style="margin-top: 40px;margin-left: -10px;" class="col-md-4 col-xs-4 col-xs-push-1" id="filaBtnAgregar<?php echo $numSeccion; ?>">
                                                                                 <button disabled type="button" class="btn btn-success btn-sm" id="btnAgregar<?php echo $numSeccion.$numPregunta; ?>" onclick="crear(this.id);"><span class="glyphicon glyphicon-plus" id="iconoOp<?php echo $numSeccion.$numPregunta; ?>"></span>Agregar opción</button>
                                                                             </div>
-                                                                            <div class="col-md-4 col-xs-4 col-md-offset-0 col-xs-push-1" id="finPregunta11">
+                                                                            <div style="margin-top: 40px;margin-left: -10px;" class="col-md-4 col-xs-4 col-md-offset-0 col-xs-push-1" id="finPregunta<?php echo $numSeccion.$numPregunta; ?>">
                                                                                 <button disabled id="btnFinalizar<?php echo $numSeccion.$numPregunta; ?>" type="button" class="btn btn-primary btn-sm" onclick="finalizarPregunta(this.id);">Finalizar pregunta</button>
                                                                             </div>
-                                                                            <div class="col-md-4 col-xs-4 col-md-offset-2 col-xs-push-1" id="modificarPregunta11" style="margin-top: 40px;margin-left: -10px;">
-                                                                                <button disabled id="btnModificar<?php echo $numSeccion.$numPregunta; ?>" type="button" class="btn btn-primary btn-sm" onclick="modificarPregunta(this.id);">Modificar Pregunta</button>
+                                                                            <div style="margin-top: 40px;margin-left: -10px;" class="col-md-4 col-xs-4 col-md-offset-2 col-xs-push-1" id="modificarPregunta11" style="margin-top: 40px;margin-left: -10px;">
+                                                                                <button disabled style="visibility: visible;" disabled id="btnModificar<?php echo $numSeccion.$numPregunta; ?>" type="button" class="btn btn-primary btn-sm" onclick="modificarPregunta(this.id);">Modificar Pregunta</button>
                                                                             </div>
                                                                         </div>                                   
                                                                     </div>

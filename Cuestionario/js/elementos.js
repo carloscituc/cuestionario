@@ -6,7 +6,7 @@ idSeccion = valor2.id;
 
 valor3 = document.getElementById('pregunta1');
 idPregunta = valor3.id;*/
-
+idCrear1 = document.getElementById('btnAgregar11');
 numSeccion = 1;
 numPregunta = 1;
 numOpcion = 2;
@@ -96,14 +96,15 @@ function crear(obj) {
 
 //botón eliminar Opción de la pregunta
 function eliminarOpcion(x){
+
     idOpcion = document.getElementById(x);
     value = idOpcion.id;
     idSeccion=value.charAt(3);//btn113
     idPregunta=value.charAt(4);//btn113
 
-    //alert(value);
-    /*alert(idSeccion);
-    alert(idPregunta);*/
+    alert(value);
+    alert(idSeccion);
+    alert(idPregunta);
 
     j=3;
     numOpcion--;
@@ -133,7 +134,7 @@ function eliminarOpcion(x){
                     radioBut = document.getElementById('radioOp'+idSeccion+idPregunta+k);
                     radioBut.setAttribute('value',j);
                     radioBut.id='radioOp'+idSeccion+idPregunta+j;
-                    j++;            
+                    j++;
                 }
             }
             iddivEl1 = document.getElementById('opcion'+idSeccion+idPregunta+'3');//recuperar input 3 para eliminar
@@ -312,6 +313,7 @@ function eliminarOpcion(x){
             j = j-1;
             break;
         case 'btn'+idSeccion+idPregunta+10:
+            alert('radioOp'+idSeccion+idPregunta+k);
             iddivEl1 = document.getElementById('opcion'+idSeccion+idPregunta+'10');//recuperar input 9 para eliminar
             iddivEl1.parentNode.removeChild(iddivEl1);//se elimina input 9
             break;
