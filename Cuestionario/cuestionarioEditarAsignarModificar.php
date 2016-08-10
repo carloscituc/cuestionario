@@ -104,7 +104,7 @@
                                                         <div class="row" id="filaInstruciones<?php echo $numSeccion; ?>">
                                                             <div class="col-md-12" id="columnaInstrucciones<?php echo $numSeccion; ?>">
                                                                 <label for="instruccionesSeccion<?php echo $numSeccion; ?>" id="instruccionesSeccion<?php echo $numSeccion; ?>">Escribe las instrucciones de la sección:</label>
-                                                                <input value="<?php echo $arrayBloque[$i]['instruccion']; ?>" type="text" id="instrucciones<?php echo $numSeccion; ?>" name="instrucciones<?php echo $numSeccion; ?>" class="form-control">
+                                                                <input readonly="readonly" value="<?php echo $arrayBloque[$i]['instruccion']; ?>" type="text" id="instrucciones<?php echo $numSeccion; ?>" name="instrucciones<?php echo $numSeccion; ?>" class="form-control">
                                                             </div>
                                                         </div>
                             <?php
@@ -127,14 +127,14 @@
                                                                         <div class="row" id="filaPregunta<?php echo $numSeccion; ?>">
                                                                             <div class="col-md-12" style="margin-top: 15px;" id='columnaPregunta<?php echo $numSeccion; ?>'>
                                                                                 <label for="id_instrucciones" id="id_instrucciones">Escribe la pregunta:</label>
-                                                                                <input value="<?php echo $arrayPregunta[$j]['pregunta']; ?>" type="text" class="form-control" id="pregunta<?php echo $numSeccion.$numPregunta; ?>" name="pregunta<?php echo $numSeccion.$numPregunta; ?>">
+                                                                                <input readonly="readonly" value="<?php echo $arrayPregunta[$j]['pregunta']; ?>" type="text" class="form-control" id="pregunta<?php echo $numSeccion.$numPregunta; ?>" name="pregunta<?php echo $numSeccion.$numPregunta; ?>">
                                                                                 <span></span>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row" id='filaRespuestas<?php echo $numSeccion; ?>'>
                                                                             <div class="col-md-2" style="margin-top:15px;" id="columnaRespuestas<?php echo $numSeccion; ?>">
                                                                                 <label for="puntajePregunta<?php echo $numSeccion; ?>" id="puntajePregunta<?php echo $numSeccion; ?>">Puntaje:</label>
-                                                                                <select class="form-control" id="puntaje<?php echo $numSeccion.$numPregunta; ?>" name="puntaje<?php echo $numSeccion.$numPregunta; ?>" onchange="valor(this.options[this.selectedIndex].innerHTML);">
+                                                                                <select disabled class="form-control" id="puntaje<?php echo $numSeccion.$numPregunta; ?>" name="puntaje<?php echo $numSeccion.$numPregunta; ?>" onchange="valor(this.options[this.selectedIndex].innerHTML);">
                                                                                     <?php
                                                                                         switch ($arrayPregunta[$j]['puntaje']) {
                                                                                             case '1':
@@ -269,7 +269,7 @@
                                                                         </div>
                                                                         <div class="row" id="filaConSelect<?php echo $numSeccion.$numPregunta; ?>">
                                                                             <div class="col-md-8" id="colConSelect<?php echo $numSeccion.$numPregunta; ?>">    
-                                                                                <input value="<?php echo $arrayPregunta[$j]['puntaje']; ?>" type="hidden" class="form-control" id="conSelect<?php echo $numSeccion.$numPregunta; ?>" name="conSelect<?php echo $numSeccion.$numPregunta; ?>">
+                                                                                <input readonly="readonly" value="<?php echo $arrayPregunta[$j]['puntaje']; ?>" type="hidden" class="form-control" id="conSelect<?php echo $numSeccion.$numPregunta; ?>" name="conSelect<?php echo $numSeccion.$numPregunta; ?>">
                                                                             </div>
                                                                         </div>
                                     <?php
@@ -290,7 +290,7 @@
                                                                             <div class="col-md-8" style="margin-top:15px;" id="filaOpcion<?php echo $numSeccion; ?>">
                                                                                 <label for="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" id="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" >Opción <?php echo $numOpcion; ?>:</label>
 
-                                                                                <input value="<?php echo $arrayPregunta[$j]['respuesta'.$k]; ?>" type="text" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
+                                                                                <input readonly="readonly" value="<?php echo $arrayPregunta[$j]['respuesta'.$k]; ?>" type="text" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
 
                                                                             </div>
                                                                             <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp<?php echo $numSeccion.$numPregunta; ?>">
@@ -307,7 +307,7 @@
                                                                             <div class="col-md-8" style="margin-top:15px;" id="filaOpcion<?php echo $numSeccion; ?>">
                                                                                 <label for="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" id="label<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" >Opción <?php echo $numOpcion; ?>:</label>
 
-                                                                                <input value="<?php echo $arrayPregunta[$j]['respuesta'.$k]; ?>" type="text" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
+                                                                                <input readonly="readonly" value="<?php echo $arrayPregunta[$j]['respuesta'.$k]; ?>" type="text" class="form-control" id="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="op<?php echo $numSeccion.$numPregunta.$numOpcion; ?>">
 
                                                                             </div>
                                                                             <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp<?php echo $numSeccion.$numPregunta; ?>">
@@ -335,13 +335,13 @@
                                                                         </div>
                                                                         <div class="row" id="filaBtnAgregar<?php echo $numSeccion.$numPregunta; ?>">
                                                                             <div class="col-md-4 col-xs-4 col-xs-push-1" id="agregar<?php echo $numSeccion; ?>">
-                                                                                <button type="button" class="btn btn-success btn-sm" id="btnAgregar<?php echo $numSeccion.$numPregunta; ?>" onclick="crear(this.id);"><span class="glyphicon glyphicon-plus" id="iconoOp<?php echo $numSeccion.$numPregunta; ?>"></span>Agregar opción</button>
+                                                                                <button disabled type="button" class="btn btn-success btn-sm" id="btnAgregar<?php echo $numSeccion.$numPregunta; ?>" onclick="crear(this.id);"><span class="glyphicon glyphicon-plus" id="iconoOp<?php echo $numSeccion.$numPregunta; ?>"></span>Agregar opción</button>
                                                                             </div>
                                                                             <div class="col-md-4 col-xs-4 col-md-offset-0 col-xs-push-1" id="finPregunta11">
-                                                                                <button id="btnFinalizar<?php echo $numSeccion.$numPregunta; ?>" type="button" class="btn btn-primary btn-sm" onclick="finalizarPregunta(this.id);">Finalizar pregunta</button>
+                                                                                <button disabled id="btnFinalizar<?php echo $numSeccion.$numPregunta; ?>" type="button" class="btn btn-primary btn-sm" onclick="finalizarPregunta(this.id);">Finalizar pregunta</button>
                                                                             </div>
                                                                             <div class="col-md-4 col-xs-4 col-md-offset-2 col-xs-push-1" id="modificarPregunta11" style="margin-top: 40px;margin-left: -10px;">
-                                                                                <button id="btnModificar<?php echo $numSeccion.$numPregunta; ?>" type="button" class="btn btn-primary btn-sm" onclick="modificarPregunta(this.id);">Modificar Pregunta</button>
+                                                                                <button disabled id="btnModificar<?php echo $numSeccion.$numPregunta; ?>" type="button" class="btn btn-primary btn-sm" onclick="modificarPregunta(this.id);">Modificar Pregunta</button>
                                                                             </div>
                                                                         </div>                                   
                                                                     </div>
@@ -368,15 +368,15 @@
                                 }
                                 $numPregunta = 1;
                             ?>
-                                                        <div class="row" id="antes<?php echo $numSeccion; ?>">
+                                                            <div class="row" id="antes<?php echo $numSeccion; ?>">
                                                             <div class="col-md-2" style="margin-top:15px;" id="columnaBtnFinalizar<?php echo $numSeccion; ?>">
-                                                                <button type="button" id="btnAgPregunta<?php echo $numSeccion; ?>" class="btn btn-success btn-sm" onclick="agrePregunta(false,this.id);" disabled><span class="glyphicon glyphicon-plus"></span>Agregar Pregunta</button>
+                                                                <button disabled type="button" id="btnAgPregunta<?php echo $numSeccion; ?>" class="btn btn-success btn-sm" onclick="agrePregunta(false,this.id);" disabled><span class="glyphicon glyphicon-plus"></span>Agregar Pregunta</button>
                                                             </div>
                                                             <div class="col-md-2" style="margin-top:15px;" id="columnaBtnFinalizarSec<?php echo $numSeccion; ?>">
-                                                                <button type="button" id="btnFinSec<?php echo $numSeccion; ?>" class="btn btn-primary btn-sm" onclick="finSeccion(this.id);" disabled>Finalizar sección</button>
+                                                                <button disabled type="button" id="btnFinSec<?php echo $numSeccion; ?>" class="btn btn-primary btn-sm" onclick="finSeccion(this.id);" disabled>Finalizar sección</button>
                                                             </div>
                                                             <div class="col-md-2" style="margin-top:15px;" id="columnaBtnModSec<?php echo $numSeccion; ?>">
-                                                                <button type="button" id="btnModSec<?php echo $numSeccion; ?>" class="btn btn-primary btn-sm" onclick="modificarCuestionario(this.id);" disabled>Modificar sección</button>
+                                                                <button style="visibility: visible;" type="button" id="btnModSec<?php echo $numSeccion; ?>" class="btn btn-primary btn-sm" onclick="modificarCuestionario(this.id);">Modificar sección</button>
                                                             </div>
                                                             <div class="row" id="filaConPregunta<?php echo $numSeccion; ?>">
                                                                 <div class="col-md-8" id="colConPregunta<?php echo $numSeccion; ?>">    
