@@ -113,7 +113,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Reasignar cuestionario</h4>
+                <h4 class="modal-title">Asignar cuestionario</h4>
             </div>
             <form method="post">
                 <div class="modal-body">
