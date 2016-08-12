@@ -923,6 +923,15 @@ function finSeccion(r){
         var resultado2 = true;
     }
 
+    cont=0;
+    for(i=1;i<11;i++){
+        opcion = document.getElementById('instrucciones'+i);
+        if(opcion!=null){
+            var cont=cont+1;
+        }
+    }
+    numSeccion = cont;
+
     if(resultado && resultado2 == true){
         Form = document.getElementById("panelBody"+idFinSeccion);//Se obtiene el id del div padre
         Elemento = Form.getElementsByTagName("input");//Se obtienen los inputs del div padre
@@ -985,6 +994,19 @@ function modificarCuestionario(h){
     idModSeccion = btnModSec.charAt(9);//btnModSec1--Se obtiene el número de sección al que pertenece   
 
     btnModSec1.style.visibility='hidden';//Se esconde el botón "Modificar sección"
+    
+    idModificar1 = document.getElementById(h);
+    idModificar = idModificar1.id;
+    idSeccion=idModificar.charAt(9);//btnModificar11
+    numSeccion = idSeccion;
+    cont=0;
+    for(i=1;i<11;i++){
+        opcion = document.getElementById('pregunta'+idSeccion+i);
+        if(opcion!=null){
+            var cont=cont+1;
+        }
+    }
+    numPregunta = cont;
     
     inputInstrucciones1 = document.getElementById('instrucciones'+idModSeccion);//Se obtiene el input de las instrucciones de la sección
     inputInstrucciones1.removeAttribute("readonly");//Se le remueve el atributo readonly

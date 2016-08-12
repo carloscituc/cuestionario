@@ -994,7 +994,7 @@ function modificarCuestionario(h){
     idModSeccion = btnModSec.charAt(9);//btnModSec1   
 
     btnModSec1.style.visibility='hidden';
-
+    
     idModificar1 = document.getElementById(h);
     idModificar = idModificar1.id;
     idSeccion=idModificar.charAt(9);//btnModificar11
