@@ -1,27 +1,26 @@
-/*valor1 = document.getElementById('op112');
-idOpcion = valor1.id;
+/*Eric Rodrigo Espadas Ku
+  Instituto Tecnológico Superior de Felipe Carrillo Puerto
+  Ingeniería en Sistemas Computacionales
+  Correo: rodrigo.espadas95@gmail.com*/
+//Suerte Omar, Ade, Aledvia, Edgar y los demás...!
 
-valor2 = document.getElementById('seccion1');
-idSeccion = valor2.id;
-
-valor3 = document.getElementById('pregunta1');
-idPregunta = valor3.id;*/
-idCrear1 = document.getElementById('btnAgregar11');
+idCrear1 = document.getElementById('btnAgregar11');//Se obtiene el id del botón "Agregar opción"
 numSeccion = 1;
 numPregunta = 1;
 numOpcion = 2;
-
 num=2;
-//botón agregar
-function crear(obj) {
-    numOpcion++;
-    num++;
-    //alert(num);
-    idCrear1 = document.getElementById(obj);
-    idCrear = idCrear1.id;
-    idSeccion=idCrear.charAt(10);//btnAgregar11
-    idPregunta=idCrear.charAt(11);//btnAgregar11
 
+//Programación del botón "Agregar opción".
+function crear(obj) {
+    numOpcion++;//se utiliza para controlar los id de los elementos, según el número de opción
+    num++;//se utiliza para controlar el numero de opciones en los label.
+    //alert(num);
+    idCrear1 = document.getElementById(obj);//Se obtiene el id del botón "Agregar opción" presionado
+    idCrear = idCrear1.id;
+    idSeccion=idCrear.charAt(10);//btnAgregar11--Se obtiene el número de sección al que pertenece
+    idPregunta=idCrear.charAt(11);//btnAgregar11--Se obtiene el número de la pregunta al que pertenece
+    
+    //Se crean los elementos para agregar la opción
     var op1 = document.getElementById('opcion112').cloneNode(false);
     op1.id='opcion'+idSeccion+idPregunta+numOpcion;
     document.getElementById('filaBtnAgregar'+idSeccion+idPregunta).parentNode.insertBefore(op1,document.getElementById('filaBtnAgregar'+idSeccion+idPregunta));
@@ -89,22 +88,22 @@ function crear(obj) {
     ele11.innerHTML='Respuesta correcta';
     ele9.appendChild(ele11);
 
-    if(num==10){
+    if(num==10){//Condición para que se desactive el botón cuando sean 10 opciones.
         idCrear1.disabled=true;
     }
 }
 
-//botón eliminar Opción de la pregunta
+//Programación del botón "Eliminar opción" (EL rojo con una cruz).
 function eliminarOpcion(x){
 
-    idOpcion = document.getElementById(x);
+    idOpcion = document.getElementById(x);//Se recupera el id del boton presionado
     value = idOpcion.id;
-    idSeccion=value.charAt(3);//btn113
-    idPregunta=value.charAt(4);//btn113
+    idSeccion=value.charAt(3);//btn113---Se optiene el número de sección al que pertenece.
+    idPregunta=value.charAt(4);//btn113---Se obtiene el número de pregunta al que pertenece.
 
-    alert(value);
-    alert(idSeccion);
-    alert(idPregunta);
+    //alert(value);
+    //alert(idSeccion);
+    //alert(idPregunta);
 
     j=3;
     numOpcion--;
@@ -116,21 +115,21 @@ function eliminarOpcion(x){
                 var id = document.getElementById('op'+idSeccion+idPregunta+k);//----input siguiente
                 if(id!=null){
                     //alert("Funciona");
-                    //renombrar div padre
+                    //Se renombra el div padre
                     idDivPadre = document.getElementById('opcion'+idSeccion+idPregunta+k);
                     idDivPadre.id='opcion'+idSeccion+idPregunta+j;
-                    //renombrar boton
+                    //Se renombra el botón eliminar
                     idbtn = document.getElementById('btn'+idSeccion+idPregunta+k);
                     idbtn.id='btn'+idSeccion+idPregunta+j;
-                    //renombrar input
+                    //Se renombra el input
                     id.id = 'op'+idSeccion+idPregunta+j;
                     id.name= 'op'+idSeccion+idPregunta+j;
-                    //renombrar label
+                    //Se renombra el label
                     idlabel = document.getElementById('label'+idSeccion+idPregunta+k);
                     idlabel.setAttribute('for','label'+idSeccion+idPregunta+j);
                     idlabel.id='label'+idSeccion+idPregunta+j;
                     idlabel.innerHTML='Opción'+j+':';
-                    //renombrar radio button
+                    //Se renombra el radio button
                     radioBut = document.getElementById('radioOp'+idSeccion+idPregunta+k);
                     radioBut.setAttribute('value',j);
                     radioBut.id='radioOp'+idSeccion+idPregunta+j;
@@ -313,32 +312,26 @@ function eliminarOpcion(x){
             j = j-1;
             break;
         case 'btn'+idSeccion+idPregunta+10:
-            alert('radioOp'+idSeccion+idPregunta+k);
-            iddivEl1 = document.getElementById('opcion'+idSeccion+idPregunta+'10');//recuperar input 9 para eliminar
-            iddivEl1.parentNode.removeChild(iddivEl1);//se elimina input 9
+            //alert('radioOp'+idSeccion+idPregunta+k);
+            iddivEl1 = document.getElementById('opcion'+idSeccion+idPregunta+'10');//Se recupera el input 9 para eliminar
+            iddivEl1.parentNode.removeChild(iddivEl1);//Se elimina input 9
             break;
         default:
             alert("No existe");
             break;
     }
-    if(num<10){
+    if(num<10){//Se habilta el botón "agregar opción", cuando no hay 10 opciones.
         idCrear1.disabled=false;
     }
 }
 
-//Pasar valor del select al input para recuperar valor
-/*function valor(g){
-
-    document.getElementById('conSelect'+idSeccion+idPregunta).value=g;
-}*/
-
-//botón finalizar pregunta
+//Programación del botón "Finalizar pregunta"
 function finalizarPregunta(fin){
 
-    idFinalizar1 = document.getElementById(fin);
+    idFinalizar1 = document.getElementById(fin);//Se reupera el id del botón presionado
     idFinalizar = idFinalizar1.id;
-    idSeccion=idFinalizar.charAt(12);//btnFinalizar11
-    idPregunta=idFinalizar.charAt(13);//btnFinalizar11
+    idSeccion=idFinalizar.charAt(12);//btnFinalizar11---Se obtiene el número de sección al que pertenece.
+    idPregunta=idFinalizar.charAt(13);//btnFinalizar11--Se obtiene el número de pregunta al que pertenece.
     /*alert(idFinalizar);
     alert(idSeccion);
     alert(idPregunta);*/
@@ -348,20 +341,17 @@ function finalizarPregunta(fin){
     //alert(tOpciones);
     totalOpciones.setAttribute('value',tOpciones);
 
-
     //Validación input Escribe pregunta
     inputEscribePre = document.getElementById('pregunta'+idSeccion+idPregunta).value;
 
     if(inputEscribePre == null || inputEscribePre.length == 0 || /^\s+$/.test(inputEscribePre)){
         $("#pregunta"+idSeccion+idPregunta).parent().attr("class","col-md-12 has-error");
-        //$("#pregunta"+idSeccion+idPregunta).parent().children("span").attr("class","glyphicon glyphicon-plus");
         $("#pregunta"+idSeccion+idPregunta).focus();
         var resultado = false;
     }else{
         $("#pregunta"+idSeccion+idPregunta).parent().attr("class","col-md-12");
         var resultado = true;
     }
-
 
     //Validacion de los campos de las opciones 1 y 2
     for(i=1;i<=2;i++){
@@ -393,49 +383,60 @@ function finalizarPregunta(fin){
         }
     }
 
-
     if(resultado && resultado2 && resultado3 == true){
-        numOpcion=2;
-        num=1;
-        formulario = document.getElementById("panelBody"+idSeccion+idPregunta);
-        eleInput = formulario.getElementsByTagName("input");
-        eleLabel = formulario.getElementsByTagName("select");
-        eleButton = formulario.getElementsByTagName("button");
+        numOpcion=2;//Se reinicializa para controlar las opciones de la siguiente pregunta.
+        num=1;//Se reinicializa para controlar las opciones de la siguiente pregunta.
+        formulario = document.getElementById("panelBody"+idSeccion+idPregunta);//Se obtiene el div padre
+        eleInput = formulario.getElementsByTagName("input");//Se obtienen todos los input del div padre
+        eleLabel = formulario.getElementsByTagName("select");//Se obtienen todos los select del div padre
+        eleButton = formulario.getElementsByTagName("button");//Se obtienen todos los button del div padre
+        
         //alert('Se encontraron '+eleInput.length+' Elementos que se van a deshabilitar');
-        for (i=0;i<eleInput.length;i++){
+        for (i=0;i<eleInput.length;i++){//Se recorren todos los input del div padre para insertarles el atributo readonly
             eleInput[i].setAttribute('readonly','readonly');
         }
 
         //alert('Se encontraron '+eleButton.length+' Elementos que se van a deshabilitar');
-        for (i=0;i<eleButton.length;i++){
+        for (i=0;i<eleButton.length;i++){//Se recorren todos los botones del div padre para deshabilitarlos
             eleButton[i].disabled = true;
         }
 
         //alert('Se encontraron '+eleLabel.length+' Elementos que se van a deshabilitar');
-        val = document.getElementById('puntaje'+idSeccion+idPregunta);
+        val = document.getElementById('puntaje'+idSeccion+idPregunta);//Se obtiene el select del div padre para deshabilitarlo
         val1 = val.value;
         val.disabled=true;
 
         document.getElementById('conSelect'+idSeccion+idPregunta).value=val1;
 
-        btnFinalizar = document.getElementById('btnFinalizar'+idSeccion+idPregunta);
-        btnAgregar = document.getElementById('btnAgregar'+idSeccion+idPregunta);
-        btnModificar = document.getElementById('btnModificar'+idSeccion+idPregunta);
+        btnFinalizar = document.getElementById('btnFinalizar'+idSeccion+idPregunta);//Se obtiene el id del boton "Finalizar pregunta"
+        btnAgregar = document.getElementById('btnAgregar'+idSeccion+idPregunta);//Se obtiene el id del boton "Agregar opción"
+        btnModificar = document.getElementById('btnModificar'+idSeccion+idPregunta);//Se obtiene el id del boton "Modificar pregunta"
 
-        btnFinalizar.disabled=true;
-        btnAgregar.disabled=true;
-        btnModificar.style.visibility='visible';
+        btnFinalizar.disabled=true;//Se deshabilita el botón "Finalizar pregunta"
+        btnAgregar.disabled=true;//Se deshabilita el botón "Agregsr opción"
+        btnModificar.style.visibility='visible';//Se hace visible el botón "Modificar pregunta"
         btnModificar.disabled=false;
 
-        btnAgPregunta = document.getElementById('btnAgPregunta'+idSeccion);
-        btnAgPregunta.disabled=false;
+        btnAgPregunta = document.getElementById('btnAgPregunta'+idSeccion);//Se obtiene el id del botón "Agregar pregunta"
+        btnAgPregunta.disabled=false;//Se habilita el botón "Agregar pregunta"
 
-        btnFinalizarSec = document.getElementById('btnFinSec'+idSeccion);
-        btnFinalizarSec.disabled=false;
+        btnFinalizarSec = document.getElementById('btnFinSec'+idSeccion);//Se obtiene el id del botón "Finalizar sección"
+        btnFinalizarSec.disabled=false;//Se habilita el botón "Finalizar sección"
+        
+        //Contraer la pregunta
+        var contraer = document.getElementById('acordion'+idSeccion+idPregunta);//Se obtiene el id del acordion padre
+        //se cambian el valor de sus atributos
+        contraer.className='collapsed';
+        contraer.setAttribute('aria-expanded','false');
+        
+        var contraer1 = document.getElementById('collapse'+idSeccion+idPregunta);
+        contraer1.className='panel-collapse collapse';
+        contraer1.setAttribute('aria-expanded','false');
+        
 
-        //Desbloquear los demás modificar
+        //Desbloquear los demás botones "Modificar pregunta"
         //alert(numPregunta);
-        for(i=1;i<=numPregunta;i++){
+        for(i=1;i<=numPregunta;i++){//Recorre todos los botones "Modificar pregunta" y los habilita
             btnsModificar1 = document.getElementById('btnModificar'+idSeccion+i);
             btnsModificar = btnsModificar1.id;
             //alert(btnsModificar);
@@ -449,50 +450,46 @@ function finalizarPregunta(fin){
 
 }
 
-//boton modificar
+//Programación del botón "Modificar pregunta"
 function modificarPregunta(b){
 
-    idModificar1 = document.getElementById(b);
+    idModificar1 = document.getElementById(b);//Se obtiene el id del botón "Modificar pregunta" presionado.
     idModificar = idModificar1.id;
-    idSeccion=idModificar.charAt(12);//btnModificar11
-    idPregunta=idModificar.charAt(13);//btnModificar11
+    idSeccion=idModificar.charAt(12);//btnModificar11---Se obtiene el número de sección al que pertenece
+    idPregunta=idModificar.charAt(13);//btnModificar11--Se obtiene el número de pregunta al que pertenece
 
-    formulario = document.getElementById("panelBody"+idSeccion+idPregunta);
-    eleInput = formulario.getElementsByTagName("input");
-    eleLabel = formulario.getElementsByTagName("select");
-    eleButton = formulario.getElementsByTagName("button");
-
+    formulario = document.getElementById("panelBody"+idSeccion+idPregunta);//Se obtiene el id del div padre
+    eleInput = formulario.getElementsByTagName("input");//Se obtienen todos los input del div padre
+    eleLabel = formulario.getElementsByTagName("select");//Se obtienen todos los select del div padre
+    eleButton = formulario.getElementsByTagName("button");//Se obtienen todos los buttons del div padre
 
     //alert('Se encontraron '+eleInput.length+' Elementos que se van habilitar');
-    for (i=0;i<eleInput.length;i++){
+    for (i=0;i<eleInput.length;i++){//Se recorren todos los input del div padre y se les remueve el atributo "readonly"
         eleInput[i].removeAttribute('readonly');
     }
 
     //alert('Se encontraron '+eleButton.length+' Elementos que se van a habilitar');
-    for (i=0;i<eleButton.length;i++){
+    for (i=0;i<eleButton.length;i++){//Se recorren todos los botones del div padre para habilitarlos
         eleButton[i].disabled = false;
     }
 
     //alert('Se encontraron '+eleLabel.length+' Elementos que se van a habilitar');
-    document.getElementById('puntaje'+idSeccion+idPregunta).disabled=false;
+    document.getElementById('puntaje'+idSeccion+idPregunta).disabled=false;//Se obtiene el id del select para deshanilitarlo
 
-    btnFinalizar = document.getElementById('btnFinalizar'+idSeccion+idPregunta);
-    btnAgregar = document.getElementById('btnAgregar'+idSeccion+idPregunta);
-    btnModificar = document.getElementById('btnModificar'+idSeccion+idPregunta);
+    btnFinalizar = document.getElementById('btnFinalizar'+idSeccion+idPregunta);//Se obtiene el id del botón "Finalizar pregunta"
+    btnAgregar = document.getElementById('btnAgregar'+idSeccion+idPregunta);//Se obtiene el id del botón "Agregar opción"
+    btnModificar = document.getElementById('btnModificar'+idSeccion+idPregunta);//Se obtiene el id del botón "modificar pregunta"
 
-    btnFinalizar.disabled=false;
-    btnModificar.style.visibility='hidden';
+    btnFinalizar.disabled=false;//Se habilita el botón "Finalizar pregunta"
+    btnModificar.style.visibility='hidden';//Se esconde el botón "Modificar pregunta"
 
-    btnFinSec1 = document.getElementById('btnFinSec'+idSeccion);
-    btnFinSec1.disabled=true;
+    btnFinSec1 = document.getElementById('btnFinSec'+idSeccion);//Se obtiene el id del botón "Finalizar sección"
+    btnFinSec1.disabled=true;//Se desactiva el botón "Finalizar sección"
 
-    btnAgPregunta = document.getElementById('btnAgPregunta'+idSeccion);
-    btnAgPregunta.disabled=true;
+    btnAgPregunta = document.getElementById('btnAgPregunta'+idSeccion);//Se obtiene el id del botón "Agregar pregunta"
+    btnAgPregunta.disabled=true;//Se desactiva el botón "Agregar pregunta"
 
-
-
-    //------------------------------------------------------------------------------
-    //Contar opciones para inicializar numOpcion y num
+    //Contar las opciones que tiene la pregunta para inicializar las variables numOpcion y num
     cont=0;
     for(i=1;i<11;i++){
         opcion = document.getElementById('op'+idSeccion+idPregunta+i);
@@ -505,17 +502,15 @@ function modificarPregunta(b){
     num = cont; 
     //alert(numOpcion);
     //alert(num);
-    if(num!=10){
+    if(num!=10){//Condición para saber si hay 10 opciones, y saber si el botón "Agregar opción" se deshablita o no.
         btnAgregar.disabled=false;
     }else{
         btnAgregar.disabled=true; 
     }
 
-
-    //------------------------------------------------------------------------------
-    //Bloquear los demás modificar
-    //alert(numPregunta);
-    for(i=1;i<=numPregunta;i++){
+    //Bloquear los demás botones "Modificar pregunta"
+    //alert(numPregunta); / NumPregunta contiene el total de preguntas creadas en la sección
+    for(i=numPregunta;i>0;i--){
         btnsModificar1 = document.getElementById('btnModificar'+idSeccion+i);
         btnsModificar = btnsModificar1.id;
         //alert(btnsModificar);
@@ -527,27 +522,25 @@ function modificarPregunta(b){
     }
 }
 
-
 function idBtnPregunta(e){
     btnPregunta1 = document.getElementById(e);
     btnPregunta = btnPregunta1.id;
     idSeccionPregunta=btnPregunta.charAt(13);//antes1
 }
 
-
 j=1;
 num=2;
 function agrePregunta(x,e){
-    //numOpcion=2;
     j++;
     num++;
     numPregunta++;
-
-    btnPregunta1 = document.getElementById(e);
+    
+    btnPregunta1 = document.getElementById(e);//Se obtiene el ID del botón "Agregar pregunta" presionado
     btnPregunta2 = btnPregunta1.id;
-    idSeccionPregunta = btnPregunta2.charAt(13);
-    btnPregunta1.disabled=true;
-
+    idSeccionPregunta = btnPregunta2.charAt(13);//Se obtiene el número de sección al que pertenece
+    btnPregunta1.disabled=true;//Se deshabilita el botón después de persionarlo
+    
+    //Se clonan los elementos con una nueva ID y atributos.
     btnFinalizarSec = document.getElementById('btnFinSec'+idSeccionPregunta);
     btnFinalizarSec.disabled=true;
 
@@ -576,12 +569,16 @@ function agrePregunta(x,e){
     acordion1.id='acordion'+numSeccion+numPregunta;
     acordion1.setAttribute('data-parent','#accordion'+numSeccion+numPregunta);
     acordion1.setAttribute('href','#collapse'+numSeccion+numPregunta);
+    acordion1.className="";
+    acordion1.setAttribute('aria-expanded','true');
     acordion1.innerHTML='Pregunta '+numPregunta;
     panelTitle1.appendChild(acordion1);
 
     //<div id="collapse11" class="panel-collapse collapse in">
     var collapse1 = document.getElementById('collapse11').cloneNode(x);
     collapse1.id='collapse'+numSeccion+numPregunta;
+    collapse1.className='panel-collapse collapse in';
+    collapse1.setAttribute('aria-expanded','true');
     panelDefault1.appendChild(collapse1);
 
     //<div class="panel-body" id="panelBody11">
@@ -877,7 +874,6 @@ function agrePregunta(x,e){
     btnFinalizar1.disabled=false;
     finPregunta1.appendChild(btnFinalizar1);
 
-
     //<div class="col-md-4 col-xs-4 col-md-offset-2 col-xs-push-1" id="modificarPregunta11" style="margin-left:-10px">
     var modificarPregunta1 = document.getElementById('modificarPregunta11').cloneNode(x);
     modificarPregunta1.id='modificarPregunta'+numSeccion+numPregunta;
@@ -889,30 +885,25 @@ function agrePregunta(x,e){
     btnModificar1.innerHTML='Modificar pregunta';
     btnModificar1.style='visibility: hidden;';
     modificarPregunta1.appendChild(btnModificar1);
-
-    //numOpcion=2;
-    // num=2;
-
 }
 
 
-//botón finalizar sección
+//Programación del botón "Finalizar sección"
 function finSeccion(r){
-    btnfinSec1 = document.getElementById(r);
+    btnfinSec1 = document.getElementById(r);//Se obtiene el ID del botón "Finalizar sección"
     btnfinSec = btnfinSec1 .id;
-    idFinSeccion = btnfinSec.charAt(9);//btnFinSec1
+    idFinSeccion = btnfinSec.charAt(9);//btnFinSec1--Se obtiene el número de sección al que pertenece
 
-    totalPreguntas = document.getElementById('conPregunta'+idFinSeccion);
-    totalPreguntas.setAttribute('value',numPregunta);
+    totalPreguntas = document.getElementById('conPregunta'+idFinSeccion);//Se obtiene el ID del input escondido, el cual contabiliza cuantas preguntas se crearon en la sección
+    totalPreguntas.setAttribute('value',numPregunta);//Se le asigna el número de secciones que hay  
     //alert(numPregunta);
 
-    //Validar input titulo del cuestionario
+    //Validar input instrucciones de la sección 
     inputInstrucciones = document.getElementById('instrucciones'+idFinSeccion).value;
 
     if(inputInstrucciones == null || inputInstrucciones.length == 0 || /^\s+$/.test(inputInstrucciones)){
         $("#instrucciones"+idFinSeccion).parent().attr("class","col-md-12 has-error");
         $("#instrucciones"+idFinSeccion).focus();
-        //$("#pregunta"+idSeccion+idPregunta).parent().children("span").attr("class","glyphicon glyphicon-plus");
         var resultado = false;
     }else{
         $("#instrucciones"+idFinSeccion).parent().attr("class","col-md-12");
@@ -926,134 +917,114 @@ function finSeccion(r){
     if(inputTitulo == null || inputTitulo.length == 0 || /^\s+$/.test(inputTitulo)){
         $("#titulo").parent().attr("class","col-md-12 has-error");
         $("#titulo").focus();
-        //$("#pregunta"+idSeccion+idPregunta).parent().children("span").attr("class","glyphicon glyphicon-plus");
         var resultado2 = false;
     }else{
         $("#titulo").parent().attr("class","col-md-12");
         var resultado2 = true;
     }
 
-
-
     if(resultado && resultado2 == true){
-        Form = document.getElementById("panelBody"+idFinSeccion);
-        Elemento = Form.getElementsByTagName("input");
-        Elemento2 = Form.getElementsByTagName("select");
-        Elemento3 = Form.getElementsByTagName("button");
+        Form = document.getElementById("panelBody"+idFinSeccion);//Se obtiene el id del div padre
+        Elemento = Form.getElementsByTagName("input");//Se obtienen los inputs del div padre
+        Elemento2 = Form.getElementsByTagName("select");//Se obtienen los select del div padre
+        Elemento3 = Form.getElementsByTagName("button");//Se obtienen los botones del div padre
 
         //alert('Se encontraron '+Elemento.length+' Elementos que se van a deshabilitar');
-        for (i=0;i<Elemento.length;i++){
+        for (i=0;i<Elemento.length;i++){//Se recorren los inputs para agregarles el atributo "readonly"
             Elemento[i].setAttribute('readonly','readonly');
         }
 
         //alert('Se encontraron '+Elemento2.length+' Elementos que se van a deshabilitar');
-        for (i=0;i<Elemento2.length;i++){
+        for (i=0;i<Elemento2.length;i++){//Se recorren los select para desactivarlos
             Elemento2[i].disabled=true;
         }
 
         //alert('Se encontraron '+Elemento3.length+' Elementos que se van a deshabilitar');
-        for (i=0;i<Elemento3.length;i++){
+        for (i=0;i<Elemento3.length;i++){//Se recorren los botones para deshabilitarlos
             Elemento3[i].disabled = true;
         }
 
-        btnAgSeccion.disabled=false;
-        btnFinCuestionario.disabled=false;
+        btnAgSeccion.disabled=false;//Se habilita el botón "Agregar sección"
+        btnFinCuestionario.disabled=false;//Se habilita el botón "Finalizar cuestionario" 
 
-        btnModSec1 = document.getElementById('btnModSec'+idFinSeccion);
-        btnModSec1.style.visibility='visible';
-        btnModSec1.disabled=false;
+        btnModSec1 = document.getElementById('btnModSec'+idFinSeccion);//Se obtiene el id del botón "Modificar sección"
+        btnModSec1.style.visibility='visible';//Se hace visible el botón "Modificar sección"
+        btnModSec1.disabled=false;//Se habilita el botón "Modificar sección"
 
-        totalSeccion = document.getElementById('conSeccion1');
-        totalSeccion.setAttribute('value',numSeccion); 
+        totalSeccion = document.getElementById('conSeccion1');//Se obtiene el id del input que contabiliza cuantas secciones se estan creando
+        totalSeccion.setAttribute('value',numSeccion);//Se le asigna el valor del total de las secciones creadas 
 
-        //Desbloquear los botones modificar sección
+        //Desbloquear los botones "Modificar sección"
         a=1;
-        btnsModificarSec = document.getElementById('btnModSec'+a);
-        //btnsModificar = btnsModificar1.id;
+        btnsModificarSec = document.getElementById('btnModSec'+a);//Se obtiene el primer id del botón "Modificar sección"
 
-        while(btnsModificarSec!=null){
-            btnsModificarSec = document.getElementById('btnModSec'+a);
-            typeof btnsModificarSec;
-            if(btnsModificarSec!=null){
-                btnsModificarSec.disabled=false;
+        while(btnsModificarSec!=null){//Si no es nulo entra al ciclo
+            btnsModificarSec = document.getElementById('btnModSec'+a);//Incrementa a y se obtiene el siguiente id
+            typeof btnsModificarSec;//typeof para que no marque error javaScript por no encontrar el id y en cambio devuelva valor null
+            if(btnsModificarSec!=null){//Si el id es diferente null, entra en la condición
+                btnsModificarSec.disabled=false;//Se habilita el botón "modificar sección"
             }
             a++;
         }
+        
+        //Contraer sección
+        var contraerSec = document.getElementById('numSeccion'+idFinSeccion);//Se obtiene el id del acordion padre
+        contraerSec.className='collapsed';//Se cambia su clase
+        contraerSec.setAttribute('aria-expanded','false');//Se le cambia el aria-expanded
+        
+        var contraerSec1 = document.getElementById('collapse'+idFinSeccion);//Se obtiene el id del acordion al que se va a contraer
+        contraerSec1.className='panel-collapse collapse';//Se cambia su clase
+        contraerSec1.setAttribute('aria-expanded','false');//Se cambia su aria-expanded
+        
     }
 }
 
 function modificarCuestionario(h){
-    btnModSec1 = document.getElementById(h);
+    btnModSec1 = document.getElementById(h);//Se obtiene el id del botón "Modificar sección"
     btnModSec = btnModSec1.id;
-    idModSeccion = btnModSec.charAt(9);//btnModSec1   
+    idModSeccion = btnModSec.charAt(9);//btnModSec1--Se obtiene el número de sección al que pertenece   
 
-    btnModSec1.style.visibility='hidden';
+    btnModSec1.style.visibility='hidden';//Se esconde el botón "Modificar sección"
+    
+    inputInstrucciones1 = document.getElementById('instrucciones'+idModSeccion);//Se obtiene el input de las instrucciones de la sección
+    inputInstrucciones1.removeAttribute("readonly");//Se le remueve el atributo readonly
 
-    //Bloquear los demás modificar sección
+    //Bloquear los demás botones "Modificar sección" de las otras secciones 
     //alert(numSeccion);
-    for(i=1;i<=numSeccion;i++){
-        btnsSecModificar1 = document.getElementById('btnModSec'+i);
+    for(i=1;i<=numSeccion;i++){//Se recorren los botones desde la sección 1
+        btnsSecModificar1 = document.getElementById('btnModSec'+i);//Se obtiene el id del botón
         btnsSecModificar = btnsSecModificar1.id;
         //alert(btnsModificar);
         //alert(idModificar);
         if(btnModSec!=btnsSecModificar){
             //alert(btnsModificar);
-            btnsSecModificar1.disabled=true;
+            btnsSecModificar1.disabled=true;//Si es diferentes al que se presionó se dehabilita
         }
     }
 
-    //Desbloquear los botones modificar Pregunta de la sección
+    //Desbloquear los botones "Modificar pregunta" de la sección, el cuál se encuentra el botón presionado
     //alert(numPregunta);
     //alert(idModSeccion);
     a=1;
-    btnsModificar = document.getElementById('btnModificar'+idModSeccion+a);
+    btnsModificar = document.getElementById('btnModificar'+idModSeccion+a);//Se obtiene el primer id del botón "Modificar pregunta"
     //btnsModificar = btnsModificar1.id;
     //alert(btnsModificar);
 
-    while(btnsModificar!=null){
-        btnsModificar = document.getElementById('btnModificar'+idModSeccion+a);
-        typeof btnsModificar;
+    while(btnsModificar!=null){//Si el id es diferente a null entra al ciclo
+        btnsModificar = document.getElementById('btnModificar'+idModSeccion+a);//Incrementa a y se obtiene el siguiente id
+        typeof btnsModificar;//typeof para que javaScript no marque error al no encontrar un id y en cambio mande null
         //alert(btnsModificar);
-        if(btnsModificar!=null){
+        if(btnsModificar!=null){//Si el id es diferente a null se habilita el botón "Modificar pregunta"
             btnsModificar.disabled=false;
         }
         a++;
         //alert(a);
     }
 
-    /*for(i=1;i<=numPregunta;i++){
-        btnsModificar1 = document.getElementById('btnModificar'+idModSeccion+i);
-        btnsModificar = btnsModificar1.id;
-            btnsModificar1.disabled=false;
-    }*/
-
-    btnAgSeccion.disabled=true;
-    btnFinCuestionario.disabled=true;
-}
-
-//boton finalizar cuestionario
-function finalizarCuestionario(){
-
-    Forma = document.getElementById("form1");
-    Elementos = Forma.getElementsByTagName("input");
-    Elementos2 = Forma.getElementsByTagName("select");
-    Elementos3 = Forma.getElementsByTagName("button");
-
-
-    //alert('Se encontraron '+Elementos.length+' Elementos que se van a deshabilitar');
-    for (i=0;i<Elementos.length;i++){
-        Elementos[i].setAttribute('readonly','readonly');
-    }
-
-    //alert('Se encontraron '+Elementos2.length+' Elementos que se van a deshabilitar');
-    for (i=0;i<Elementos2.length;i++){
-        Elementos2[i].setAttribute('readonly','readonly');
-    }
-
-    //alert('Se encontraron '+Elementos2.length+' Elementos que se van a deshabilitar');
-    for (i=0;i<Elementos3.length;i++){
-        Elementos3[i].disabled = true;
-    }
+    btnAgSeccion.disabled=true;//Se deshabilita el botón "Agregar sección"
+    btnFinCuestionario.disabled=true;//Se deshabilita el botón "Finalizar cuestionario"
+    
+    alert('Se activaron los botones Modificar pregunta, despliega la pregunta a modificar.');
 }
 
 function agregarSeccion(c){
@@ -1061,10 +1032,11 @@ function agregarSeccion(c){
     num++;
     numPregunta=1;
     numSeccion++;
-
-    btnAgSeccion.disabled=true;
-    btnFinCuestionario.disabled=true;
-
+    
+    btnAgSeccion.disabled=true;//Se dehabilita el botón "Agregar sección"
+    btnFinCuestionario.disabled=true;//Se dehabilita el botón "Finalizar cuestionario"
+    
+    //Empeiza la clonación de una sección completa para agregarla
     //<div class="row" id="filaSeccion1">
     var filaSeccion1 = document.getElementById('filaSeccion1').cloneNode(c);
     filaSeccion1.id='filaSeccion'+numSeccion;
@@ -1100,12 +1072,16 @@ function agregarSeccion(c){
     numSeccion1.id='numSeccion'+numSeccion;
     numSeccion1.setAttribute('data-parent','#accordion'+numSeccion);
     numSeccion1.setAttribute('href','#collapse'+numSeccion);
+    numSeccion1.className="";
+    numSeccion1.setAttribute('aria-expanded','true');
     numSeccion1.innerHTML='Sección #'+numSeccion;
     panelTitle1.appendChild(numSeccion1);
     
-    //<div id="collapse" class="panel-collapse collapse in">
-    var collapse = document.getElementById('collapse').cloneNode(c);
+    //<div id="collapse1" class="panel-collapse collapse in">
+    var collapse = document.getElementById('collapse1').cloneNode(c);
     collapse.id='collapse'+numSeccion;
+    collapse.className="panel-collapse collapse in";
+    collapse.setAttribute('aria-expanded','true');
     panelDefaul1.appendChild(collapse);
     
     //<div class="panel-body" id="panelBody1">
@@ -1135,7 +1111,7 @@ function agregarSeccion(c){
     instrucciones1.id='instrucciones'+numSeccion;
     instrucciones1.name='instrucciones'+numSeccion;
     instrucciones1.removeAttribute("readonly");
-    instruccionesSeccion1.value="";
+    instrucciones1.value="";
     instrucciones1.style='margin-bottom: 15px;';
     columnaInstrucciones1.appendChild(instrucciones1);
     
@@ -1164,12 +1140,16 @@ function agregarSeccion(c){
     acordion1.id='acordion'+numSeccion+numPregunta;
     acordion1.setAttribute('data-parent','#accordion'+numSeccion+numPregunta);
     acordion1.setAttribute('href','#collapse'+numSeccion+numPregunta);
+    acordion1.className="";
+    acordion1.setAttribute('aria-expanded','true');
     acordion1.innerHTML='Pregunta '+numPregunta;
     panelTitle1.appendChild(acordion1);
 
     //<div id="collapse11" class="panel-collapse collapse in">
     var collapse1 = document.getElementById('collapse11').cloneNode(c);
     collapse1.id='collapse'+numSeccion+numPregunta;
+    collapse1.className='panel-collapse collapse in';
+    collapse1.setAttribute('aria-expanded','true');
     panelDefault1.appendChild(collapse1);
 
     //<div class="panel-body" id="panelBody11">
@@ -1465,7 +1445,6 @@ function agregarSeccion(c){
     btnFinalizar1.disabled=false;
     finPregunta1.appendChild(btnFinalizar1);
 
-
     //<div class="col-md-4 col-xs-4 col-md-offset-2 col-xs-push-1" id="modificarPregunta11" style="margin-left:-10px">
     var modificarPregunta1 = document.getElementById('modificarPregunta11').cloneNode(c);
     modificarPregunta1.id='modificarPregunta'+numSeccion+numPregunta;
@@ -1537,5 +1516,3 @@ function agregarSeccion(c){
     totalSeccion.setAttribute('value',numSeccion);
     //alert(numSeccion);
 }
-
-

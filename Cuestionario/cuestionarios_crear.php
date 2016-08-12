@@ -34,11 +34,11 @@
                                             <div class="panel panel-default" id="panelDefaul1">
                                                 <div class="panel-heading" id="panelHeading1"> 
                                                     <h2 class="panel-title" id="panelTitle1">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse" id="numSeccion1">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" id="numSeccion1">
                                                             Sección #1</a>
                                                     </h2>
                                                 </div>
-                                                <div id="collapse" class="panel-collapse collapse in">
+                                                <div id="collapse1" class="panel-collapse collapse in">
                                                     <div class="panel-body" id="panelBody1">
                                                         <div class="row" id="filaInstruciones1">
                                                             <div class="col-md-12" id="columnaInstrucciones1">
