@@ -190,7 +190,7 @@
         </div>
         <!--</div>-->
         <!-- end: content -->
-
+        <script src="js/elementos.js"></script>
         <?php include("design/footer.php");?>
     </body>
 </html>

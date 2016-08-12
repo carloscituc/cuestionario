@@ -146,12 +146,14 @@
 		public static function recuperarDatos($nombreCuestionario, $idCuestionario){
 
 			//Eliminamos el cuestionario que se está editando y empezamos con la creación de uno nuevo
+			echo "<script>alert($idCuestionario)</script>";
 			$sql = "DELETE FROM preguntamultiple WHERE idCuestionario = '$idCuestionario'";
 			Conexion::consultaSimple($sql);
 			$sql = "DELETE FROM bloquepregunta WHERE idCuestionario = '$idCuestionario'";
 			Conexion::consultaSimple($sql);
 			$sql = "DELETE FROM cuestionario WHERE idCuestionario = '$idCuestionario'";
 			Conexion::consultaSimple($sql);
+
 
 			//Inserción del nombre del cuestionario en la tabla de cuestionario
 			$sql = "INSERT INTO cuestionario (idCuestionario, nombre) VALUES (null,'$nombreCuestionario')";

@@ -13,6 +13,7 @@
         }else{
             $idCuestionario = "";
         }
+        echo $idCuestionario;
         //Ejectamos la consulta que nos devuelve todos los bloques del cuestionario seleccionado
         $arrayBloque = cuestionariosEditar_models::detalleCuestionarioBloques($idCuestionario);
         //Ejecutamos la consulta que nos debuelve todos las preguntas del cuestionario seleccionado
@@ -22,6 +23,7 @@
         $total = count($arrayBloque);
         //Contamos el número de preguntas devueltas
         $total2 = count($arrayPregunta);
+        echo "<script>numSeccion = $total; </script>";
         ?>
         <!-- start: Content -->
         <!--<div id="content" class="container-fluid">-->
@@ -277,7 +279,18 @@
                                                                             </div>
                                                                             <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp<?php echo $numSeccion.$numPregunta; ?>">
                                                                                 <div class="radio" id="conRadio<?php echo $numSeccion.$numPregunta; ?>">
-                                                                                    <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>" checked="checked">
+                                        <?php
+                                            if($numSeccion==1){                                            
+                                        ?>
+                                                <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>" checked="checked">
+                                        <?php
+                                            }else{
+                                        ?>
+                                                <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>" checked="checked">
+                                        <?php
+                                            }
+                                        ?>
+                                                                                    
                                                                                     <label id="labelOp<?php echo $numSeccion.$numPregunta; ?>" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
                                                                                 </div>
                                                                             </div> 
@@ -294,7 +307,17 @@
                                                                             </div>
                                                                             <div class="col-md-4" style="margin-top: 33px;" id="colRadioOp<?php echo $numSeccion.$numPregunta; ?>">
                                                                                 <div class="radio" id="conRadio<?php echo $numSeccion.$numPregunta; ?>">
-                                                                                    <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>">
+                                        <?php
+                                            if($numSeccion==1){                                            
+                                        ?>
+                                                <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>">
+                                        <?php
+                                            }else{
+                                        ?>
+                                                <input type="radio" value="<?php echo $numOpcion; ?>" id="radioOp<?php echo $numSeccion.$numPregunta.$numOpcion; ?>" name="radioOp<?php echo $numSeccion.$numPregunta; ?>">
+                                        <?php
+                                            }
+                                        ?>
                                                                                     <label id="labelOp<?php echo $numSeccion.$numPregunta; ?>" style="margin-top: 2px; margin-left: -18px;">Respuesta correcta</label>
                                                                                 </div>
                                                                             </div> 
@@ -359,7 +382,20 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="row" id="filaBtnAgregar<?php echo $numSeccion.$numPregunta; ?>">
-                                                                            <div style="margin-top: 40px;margin-left: -10px;" class="col-md-4 col-xs-4 col-xs-push-1" id="filaBtnAgregar<?php echo $numSeccion; ?>">
+
+                                        <?php
+                                            if($numSeccion==1){                                            
+                                        ?>
+                                                <div class="col-md-4 col-xs-4 col-xs-push-1" id="agregar1">
+                                        <?php
+                                            }else{
+                                        ?>
+                                                <div style="margin-top: 40px;margin-left: -10px;" class="col-md-4 col-xs-4 col-xs-push-1" id="filaBtnAgregar<?php echo $numSeccion; ?>">
+                                        <?php
+                                            }
+                                        ?>
+                                                                        
+                                                                            
                                                                                 <button disabled type="button" class="btn btn-success btn-sm" id="btnAgregar<?php echo $numSeccion.$numPregunta; ?>" onclick="crear(this.id);"><span class="glyphicon glyphicon-plus" id="iconoOp<?php echo $numSeccion.$numPregunta; ?>"></span>Agregar opción</button>
                                                                             </div>
                                                                             <div style="margin-top: 40px;margin-left: -10px;" class="col-md-4 col-xs-4 col-md-offset-0 col-xs-push-1" id="finPregunta<?php echo $numSeccion.$numPregunta; ?>">
@@ -427,8 +463,8 @@
                                     <div class="col-md-4">
                                         <input class="submit btn btn-success" type="button" id="btnAgSeccion" value="Agregar sección" onclick="agregarSeccion(false);" disabled>
                                         <input type="hidden" name="submitted" value="TRUE">
-
-                                        <input class="submit btn btn-primary" type="submit" id="btnFinCuestionario" name="btnFinCuestionario" value="Finalizar cuestionario" disabled>
+                                        <input value="<?php echo $idCuestionario; ?>" type="hidden" name="id_cuestionario">
+                                        <input class="submit btn btn-primary" type="submit" id="btnFinCuestionario" name="btnFinCuestionario" value="Finalizar cuestionario">
                                         <input type="hidden" name="submitted" value="TRUE">
                                     </div>
                                     <div class="row" id="filaConSeccion1">
@@ -441,7 +477,9 @@
                                 <?php 
                                 if(isset($_REQUEST['btnFinCuestionario'])){
                                     $nombreCuestionario = $_POST['titulo'];
+                                    $idCuestionario = $_POST['id_cuestionario'];
                                     cuestionariosEditar_models::recuperarDatos($nombreCuestionario,$idCuestionario);
+                                    echo "<script> location.href='cuestionarioEditarAsignar.php'; </script>";
                                 }
                                 ?>
                             </form>
@@ -452,7 +490,7 @@
         </div>
         <!--</div>-->
         <!-- end: content -->
-
+        <script src="js/elementosEditar.js"></script>
         <?php include("design/footer.php");?>
     </body>
 </html>

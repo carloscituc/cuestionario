@@ -7,7 +7,7 @@ idSeccion = valor2.id;
 valor3 = document.getElementById('pregunta1');
 idPregunta = valor3.id;*/
 idCrear1 = document.getElementById('btnAgregar11');
-numSeccion = 1;
+
 numPregunta = 1;
 numOpcion = 2;
 
@@ -101,10 +101,6 @@ function eliminarOpcion(x){
     value = idOpcion.id;
     idSeccion=value.charAt(3);//btn113
     idPregunta=value.charAt(4);//btn113
-
-    // alert(value);
-    // alert(idSeccion);
-    // alert(idPregunta);
 
     j=3;
     numOpcion--;
@@ -933,7 +929,15 @@ function finSeccion(r){
         var resultado2 = true;
     }
 
-
+    cont=0;
+    for(i=1;i<11;i++){
+        opcion = document.getElementById('instrucciones'+i);
+        if(opcion!=null){
+            var cont=cont+1;
+        }
+    }
+    numSeccion = cont;
+    alert(numSeccion);
 
     if(resultado && resultado2 == true){
         Form = document.getElementById("panelBody"+idFinSeccion);
@@ -963,6 +967,8 @@ function finSeccion(r){
         btnModSec1.style.visibility='visible';
         btnModSec1.disabled=false;
 
+
+
         totalSeccion = document.getElementById('conSeccion1');
         totalSeccion.setAttribute('value',numSeccion); 
 
@@ -989,6 +995,18 @@ function modificarCuestionario(h){
 
     btnModSec1.style.visibility='hidden';
 
+    idModificar1 = document.getElementById(h);
+    idModificar = idModificar1.id;
+    idSeccion=idModificar.charAt(9);//btnModificar11
+    numSeccion = idSeccion;
+    cont=0;
+    for(i=1;i<11;i++){
+        opcion = document.getElementById('pregunta'+idSeccion+i);
+        if(opcion!=null){
+            var cont=cont+1;
+        }
+    }
+    numPregunta = cont;
     //Bloquear los demás modificar sección
     //alert(numSeccion);
     for(i=1;i<=numSeccion;i++){
@@ -1104,7 +1122,7 @@ function agregarSeccion(c){
     panelTitle1.appendChild(numSeccion1);
     
     //<div id="collapse" class="panel-collapse collapse in">
-    var collapse = document.getElementById('collapse').cloneNode(c);
+    var collapse = document.getElementById('collapse1').cloneNode(c);
     collapse.id='collapse'+numSeccion;
     panelDefaul1.appendChild(collapse);
     
