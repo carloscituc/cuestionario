@@ -72,32 +72,12 @@
                                                 <div class="panel-heading" id="panelHeading<?php echo $numSeccion; ?>"> 
                                                     <h2 class="panel-title" id="panelTitle<?php echo $numSeccion; ?>">
                                                         
-                                        <?php
-                                            if($numSeccion==1){                                            
-                                        ?>
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse" id="numSeccion<?php echo $numSeccion; ?>">
-                                                            Sección #<?php echo $numSeccion; ?></a>
-                                        <?php
-                                            }else{
-                                        ?>
+                                        
                                                 <a data-toggle="collapse" data-parent="#accordion<?php echo $numSeccion; ?>" href="#collapse<?php echo $numSeccion; ?>" id="numSeccion<?php echo $numSeccion; ?>">
                                                             Sección #<?php echo $numSeccion; ?></a>
-                                        <?php
-                                            }
-                                        ?>
                                                     </h2>
                                                 </div>
-                                        <?php
-                                            if($numSeccion==1){                                            
-                                        ?>
-                                                <div id="collapse" class="panel-collapse collapse in">
-                                        <?php
-                                            }else{
-                                        ?>
                                                 <div id="collapse<?php echo $numSeccion; ?>" class="panel-collapse collapse in">
-                                        <?php
-                                            }
-                                        ?>
 
                                                 
                                                     <div class="panel-body" id="panelBody<?php echo $numSeccion; ?>">
@@ -375,7 +355,7 @@
                                 
                                                                         <div class="row" id="filaConOpcion<?php echo $numSeccion.$numPregunta; ?>">
                                                                             <div class="col-md-8" id="colConOpcion<?php echo $numSeccion.$numPregunta; ?>">    
-                                                                                <input type="hidden" class="form-control" id="conOpcion<?php echo $numSeccion.$numPregunta; ?>" name="conOpcion<?php echo $numSeccion.$numPregunta; ?>">
+                                                                                <input value="<?php echo $numOpcion-1;?>" type="hidden" class="form-control" id="conOpcion<?php echo $numSeccion.$numPregunta; ?>" name="conOpcion<?php echo $numSeccion.$numPregunta; ?>">
                                                                             </div>
                                                                         </div>
                                                                         <div class="row" id="filaBtnAgregar<?php echo $numSeccion.$numPregunta; ?>">
@@ -411,7 +391,7 @@
                                     echo "variable: $variable<br>";
                                     echo "j: $j<br>";*/
                                 }
-                                $numPregunta = 1;
+                                //echo "TOTAL DE PREGUNTAS del bloque: $numPregunta";
                             ?>
                                                             <div class="row" id="antes<?php echo $numSeccion; ?>">
                                                             <div class="col-md-2" style="margin-top:15px;" id="columnaBtnFinalizar<?php echo $numSeccion; ?>">
@@ -425,7 +405,7 @@
                                                             </div>
                                                             <div class="row" id="filaConPregunta<?php echo $numSeccion; ?>">
                                                                 <div class="col-md-8" id="colConPregunta<?php echo $numSeccion; ?>">    
-                                                                    <input type="hidden" class="form-control" id="conPregunta<?php echo $numSeccion; ?>" name="conPregunta<?php echo $numSeccion; ?>">
+                                                                    <input value="<?php echo $numPregunta-1; ?>" type="hidden" class="form-control" id="conPregunta<?php echo $numSeccion; ?>" name="conPregunta<?php echo $numSeccion; ?>">
                                                                 </div>
                                                             </div>    
                                                         </div>
@@ -439,6 +419,7 @@
 
                                 
                         <?php
+                                $numPregunta = 1;
                                 $numSeccion++;
                             }
                         ?>  
@@ -452,7 +433,7 @@
                                     </div>
                                     <div class="row" id="filaConSeccion1">
                                         <div class="col-md-8" id="colConSeccion1">    
-                                            <input type="hidden" class="form-control" id="conSeccion1" name="conSeccion1">
+                                            <input value="<?php echo $total; ?>" type="hidden" class="form-control" id="conSeccion1" name="conSeccion1">
                                         </div>
                                     </div> 
                                 </div>  
@@ -460,7 +441,7 @@
                                 <?php 
                                 if(isset($_REQUEST['btnFinCuestionario'])){
                                     $nombreCuestionario = $_POST['titulo'];
-                                    cuestionariosCrear_models::recuperarDatos($nombreCuestionario);
+                                    cuestionariosEditar_models::recuperarDatos($nombreCuestionario,$idCuestionario);
                                 }
                                 ?>
                             </form>
